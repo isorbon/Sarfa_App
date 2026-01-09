@@ -157,7 +157,7 @@ const Register: React.FC = () => {
         .register-card {
           width: 100%;
           max-width: 450px;
-          background: white;
+          background: var(--color-bg-secondary);
           border-radius: var(--radius-2xl);
           padding: var(--space-10);
           box-shadow: var(--shadow-2xl);

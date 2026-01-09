@@ -28,6 +28,18 @@ function initializeDatabase() {
       )
     `);
 
+    // Add new columns to users table if they don't exist
+    const userColumns = ['avatar_url TEXT', 'currency TEXT DEFAULT "EUR"', 'theme TEXT DEFAULT "light"'];
+    userColumns.forEach(column => {
+      const columnName = column.split(' ')[0];
+      db.run(`ALTER TABLE users ADD COLUMN ${column}`, (err) => {
+        // Ignore error if column already exists
+        if (err && !err.message.includes('duplicate column name')) {
+          console.error(`Error adding column ${columnName}:`, err);
+        }
+      });
+    });
+
     // Create expenses table
     db.run(`
       CREATE TABLE IF NOT EXISTS expenses (
@@ -78,7 +90,7 @@ function initializeDatabase() {
     // Create demo user
     const demoEmail = 'demo@expenses.com';
     const demoPassword = 'demo123';
-    
+
     db.get('SELECT id FROM users WHERE email = ?', [demoEmail], (err, row) => {
       if (!row) {
         bcrypt.hash(demoPassword, 10, (err, hash) => {
@@ -86,11 +98,11 @@ function initializeDatabase() {
             console.error('Error hashing password:', err);
             return;
           }
-          
+
           db.run(
             'INSERT INTO users (email, password, name) VALUES (?, ?, ?)',
             [demoEmail, hash, 'Demo User'],
-            function(err) {
+            function (err) {
               if (err) {
                 console.error('Error creating demo user:', err);
               } else {

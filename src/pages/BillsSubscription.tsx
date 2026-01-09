@@ -3,14 +3,17 @@ import { Plus, Search, Filter, Calendar, TrendingUp, AlertCircle, CheckCircle, C
 import * as LucideIcons from 'lucide-react';
 import Sidebar from '../components/Sidebar';
 import AddExpenseModal from '../components/AddExpenseModal';
-import { useAuth } from '../context/AuthContext';
 import ConfirmationModal from '../components/ConfirmationModal';
+import { useCurrency } from '../context/CurrencyContext';
 import { billsAPI, expensesAPI } from '../services/api';
 import type { Expense, BillsStats } from '../types';
+import UserMenu from '../components/UserMenu';
 
 const BillsSubscription: React.FC = () => {
-  const { user } = useAuth();
+  const { formatPrice } = useCurrency();
   const [bills, setBills] = useState<Expense[]>([]);
+  // ...
+
   const [stats, setStats] = useState<BillsStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -126,9 +129,7 @@ const BillsSubscription: React.FC = () => {
               🔔
               <span className="notification-badge">2</span>
             </button>
-            <div className="user-avatar">
-              {user?.name?.charAt(0).toUpperCase()}
-            </div>
+            <UserMenu />
           </div>
         </header>
 
@@ -141,7 +142,7 @@ const BillsSubscription: React.FC = () => {
               </div>
               <div className="stat-content">
                 <span className="stat-label">Total Monthly Bills</span>
-                <div className="stat-amount">€{stats?.totalMonthly.toLocaleString() || '0'}</div>
+                <div className="stat-amount">{formatPrice(stats?.totalMonthly || 0)}</div>
                 <div className="stat-footer">
                   <span className="stat-trend">+2.5% from last month</span>
                 </div>
@@ -254,7 +255,7 @@ const BillsSubscription: React.FC = () => {
                       <div className="bill-details">
                         <div className="detail-item">
                           <span className="detail-label">Amount</span>
-                          <span className="detail-value">€{bill.amount.toFixed(2)}</span>
+                          <span className="detail-value">{formatPrice(bill.amount)}</span>
                         </div>
                         <div className="detail-item">
                           <span className="detail-label">Due Date</span>
@@ -311,7 +312,7 @@ const BillsSubscription: React.FC = () => {
         .bills-page {
           display: flex;
           min-height: 100vh;
-          background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+          background-color: var(--color-bg-primary);
         }
 
         .bills-main {
@@ -325,7 +326,7 @@ const BillsSubscription: React.FC = () => {
           align-items: center;
           justify-content: space-between;
           padding: var(--space-6);
-          background-color: white;
+          background-color: var(--color-bg-secondary);
           border-bottom: 1px solid var(--color-gray-200);
           box-shadow: var(--shadow-sm);
         }
@@ -399,7 +400,7 @@ const BillsSubscription: React.FC = () => {
         }
 
         .stat-card {
-          background: white;
+          background: var(--color-bg-secondary);
           border-radius: var(--radius-2xl);
           padding: var(--space-6);
           box-shadow: var(--shadow-lg);
@@ -511,7 +512,7 @@ const BillsSubscription: React.FC = () => {
           align-items: center;
           gap: var(--space-3);
           padding: var(--space-3) var(--space-5);
-          background-color: white;
+          background-color: var(--color-bg-secondary);
           border-radius: var(--radius-xl);
           box-shadow: var(--shadow-sm);
         }
@@ -522,6 +523,7 @@ const BillsSubscription: React.FC = () => {
           outline: none;
           font-size: var(--font-size-base);
           width: 100%;
+          color: var(--color-text-primary);
         }
 
         .filter-actions {
@@ -536,7 +538,8 @@ const BillsSubscription: React.FC = () => {
           font-size: var(--font-size-sm);
           font-family: var(--font-family);
           cursor: pointer;
-          background-color: white;
+          background-color: var(--color-bg-secondary);
+          color: var(--color-text-primary);
           box-shadow: var(--shadow-sm);
         }
 
@@ -545,7 +548,7 @@ const BillsSubscription: React.FC = () => {
           align-items: center;
           gap: var(--space-2);
           padding: var(--space-3) var(--space-5);
-          background-color: white;
+          background-color: var(--color-bg-secondary);
           border: 1px solid var(--color-gray-300);
           border-radius: var(--radius-lg);
           font-size: var(--font-size-sm);
@@ -553,6 +556,7 @@ const BillsSubscription: React.FC = () => {
           cursor: pointer;
           box-shadow: var(--shadow-sm);
           transition: all var(--transition-fast);
+          color: var(--color-text-primary);
         }
 
         .filter-btn:hover {
@@ -568,7 +572,7 @@ const BillsSubscription: React.FC = () => {
         }
 
         .bill-card {
-          background: white;
+          background: var(--color-bg-secondary);
           border-radius: var(--radius-2xl);
           padding: var(--space-6);
           box-shadow: var(--shadow-md);
@@ -690,7 +694,7 @@ const BillsSubscription: React.FC = () => {
           font-size: var(--font-size-sm);
           font-family: var(--font-family);
           cursor: pointer;
-          background-color: white;
+          background-color: var(--color-bg-secondary);
           color: var(--color-gray-700);
           transition: all var(--transition-fast);
         }

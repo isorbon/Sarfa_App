@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import {
   LayoutDashboard,
   Receipt,
@@ -8,15 +7,10 @@ import {
   TrendingUp,
   Target,
   Wallet,
-  Settings,
-  HelpCircle,
-  Headphones,
-  LogOut,
 } from 'lucide-react';
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
-  const { logout } = useAuth();
 
   const navItems = [
     { path: '/', label: 'Dashboard', icon: LayoutDashboard, group: 'general' },
@@ -29,12 +23,6 @@ const Sidebar: React.FC = () => {
 
   const toolItems = [
     { path: '/analytics', label: 'Analytics', icon: TrendingUp, group: 'tools' },
-  ];
-
-  const otherItems = [
-    { path: '/settings', label: 'Setting', icon: Settings, group: 'other' },
-    { path: '/help', label: 'Help Center', icon: HelpCircle, group: 'other' },
-    { path: '/support', label: 'Support', icon: Headphones, group: 'other' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -78,24 +66,12 @@ const Sidebar: React.FC = () => {
           ))}
         </div>
 
-        <div className="sidebar-section">
-          <h3 className="sidebar-section-title">Other</h3>
-          {otherItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`sidebar-link ${isActive(item.path) ? 'active' : ''}`}
-            >
-              <item.icon size={20} />
-              <span>{item.label}</span>
-            </Link>
-          ))}
-          <button onClick={logout} className="sidebar-link logout-btn">
-            <LogOut size={20} />
-            <span>Logout</span>
-          </button>
-        </div>
       </nav>
+
+      <div className="sidebar-footer">
+        <p className="app-version">v1.1.0</p>
+        <p className="app-copyright">&copy; 2026 Sarfa. All rights reserved.</p>
+      </div>
 
 
 
@@ -201,6 +177,26 @@ const Sidebar: React.FC = () => {
         .logout-btn:hover {
           background-color: #fee2e2;
           color: var(--color-error);
+        }
+
+        .sidebar-footer {
+          padding: var(--space-6);
+          border-top: 1px solid var(--color-gray-200);
+          text-align: center;
+          margin-top: auto;
+        }
+
+        .app-version {
+          font-size: var(--font-size-xs);
+          color: var(--color-gray-500);
+          margin-bottom: var(--space-1);
+          font-weight: var(--font-weight-medium);
+        }
+
+        .app-copyright {
+          font-size: 10px;
+          color: var(--color-gray-400);
+          margin: 0;
         }
 
 

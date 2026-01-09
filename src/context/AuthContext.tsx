@@ -8,6 +8,8 @@ interface AuthContextType {
     login: (email: string, password: string) => Promise<void>;
     register: (email: string, password: string, name: string) => Promise<void>;
     logout: () => void;
+    updateUser: (data: Partial<User>) => Promise<void>;
+    changePassword: (password: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -54,8 +56,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setUser(null);
     };
 
+    const updateUser = async (data: Partial<User>) => {
+        const updatedUser = await authAPI.updateProfile(data);
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        setUser(updatedUser);
+    };
+
+    const changePassword = async (password: string) => {
+        await authAPI.changePassword(password);
+    };
+
     return (
-        <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+        <AuthContext.Provider value={{ user, loading, login, register, logout, updateUser, changePassword }}>
             {children}
         </AuthContext.Provider>
     );

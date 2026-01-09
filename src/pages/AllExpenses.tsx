@@ -4,11 +4,16 @@ import * as LucideIcons from 'lucide-react';
 import Sidebar from '../components/Sidebar';
 import AddExpenseModal from '../components/AddExpenseModal';
 import ConfirmationModal from '../components/ConfirmationModal';
+import { useCurrency } from '../context/CurrencyContext';
 import { expensesAPI } from '../services/api';
 import type { Expense } from '../types';
+import UserMenu from '../components/UserMenu';
 
 const AllExpenses: React.FC = () => {
+  const { formatPrice } = useCurrency();
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  // ...
+
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -86,10 +91,13 @@ const AllExpenses: React.FC = () => {
             <h1>All Expenses</h1>
             <p>Manage and track all your expenses</p>
           </div>
-          <button className="btn btn-primary" onClick={() => setIsModalOpen(true)}>
-            <Plus size={20} />
-            Add Expense
-          </button>
+          <div className="header-actions">
+            <button className="btn btn-primary" onClick={() => setIsModalOpen(true)}>
+              <Plus size={20} />
+              Add Expense
+            </button>
+            <UserMenu />
+          </div>
         </header>
 
         <div className="expenses-content">
@@ -118,7 +126,7 @@ const AllExpenses: React.FC = () => {
           <div className="expenses-summary">
             <div className="summary-item">
               <span className="summary-label">Total Expenses:</span>
-              <span className="summary-value">€{totalAmount.toFixed(2)}</span>
+              <span className="summary-value">{formatPrice(totalAmount)}</span>
             </div>
             <div className="summary-item">
               <span className="summary-label">Count:</span>
@@ -164,7 +172,7 @@ const AllExpenses: React.FC = () => {
                         <td><span className="category-badge">{expense.category}</span></td>
                         <td>{expense.sub_category || '-'}</td>
                         <td>{expense.description || '-'}</td>
-                        <td className="amount">€{expense.amount.toFixed(2)}</td>
+                        <td className="amount">{formatPrice(expense.amount)}</td>
                         <td><span className="mode-badge">{expense.mode}</span></td>
                         <td>
                           <div className="action-buttons">
@@ -235,8 +243,14 @@ const AllExpenses: React.FC = () => {
           align-items: center;
           justify-content: space-between;
           padding: var(--space-6);
-          background-color: white;
+          background-color: var(--color-bg-secondary);
           border-bottom: 1px solid var(--color-gray-200);
+        }
+
+        .header-actions {
+          display: flex;
+          align-items: center;
+          gap: var(--space-4);
         }
 
         .expenses-header h1 {
@@ -266,7 +280,7 @@ const AllExpenses: React.FC = () => {
           align-items: center;
           gap: var(--space-2);
           padding: var(--space-3) var(--space-4);
-          background-color: white;
+          background-color: var(--color-bg-secondary);
           border: 1px solid var(--color-gray-300);
           border-radius: var(--radius-md);
         }
@@ -278,6 +292,7 @@ const AllExpenses: React.FC = () => {
           font-size: var(--font-size-sm);
           width: 100%;
           font-family: var(--font-family);
+          color: var(--color-text-primary);
         }
 
         .category-filter {
@@ -286,7 +301,8 @@ const AllExpenses: React.FC = () => {
           border-radius: var(--radius-md);
           font-size: var(--font-size-sm);
           font-family: var(--font-family);
-          background-color: white;
+          background-color: var(--color-bg-secondary);
+          color: var(--color-text-primary);
           cursor: pointer;
           min-width: 200px;
         }
@@ -295,7 +311,7 @@ const AllExpenses: React.FC = () => {
           display: flex;
           gap: var(--space-6);
           padding: var(--space-6);
-          background-color: white;
+          background-color: var(--color-bg-secondary);
           border-radius: var(--radius-lg);
           margin-bottom: var(--space-6);
         }
@@ -318,7 +334,7 @@ const AllExpenses: React.FC = () => {
         }
 
         .expenses-table-container {
-          background-color: white;
+          background-color: var(--color-bg-secondary);
           border-radius: var(--radius-lg);
           overflow: hidden;
           box-shadow: var(--shadow-sm);
@@ -420,7 +436,7 @@ const AllExpenses: React.FC = () => {
           align-items: center;
           justify-content: center;
           padding: var(--space-16);
-          background-color: white;
+          background-color: var(--color-bg-secondary);
           border-radius: var(--radius-lg);
           gap: var(--space-4);
         }
