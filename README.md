@@ -1,4 +1,4 @@
-# 💰 Expensify - Personal Expense Tracker
+# 💰 Sarfa - Personal Expense Tracker
 
 A modern, full-stack expense tracking web application built with React + TypeScript and Node.js + SQLite.
 
@@ -71,7 +71,7 @@ Navigate to `http://localhost:5173`
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="public/logo.png" alt="Expensify Logo" width="200"/>
+  <img src="public/logo.png" alt="Sarfa Logo" width="200"/>
 </div>
 
 ### Dashboard
@@ -308,7 +308,7 @@ Created with ❤️ for managing personal and family expenses.
 
 ## 📞 Support
 
-For support, email support@expensify.example or open an issue on GitHub.
+For support, email support@sarfa.example or open an issue on GitHub.
 
 ---
 

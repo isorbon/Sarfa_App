@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LogIn, Wallet } from 'lucide-react';
+import { LogIn } from 'lucide-react';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -31,10 +31,10 @@ const Login: React.FC = () => {
       <div className="login-card">
         <div className="login-header">
           <div className="logo-icon">
-            <Wallet size={40} />
+            <img src="/logo.png" alt="Sarfa" style={{ width: '50px', height: '50px' }} />
           </div>
           <h1>Welcome Back</h1>
-          <p>Sign in to continue to Expensify</p>
+          <p>Sign in to continue to Sarfa</p>
         </div>
 
         {error && (

@@ -43,8 +43,8 @@ const Sidebar: React.FC = () => {
     <aside className="sidebar">
       <div className="sidebar-header">
         <div className="sidebar-logo">
-          <img src="/logo.png" alt="Expensify" style={{ width: '40px', height: '40px' }} />
-          <span className="sidebar-logo-text">EXPENSIFY</span>
+          <img src="/logo.png" alt="Sarfa" style={{ width: '40px', height: '40px' }} />
+          <span className="sidebar-logo-text">SARFA</span>
         </div>
         <p className="sidebar-tagline">Track your all expenses and transactions</p>
       </div>
