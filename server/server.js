@@ -328,7 +328,6 @@ app.delete('/api/expenses/:id', authenticateToken, async (req, res) => {
 app.get('/api/dashboard/stats', authenticateToken, async (req, res) => {
     try {
         const { monthlyPeriod = '3months', categoryPeriod = '3months' } = req.query;
-        console.log('getStats called with:', { monthlyPeriod, categoryPeriod });
         const userId = req.user.id;
         const now = new Date();
 
