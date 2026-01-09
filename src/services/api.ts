@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Expense, Category, DashboardStats, AuthResponse, BillsResponse } from '../types';
+import type { Expense, Category, DashboardStats, AuthResponse, BillsResponse, User } from '../types';
 
 const API_BASE_URL = '/api';
 
@@ -31,8 +31,25 @@ export const authAPI = {
         const response = await api.post<AuthResponse>('/auth/register', { email, password, name });
         return response.data;
     },
-};
 
+    updateProfile: async (data: Partial<User>): Promise<User> => {
+        const response = await api.put<User>('/auth/profile', data);
+        return response.data;
+    },
+
+    changePassword: async (password: string) => {
+        const response = await api.put('/auth/password', { password });
+        return response.data;
+    },
+    uploadAvatar: async (formData: FormData) => {
+        const response = await api.post('/auth/upload-avatar', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        return response.data;
+    }
+};
 // Expenses API
 export const expensesAPI = {
     getAll: async (params?: { startDate?: string; endDate?: string; category?: string }): Promise<Expense[]> => {
@@ -73,8 +90,8 @@ export const billsAPI = {
 
 // Dashboard API
 export const dashboardAPI = {
-    getStats: async (period: 'recent' | 'month' | 'year' = 'recent'): Promise<DashboardStats> => {
-        const response = await api.get<DashboardStats>('/dashboard/stats', { params: { period } });
+    getStats: async (monthlyPeriod: '3months' | '6months' | 'year' | 'month' | 'lastYear' = '3months', categoryPeriod: '3months' | '6months' | 'year' | 'month' | 'lastYear' = '3months'): Promise<DashboardStats> => {
+        const response = await api.get<DashboardStats>('/dashboard/stats', { params: { monthlyPeriod, categoryPeriod } });
         return response.data;
     },
 };

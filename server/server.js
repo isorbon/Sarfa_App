@@ -3,17 +3,37 @@ import cors from 'cors';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import multer from 'multer';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import db from './database.js';
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
+// Multer Storage Configuration
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({ storage: storage });
+
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Authentication middleware
 const authenticateToken = (req, res, next) => {
@@ -123,11 +143,83 @@ app.post('/api/auth/login', async (req, res) => {
 
         res.json({
             token,
-            user: { id: user.id, email: user.email, name: user.name }
+            user: {
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                avatar_url: user.avatar_url,
+                currency: user.currency,
+                theme: user.theme
+            }
         });
     } catch (error) {
         console.error('Login error:', error);
         res.status(500).json({ error: 'Server error during login' });
+    }
+});
+
+app.put('/api/auth/profile', authenticateToken, async (req, res) => {
+    try {
+        const { name, avatar_url, currency, theme } = req.body;
+        const userId = req.user.id;
+
+        await dbRun(
+            'UPDATE users SET name = COALESCE(?, name), avatar_url = COALESCE(?, avatar_url), currency = COALESCE(?, currency), theme = COALESCE(?, theme) WHERE id = ?',
+            [name, avatar_url, currency, theme, userId]
+        );
+
+        const updatedUser = await dbGet('SELECT * FROM users WHERE id = ?', [userId]);
+
+        res.json({
+            id: updatedUser.id,
+            email: updatedUser.email,
+            name: updatedUser.name,
+            avatar_url: updatedUser.avatar_url,
+            currency: updatedUser.currency,
+            theme: updatedUser.theme
+        });
+    } catch (error) {
+        console.error('Profile update error:', error);
+        res.status(500).json({ error: 'Server error during profile update' });
+    }
+});
+
+app.put('/api/auth/password', authenticateToken, async (req, res) => {
+    try {
+        const { password } = req.body;
+        const userId = req.user.id;
+
+        if (!password) {
+            return res.status(400).json({ error: 'Password is required' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await dbRun('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, userId]);
+
+        res.json({ message: 'Password updated successfully' });
+    } catch (error) {
+        console.error('Password update error:', error);
+        res.status(500).json({ error: 'Server error during password update' });
+    }
+});
+
+app.post('/api/auth/upload-avatar', authenticateToken, upload.single('avatar'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: 'No file uploaded' });
+        }
+
+        const userId = req.user.id;
+        // Construct full URL
+        const avatarUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+
+        await dbRun('UPDATE users SET avatar_url = ? WHERE id = ?', [avatarUrl, userId]);
+
+        res.json({ avatar_url: avatarUrl });
+    } catch (error) {
+        console.error('Avatar upload error:', error);
+        res.status(500).json({ error: 'Server error during avatar upload' });
     }
 });
 
@@ -235,66 +327,143 @@ app.delete('/api/expenses/:id', authenticateToken, async (req, res) => {
 // Dashboard Stats
 app.get('/api/dashboard/stats', authenticateToken, async (req, res) => {
     try {
-        const { period = 'recent' } = req.query;
+        const { monthlyPeriod = '3months', categoryPeriod = '3months' } = req.query;
         const userId = req.user.id;
-
-        // Calculate date range based on period
-        let startDate, endDate;
         const now = new Date();
 
-        if (period === 'month') {
-            startDate = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
-            endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
-        } else if (period === 'year') {
-            startDate = new Date(now.getFullYear(), 0, 1).toISOString().split('T')[0];
-            endDate = new Date(now.getFullYear(), 11, 31).toISOString().split('T')[0];
-        } else {
-            // Recent: last 30 days
-            startDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-            endDate = now.toISOString().split('T')[0];
-        }
+        // Helper for local date string YYYY-MM-DD
+        const formatDate = (date) => {
+            const d = new Date(date);
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        };
 
-        // Get total expenses
+        // 1. Calculate Summary Stats (Always based on 'month' or 'recent' context? Or fixed?)
+        // Let's keep summary (Total/Monthly expenses) based on current month/total context regardless of filters
+
+        // Get total expenses (All time)
         const totalResult = await dbGet(
-            'SELECT SUM(amount) as total FROM expenses WHERE user_id = ? AND date BETWEEN ? AND ?',
-            [userId, startDate, endDate]
+            'SELECT SUM(amount) as total FROM expenses WHERE user_id = ?',
+            [userId]
         );
 
-        // Get monthly expenses (current month)
-        const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
-        const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
+        // Get monthly expenses (Current Month)
+        const currentMonthStart = formatDate(new Date(now.getFullYear(), now.getMonth(), 1));
+        const currentMonthEnd = formatDate(new Date(now.getFullYear(), now.getMonth() + 1, 0));
 
         const monthlyResult = await dbGet(
             'SELECT SUM(amount) as total FROM expenses WHERE user_id = ? AND date BETWEEN ? AND ?',
-            [userId, monthStart, monthEnd]
+            [userId, currentMonthStart, currentMonthEnd]
         );
 
-        // Get category breakdown
+        // 2. Calculate Category Breakdown based on categoryPeriod
+        let catStartDate, catEndDate;
+        if (categoryPeriod === 'month') {
+            catStartDate = currentMonthStart;
+            catEndDate = currentMonthEnd;
+        } else if (categoryPeriod === 'year') {
+            catStartDate = formatDate(new Date(now.getFullYear(), 0, 1));
+            catEndDate = formatDate(new Date(now.getFullYear(), 11, 31));
+        } else if (categoryPeriod === 'lastYear') {
+            catStartDate = formatDate(new Date(now.getFullYear() - 1, 0, 1));
+            catEndDate = formatDate(new Date(now.getFullYear() - 1, 11, 31));
+        } else if (categoryPeriod === '6months') {
+            const startDate = new Date(now.getFullYear(), now.getMonth() - 5, 1);
+            catStartDate = formatDate(startDate);
+            catEndDate = formatDate(new Date(now.getFullYear(), now.getMonth() + 1, 0));
+        } else {
+            // 3months (Default)
+            const startDate = new Date(now.getFullYear(), now.getMonth() - 2, 1);
+            catStartDate = formatDate(startDate);
+            catEndDate = formatDate(new Date(now.getFullYear(), now.getMonth() + 1, 0));
+        }
+
         const categoryBreakdown = await dbAll(
             `SELECT category, SUM(amount) as total 
        FROM expenses 
        WHERE user_id = ? AND date BETWEEN ? AND ? 
        GROUP BY category 
        ORDER BY total DESC`,
-            [userId, startDate, endDate]
+            [userId, catStartDate, catEndDate]
         );
 
-        // Get monthly trend (last 6 months)
+        // 3. Calculate Trend based on monthlyPeriod
         const monthlyTrend = [];
-        for (let i = 5; i >= 0; i--) {
-            const monthDate = new Date(now.getFullYear(), now.getMonth() - i, 1);
-            const monthStartDate = new Date(monthDate.getFullYear(), monthDate.getMonth(), 1).toISOString().split('T')[0];
-            const monthEndDate = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0).toISOString().split('T')[0];
 
-            const result = await dbGet(
-                'SELECT SUM(amount) as total FROM expenses WHERE user_id = ? AND date BETWEEN ? AND ?',
-                [userId, monthStartDate, monthEndDate]
-            );
+        if (monthlyPeriod === 'year') {
+            // 12 Months of current year
+            for (let i = 0; i < 12; i++) {
+                const monthDate = new Date(now.getFullYear(), i, 1);
+                const mStart = formatDate(new Date(now.getFullYear(), i, 1));
+                const mEnd = formatDate(new Date(now.getFullYear(), i + 1, 0));
 
-            monthlyTrend.push({
-                month: monthDate.toLocaleDateString('en-US', { month: 'short' }),
-                total: result?.total || 0
-            });
+                const result = await dbGet(
+                    'SELECT SUM(amount) as total FROM expenses WHERE user_id = ? AND date BETWEEN ? AND ?',
+                    [userId, mStart, mEnd]
+                );
+
+                monthlyTrend.push({
+                    label: monthDate.toLocaleDateString('en-US', { month: 'short' }),
+                    total: result?.total || 0
+                });
+            }
+
+        } else if (monthlyPeriod === 'lastYear') {
+            // 12 Months of LAST year
+            const lastYear = now.getFullYear() - 1;
+            for (let i = 0; i < 12; i++) {
+                const monthDate = new Date(lastYear, i, 1);
+                const mStart = formatDate(new Date(lastYear, i, 1));
+                const mEnd = formatDate(new Date(lastYear, i + 1, 0));
+
+                const result = await dbGet(
+                    'SELECT SUM(amount) as total FROM expenses WHERE user_id = ? AND date BETWEEN ? AND ?',
+                    [userId, mStart, mEnd]
+                );
+
+                monthlyTrend.push({
+                    label: monthDate.toLocaleDateString('en-US', { month: 'short' }),
+                    total: result?.total || 0
+                });
+            }
+        } else if (monthlyPeriod === 'month') {
+            // Days of current month
+            const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayDate = new Date(now.getFullYear(), now.getMonth(), i);
+                const dayStr = formatDate(dayDate);
+
+                const result = await dbGet(
+                    'SELECT SUM(amount) as total FROM expenses WHERE user_id = ? AND date = ?',
+                    [userId, dayStr]
+                );
+
+                monthlyTrend.push({
+                    label: `${i}`,
+                    total: result?.total || 0
+                });
+            }
+        } else {
+            // 3months or 6months
+            const monthsBack = monthlyPeriod === '6months' ? 5 : 2;
+
+            for (let i = monthsBack; i >= 0; i--) {
+                const monthDate = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                const mStart = formatDate(new Date(monthDate.getFullYear(), monthDate.getMonth(), 1));
+                const mEnd = formatDate(new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0));
+
+                const result = await dbGet(
+                    'SELECT SUM(amount) as total FROM expenses WHERE user_id = ? AND date BETWEEN ? AND ?',
+                    [userId, mStart, mEnd]
+                );
+
+                monthlyTrend.push({
+                    label: monthDate.toLocaleDateString('en-US', { month: 'short' }),
+                    total: result?.total || 0
+                });
+            }
         }
 
         // Get investment total
@@ -307,8 +476,7 @@ app.get('/api/dashboard/stats', authenticateToken, async (req, res) => {
         const subscriptions = await dbAll(
             `SELECT * FROM expenses 
        WHERE user_id = ? AND category = 'Bill & Subscription' 
-       ORDER BY date DESC 
-       LIMIT 5`,
+       ORDER BY date DESC`,
             [userId]
         );
 
@@ -316,7 +484,7 @@ app.get('/api/dashboard/stats', authenticateToken, async (req, res) => {
             totalExpenses: totalResult?.total || 0,
             monthlyExpenses: monthlyResult?.total || 0,
             totalInvestment: investmentResult?.total || 0,
-            accountBalance: 898450, // This would be calculated based on income - expenses
+            accountBalance: 898450,
             goal: { name: 'Apple iPhone 17 Pro', required: 145000, collected: 75000 },
             categoryBreakdown,
             monthlyTrend,

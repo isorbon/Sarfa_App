@@ -2,6 +2,9 @@ export interface User {
     id: number;
     email: string;
     name: string;
+    avatar_url?: string;
+    currency?: string;
+    theme?: string;
 }
 
 export interface Expense {
@@ -39,7 +42,7 @@ export interface DashboardStats {
         total: number;
     }>;
     monthlyTrend: Array<{
-        month: string;
+        label: string;
         total: number;
     }>;
     subscriptions: Expense[];

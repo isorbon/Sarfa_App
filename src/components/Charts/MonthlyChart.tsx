@@ -2,7 +2,7 @@ import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface MonthlyChartProps {
-    data: Array<{ month: string; total: number }>;
+    data: Array<{ label: string; total: number }>;
 }
 
 const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
@@ -11,7 +11,7 @@ const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
             <BarChart data={data}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
                 <XAxis
-                    dataKey="month"
+                    dataKey="label"
                     axisLine={false}
                     tickLine={false}
                     tick={{ fill: '#6b7280', fontSize: 12 }}

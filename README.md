@@ -3,7 +3,7 @@
 A modern, full-stack expense tracking web application built with React + TypeScript and Node.js + SQLite.
 
 ![Expensify Dashboard](https://img.shields.io/badge/Status-Production%20Ready-success)
-![Version](https://img.shields.io/badge/Version-1.0.0-blue)
+![Version](https://img.shields.io/badge/Version-1.1.0-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ## 🌟 Features
@@ -17,6 +17,22 @@ A modern, full-stack expense tracking web application built with React + TypeScr
 - 📱 **Fully Responsive** - Works seamlessly on desktop, tablet, and mobile
 - 👨‍👩‍👧‍👦 **Family Support** - Multiple user accounts for family members
 - ☁️ **Remote Hosting Ready** - Easy deployment to any cloud platform
+
+## 🆕 What's New in v1.1.0
+
+- **Advanced Dashboard Analytics**:
+  - Independent filters for charts: Recent, 3 Months, 6 Months, Current Month, Current Year, and Last Year.
+  - Improved data visualization with separate controls for Monthly Trends and Category Breakdown.
+  - Scrollable lists for Recent Expenses and Subscriptions displaying complete history.
+- **Enhanced UX/UI**:
+  - Sticky headers for data tables for better readability.
+  - Delete confirmation modals to prevent accidental data loss.
+  - Localized date formatting to ensure accurate reporting across timezones.
+- **Profile Management**:
+  - Support for custom avatar uploads.
+  - Profile settings updates.
+- **Cards Management**:
+  - Dedicated view for managing credit/debit cards (if added).
 
 ## 🚀 Quick Start
 

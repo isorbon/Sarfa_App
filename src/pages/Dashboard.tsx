@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, Filter, TrendingUp, TrendingDown } from 'lucide-react';
+import { Plus, Search, Filter, TrendingUp, TrendingDown, Wallet, BarChart3 } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import Sidebar from '../components/Sidebar';
 import AddExpenseModal from '../components/AddExpenseModal';
@@ -8,12 +8,16 @@ import CategoryChart from '../components/Charts/CategoryChart';
 import { dashboardAPI, expensesAPI } from '../services/api';
 import type { DashboardStats, Expense } from '../types';
 import { useAuth } from '../context/AuthContext';
+import { useCurrency } from '../context/CurrencyContext';
+import UserMenu from '../components/UserMenu';
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
+  const { formatPrice } = useCurrency();
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
-  const [period, setPeriod] = useState<'recent' | 'month' | 'year'>('recent');
+  const [monthlyPeriod, setMonthlyPeriod] = useState<'3months' | '6months' | 'year' | 'month' | 'lastYear'>('3months');
+  const [categoryPeriod, setCategoryPeriod] = useState<'3months' | '6months' | 'year' | 'month' | 'lastYear'>('3months');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [recentExpenses, setRecentExpenses] = useState<Expense[]>([]);
 
@@ -21,11 +25,11 @@ const Dashboard: React.FC = () => {
     try {
       setLoading(true);
       const [dashboardData, expenses] = await Promise.all([
-        dashboardAPI.getStats(period),
+        dashboardAPI.getStats(monthlyPeriod, categoryPeriod),
         expensesAPI.getAll({ startDate: '', endDate: '' })
       ]);
       setStats(dashboardData);
-      setRecentExpenses(expenses.slice(0, 5));
+      setRecentExpenses(expenses);
     } catch (error) {
       console.error('Error loading dashboard data:', error);
     } finally {
@@ -35,7 +39,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     loadData();
-  }, [period]);
+  }, [monthlyPeriod, categoryPeriod]);
 
   const handleAddExpense = async (expense: Partial<Expense>) => {
     await expensesAPI.create(expense as any);
@@ -77,9 +81,7 @@ const Dashboard: React.FC = () => {
               🔔
               <span className="notification-badge">2</span>
             </button>
-            <div className="user-avatar">
-              {user?.name?.charAt(0).toUpperCase()}
-            </div>
+            <UserMenu />
           </div>
         </header>
 
@@ -88,36 +90,48 @@ const Dashboard: React.FC = () => {
           <div className="stats-grid">
             <div className="stat-card">
               <div className="stat-header">
-                <span className="stat-icon">💰</span>
-                <span className="stat-label">Account Balance</span>
+                <div className="stat-icon-wrapper icon-wrapper-orange">
+                  <Wallet size={24} />
+                </div>
+                <h3 className="stat-title">Account Balance</h3>
+                <div className="stat-badge success">
+                  <TrendingUp size={14} />
+                  <span>{formatPrice(186)}</span>
+                </div>
               </div>
-              <div className="stat-amount">€{stats?.accountBalance.toLocaleString() || '0'}</div>
+              <div className="stat-amount">{formatPrice(stats?.accountBalance || 0)}</div>
               <div className="stat-trend positive">
-                <TrendingUp size={14} />
-                <span>6% more than last month</span>
+                <span>+2.5%</span>
+                <span className="text-gray">vs last month</span>
               </div>
-              <div className="stat-badge success">€186</div>
             </div>
 
             <div className="stat-card">
               <div className="stat-header">
-                <span className="stat-icon">📊</span>
-                <span className="stat-label">Monthly Expenses</span>
+                <div className="stat-icon-wrapper icon-wrapper-blue">
+                  <BarChart3 size={24} />
+                </div>
+                <h3 className="stat-title">Monthly Expenses</h3>
+                <div className="stat-badge error">
+                  <TrendingDown size={14} />
+                  <span>{formatPrice(2000)}</span>
+                </div>
               </div>
-              <div className="stat-amount">€{stats?.monthlyExpenses.toLocaleString() || '0'}</div>
-              <div className="stat-trend negative">
-                <TrendingDown size={14} />
-                <span>2% less than last month</span>
+              <div className="stat-amount">{formatPrice(stats?.monthlyExpenses || 0)}</div>
+              <div className="stat-trend error">
+                <span>-4%</span>
+                <span className="text-gray">vs last month</span>
               </div>
-              <div className="stat-badge error">-€2k</div>
             </div>
 
             <div className="stat-card">
               <div className="stat-header">
-                <span className="stat-icon">📈</span>
-                <span className="stat-label">Total Investment</span>
+                <div className="stat-icon-wrapper icon-wrapper-purple">
+                  <TrendingUp size={24} />
+                </div>
+                <h3 className="stat-title">Total Investment</h3>
               </div>
-              <div className="stat-amount">€{stats?.totalInvestment.toLocaleString() || '0'}</div>
+              <div className="stat-amount">{formatPrice(stats?.totalInvestment || 0)}</div>
               <div className="stat-chart">
                 <svg viewBox="0 0 100 30" style={{ width: '100%', height: '60px' }}>
                   <path
@@ -136,7 +150,7 @@ const Dashboard: React.FC = () => {
               </div>
               <div className="stat-trend positive">
                 <TrendingUp size={14} />
-                <span>Invest Amount €1,00,000.00</span>
+                <span>Invest Amount {formatPrice(100000)}</span>
               </div>
             </div>
 
@@ -170,8 +184,8 @@ const Dashboard: React.FC = () => {
                 </div>
                 <div className="goal-info">
                   <div className="goal-name">{stats?.goal.name}</div>
-                  <div className="goal-required">Required €{stats?.goal.required.toLocaleString()}</div>
-                  <div className="goal-collected">Collect: €{stats?.goal.collected.toLocaleString()}</div>
+                  <div className="goal-required">Required {formatPrice(stats?.goal.required || 0)}</div>
+                  <div className="goal-collected">Collect: {formatPrice(stats?.goal.collected || 0)}</div>
                 </div>
               </div>
             </div>
@@ -189,12 +203,14 @@ const Dashboard: React.FC = () => {
                   <span className="trend-badge positive">6% more than last month</span>
                   <select
                     className="period-select"
-                    value={period}
-                    onChange={(e) => setPeriod(e.target.value as any)}
+                    value={monthlyPeriod}
+                    onChange={(e) => setMonthlyPeriod(e.target.value as any)}
                   >
-                    <option value="recent">Recent</option>
+                    <option value="3months">3 Months</option>
+                    <option value="6months">6 Months</option>
                     <option value="month">Month</option>
                     <option value="year">Year</option>
+                    <option value="lastYear">Last Year</option>
                   </select>
                 </div>
               </div>
@@ -207,8 +223,16 @@ const Dashboard: React.FC = () => {
                   <span className="card-icon">🥧</span>
                   <span>Top Category</span>
                 </div>
-                <select className="period-select">
-                  <option>Recent</option>
+                <select
+                  className="period-select"
+                  value={categoryPeriod}
+                  onChange={(e) => setCategoryPeriod(e.target.value as any)}
+                >
+                  <option value="3months">3 Months</option>
+                  <option value="6months">6 Months</option>
+                  <option value="month">Month</option>
+                  <option value="year">Year</option>
+                  <option value="lastYear">Last Year</option>
                 </select>
               </div>
               <CategoryChart data={stats?.categoryBreakdown || []} />
@@ -249,7 +273,7 @@ const Dashboard: React.FC = () => {
                       return (
                         <tr key={expense.id}>
                           <td>{index + 1}.</td>
-                          <td className="amount">€{expense.amount.toFixed(2)}</td>
+                          <td className="amount">{formatPrice(expense.amount)}</td>
                           <td>{expense.category}</td>
                           <td>{expense.sub_category || '-'}</td>
                           <td>{new Date(expense.date).toLocaleDateString('en-GB')}</td>
@@ -283,7 +307,7 @@ const Dashboard: React.FC = () => {
                         <div className="subscription-name">{sub.sub_category}</div>
                         <div className="subscription-date">{new Date(sub.date).toLocaleDateString('en-GB')}</div>
                       </div>
-                      <div className="subscription-amount">€{sub.amount.toFixed(2)}</div>
+                      <div className="subscription-amount">{formatPrice(sub.amount)}</div>
                     </div>
                   );
                 })}
@@ -321,7 +345,7 @@ const Dashboard: React.FC = () => {
           align-items: center;
           justify-content: space-between;
           padding: var(--space-6);
-          background-color: white;
+          background-color: var(--color-bg-secondary);
           border-bottom: 1px solid var(--color-gray-200);
         }
 
@@ -408,7 +432,7 @@ const Dashboard: React.FC = () => {
         }
 
         .stat-card {
-          background-color: white;
+          background-color: var(--color-bg-secondary);
           border-radius: var(--radius-xl);
           padding: var(--space-6);
           box-shadow: var(--shadow-sm);
@@ -520,7 +544,7 @@ const Dashboard: React.FC = () => {
         }
 
         .chart-card {
-          background-color: white;
+          background-color: var(--color-bg-secondary);
           border-radius: var(--radius-xl);
           padding: var(--space-6);
           box-shadow: var(--shadow-sm);
@@ -579,7 +603,7 @@ const Dashboard: React.FC = () => {
         }
 
         .expenses-card, .subscription-card {
-          background-color: white;
+          background-color: var(--color-bg-secondary);
           border-radius: var(--radius-xl);
           padding: var(--space-6);
           box-shadow: var(--shadow-sm);
@@ -609,6 +633,8 @@ const Dashboard: React.FC = () => {
 
         .expenses-table {
           overflow-x: auto;
+          max-height: 400px;
+          overflow-y: auto;
         }
 
         .expenses-table table {
@@ -617,12 +643,16 @@ const Dashboard: React.FC = () => {
         }
 
         .expenses-table th {
+          position: sticky;
+          top: 0;
+          z-index: 1;
           text-align: left;
           padding: var(--space-3);
           font-size: var(--font-size-xs);
           font-weight: var(--font-weight-semibold);
           color: var(--color-gray-600);
           text-transform: uppercase;
+          background-color: var(--color-gray-50);
           border-bottom: 1px solid var(--color-gray-200);
         }
 
@@ -649,6 +679,8 @@ const Dashboard: React.FC = () => {
           display: flex;
           flex-direction: column;
           gap: var(--space-4);
+          max-height: 400px;
+          overflow-y: auto;
         }
 
         .subscription-item {
