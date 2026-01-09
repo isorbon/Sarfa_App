@@ -1,0 +1,773 @@
+import React, { useState, useEffect } from 'react';
+import { Plus, Search, Filter, TrendingUp, TrendingDown } from 'lucide-react';
+import * as LucideIcons from 'lucide-react';
+import Sidebar from '../components/Sidebar';
+import AddExpenseModal from '../components/AddExpenseModal';
+import MonthlyChart from '../components/Charts/MonthlyChart';
+import CategoryChart from '../components/Charts/CategoryChart';
+import { dashboardAPI, expensesAPI } from '../services/api';
+import type { DashboardStats, Expense } from '../types';
+import { useAuth } from '../context/AuthContext';
+
+const Dashboard: React.FC = () => {
+  const { user } = useAuth();
+  const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [period, setPeriod] = useState<'recent' | 'month' | 'year'>('recent');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [recentExpenses, setRecentExpenses] = useState<Expense[]>([]);
+
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      const [dashboardData, expenses] = await Promise.all([
+        dashboardAPI.getStats(period),
+        expensesAPI.getAll({ startDate: '', endDate: '' })
+      ]);
+      setStats(dashboardData);
+      setRecentExpenses(expenses.slice(0, 5));
+    } catch (error) {
+      console.error('Error loading dashboard data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, [period]);
+
+  const handleAddExpense = async (expense: Partial<Expense>) => {
+    await expensesAPI.create(expense as any);
+    await loadData();
+  };
+
+  if (loading) {
+    return (
+      <div className="dashboard-loading">
+        <div className="spinner" />
+        <p>Loading dashboard...</p>
+      </div>
+    );
+  }
+
+
+
+  return (
+    <div className="dashboard">
+      <Sidebar />
+
+      <main className="dashboard-main">
+        <header className="dashboard-header">
+          <div className="header-greeting">
+            <h1>Hi, {user?.name?.split(' ')[0] || 'User'} 👋</h1>
+            <p>Track your all expenses and transactions</p>
+          </div>
+
+          <div className="header-actions">
+            <div className="header-time">
+              {new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })} |{' '}
+              {new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })} | IN
+            </div>
+            <div className="search-box">
+              <Search size={20} />
+              <input type="text" placeholder="Search expenses, transaction, cards" />
+            </div>
+            <button className="notification-btn">
+              🔔
+              <span className="notification-badge">2</span>
+            </button>
+            <div className="user-avatar">
+              {user?.name?.charAt(0).toUpperCase()}
+            </div>
+          </div>
+        </header>
+
+        <div className="dashboard-content">
+          {/* Stats Cards */}
+          <div className="stats-grid">
+            <div className="stat-card">
+              <div className="stat-header">
+                <span className="stat-icon">💰</span>
+                <span className="stat-label">Account Balance</span>
+              </div>
+              <div className="stat-amount">€{stats?.accountBalance.toLocaleString() || '0'}</div>
+              <div className="stat-trend positive">
+                <TrendingUp size={14} />
+                <span>6% more than last month</span>
+              </div>
+              <div className="stat-badge success">€186</div>
+            </div>
+
+            <div className="stat-card">
+              <div className="stat-header">
+                <span className="stat-icon">📊</span>
+                <span className="stat-label">Monthly Expenses</span>
+              </div>
+              <div className="stat-amount">€{stats?.monthlyExpenses.toLocaleString() || '0'}</div>
+              <div className="stat-trend negative">
+                <TrendingDown size={14} />
+                <span>2% less than last month</span>
+              </div>
+              <div className="stat-badge error">-€2k</div>
+            </div>
+
+            <div className="stat-card">
+              <div className="stat-header">
+                <span className="stat-icon">📈</span>
+                <span className="stat-label">Total Investment</span>
+              </div>
+              <div className="stat-amount">€{stats?.totalInvestment.toLocaleString() || '0'}</div>
+              <div className="stat-chart">
+                <svg viewBox="0 0 100 30" style={{ width: '100%', height: '60px' }}>
+                  <path
+                    d="M 0 25 Q 25 20 50 15 T 100 5"
+                    fill="none"
+                    stroke="url(#lineGradient)"
+                    strokeWidth="2"
+                  />
+                  <defs>
+                    <linearGradient id="lineGradient">
+                      <stop offset="0%" stopColor="#8b5cf6" />
+                      <stop offset="100%" stopColor="#3b82f6" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              <div className="stat-trend positive">
+                <TrendingUp size={14} />
+                <span>Invest Amount €1,00,000.00</span>
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <div className="stat-header">
+                <span className="stat-icon">🎯</span>
+                <span className="stat-label">Goal</span>
+              </div>
+              <div className="goal-content">
+                <div className="goal-circle">
+                  <svg viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#e5e7eb" strokeWidth="8" />
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      fill="none"
+                      stroke="url(#goalGradient)"
+                      strokeWidth="8"
+                      strokeDasharray={`${(stats?.goal.collected || 0) / (stats?.goal.required || 1) * 251.2} 251.2`}
+                      strokeLinecap="round"
+                      transform="rotate(-90 50 50)"
+                    />
+                    <defs>
+                      <linearGradient id="goalGradient">
+                        <stop offset="0%" stopColor="#f59e0b" />
+                        <stop offset="100%" stopColor="#f97316" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+                <div className="goal-info">
+                  <div className="goal-name">{stats?.goal.name}</div>
+                  <div className="goal-required">Required €{stats?.goal.required.toLocaleString()}</div>
+                  <div className="goal-collected">Collect: €{stats?.goal.collected.toLocaleString()}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Charts Section */}
+          <div className="charts-grid">
+            <div className="chart-card">
+              <div className="card-header">
+                <div className="card-title">
+                  <span className="card-icon">📊</span>
+                  <span>Monthly Expenses</span>
+                </div>
+                <div className="card-actions">
+                  <span className="trend-badge positive">6% more than last month</span>
+                  <select
+                    className="period-select"
+                    value={period}
+                    onChange={(e) => setPeriod(e.target.value as any)}
+                  >
+                    <option value="recent">Recent</option>
+                    <option value="month">Month</option>
+                    <option value="year">Year</option>
+                  </select>
+                </div>
+              </div>
+              <MonthlyChart data={stats?.monthlyTrend || []} />
+            </div>
+
+            <div className="chart-card">
+              <div className="card-header">
+                <div className="card-title">
+                  <span className="card-icon">🥧</span>
+                  <span>Top Category</span>
+                </div>
+                <select className="period-select">
+                  <option>Recent</option>
+                </select>
+              </div>
+              <CategoryChart data={stats?.categoryBreakdown || []} />
+            </div>
+          </div>
+
+          {/* Recent Expenses & Subscriptions */}
+          <div className="bottom-grid">
+            <div className="expenses-card">
+              <div className="card-header">
+                <div className="card-title">
+                  <span className="card-icon">📋</span>
+                  <span>Recent Expenses</span>
+                </div>
+                <div className="card-actions">
+                  <button className="btn-icon"><Filter size={18} /></button>
+                  <select className="period-select">
+                    <option>Recent</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="expenses-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>S.N</th>
+                      <th>Amount</th>
+                      <th>Category</th>
+                      <th>Sub Category</th>
+                      <th>Date</th>
+                      <th>Mode</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {recentExpenses.map((expense, index) => {
+
+                      return (
+                        <tr key={expense.id}>
+                          <td>{index + 1}.</td>
+                          <td className="amount">€{expense.amount.toFixed(2)}</td>
+                          <td>{expense.category}</td>
+                          <td>{expense.sub_category || '-'}</td>
+                          <td>{new Date(expense.date).toLocaleDateString('en-GB')}</td>
+                          <td><span className="mode-badge">{expense.mode}</span></td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="subscription-card">
+              <div className="card-header">
+                <div className="card-title">
+                  <span className="card-icon">💳</span>
+                  <span>Bill & Subscription</span>
+                </div>
+                <button className="btn-text">View Details</button>
+              </div>
+
+              <div className="subscription-list">
+                {stats?.subscriptions.map((sub) => {
+                  const Icon = (LucideIcons as any)[sub.icon] || LucideIcons.CreditCard;
+                  return (
+                    <div key={sub.id} className="subscription-item">
+                      <div className="subscription-icon">
+                        <Icon size={24} />
+                      </div>
+                      <div className="subscription-info">
+                        <div className="subscription-name">{sub.sub_category}</div>
+                        <div className="subscription-date">{new Date(sub.date).toLocaleDateString('en-GB')}</div>
+                      </div>
+                      <div className="subscription-amount">€{sub.amount.toFixed(2)}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button className="fab" onClick={() => setIsModalOpen(true)}>
+          <Plus size={24} />
+        </button>
+      </main>
+
+      <AddExpenseModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleAddExpense}
+      />
+
+      <style>{`
+        .dashboard {
+          display: flex;
+          min-height: 100vh;
+          background-color: var(--color-bg-primary);
+        }
+
+        .dashboard-main {
+          flex: 1;
+          margin-left: 260px;
+          min-height: 100vh;
+        }
+
+        .dashboard-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: var(--space-6);
+          background-color: white;
+          border-bottom: 1px solid var(--color-gray-200);
+        }
+
+        .header-greeting h1 {
+          font-size: var(--font-size-2xl);
+          margin-bottom: var(--space-1);
+        }
+
+        .header-greeting p {
+          font-size: var(--font-size-sm);
+          color: var(--color-gray-600);
+          margin: 0;
+        }
+
+        .header-actions {
+          display: flex;
+          align-items: center;
+          gap: var(--space-4);
+        }
+
+        .header-time {
+          font-size: var(--font-size-sm);
+          color: var(--color-gray-600);
+        }
+
+        .search-box {
+          display: flex;
+          align-items: center;
+          gap: var(--space-2);
+          padding: var(--space-2) var(--space-4);
+          background-color: var(--color-gray-100);
+          border-radius: var(--radius-lg);
+          min-width: 300px;
+        }
+
+        .search-box input {
+          border: none;
+          background: none;
+          outline: none;
+          font-size: var(--font-size-sm);
+          width: 100%;
+        }
+
+        .notification-btn {
+          position: relative;
+          background: none;
+          border: none;
+          font-size: 24px;
+          cursor: pointer;
+        }
+
+        .notification-badge {
+          position: absolute;
+          top: -4px;
+          right: -4px;
+          background-color: var(--color-error);
+          color: white;
+          font-size: 10px;
+          padding: 2px 6px;
+          border-radius: var(--radius-full);
+        }
+
+        .user-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: var(--radius-full);
+          background: linear-gradient(135deg, var(--color-primary-600), var(--color-blue-500));
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: var(--font-weight-bold);
+        }
+
+        .dashboard-content {
+          padding: var(--space-6);
+        }
+
+        .stats-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: var(--space-6);
+          margin-bottom: var(--space-6);
+        }
+
+        .stat-card {
+          background-color: white;
+          border-radius: var(--radius-xl);
+          padding: var(--space-6);
+          box-shadow: var(--shadow-sm);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .stat-header {
+          display: flex;
+          align-items: center;
+          gap: var(--space-2);
+          margin-bottom: var(--space-4);
+        }
+
+        .stat-icon {
+          font-size: 24px;
+        }
+
+        .stat-label {
+          font-size: var(--font-size-sm);
+          color: var(--color-gray-600);
+        }
+
+        .stat-amount {
+          font-size: var(--font-size-3xl);
+          font-weight: var(--font-weight-bold);
+          color: var(--color-gray-900);
+          margin-bottom: var(--space-2);
+        }
+
+        .stat-trend {
+          display: flex;
+          align-items: center;
+          gap: var(--space-1);
+          font-size: var(--font-size-xs);
+          margin-top: var(--space-3);
+        }
+
+        .stat-trend.positive {
+          color: var(--color-success);
+        }
+
+        .stat-trend.negative {
+          color: var(--color-error);
+        }
+
+        .stat-badge {
+          position: absolute;
+          top: var(--space-4);
+          right: var(--space-4);
+          padding: var(--space-1) var(--space-3);
+          border-radius: var(--radius-full);
+          font-size: var(--font-size-xs);
+          font-weight: var(--font-weight-semibold);
+        }
+
+        .stat-badge.success {
+          background-color: #d1fae5;
+          color: #065f46;
+        }
+
+        .stat-badge.error {
+          background-color: #fee2e2;
+          color: #991b1b;
+        }
+
+        .stat-chart {
+          margin: var(--space-4) 0;
+        }
+
+        .goal-content {
+          display: flex;
+          align-items: center;
+          gap: var(--space-4);
+          margin-top: var(--space-4);
+        }
+
+        .goal-circle {
+          width: 80px;
+          height: 80px;
+          flex-shrink: 0;
+        }
+
+        .goal-info {
+          flex: 1;
+        }
+
+        .goal-name {
+          font-weight: var(--font-weight-semibold);
+          color: var(--color-gray-900);
+          margin-bottom: var(--space-1);
+        }
+
+        .goal-required {
+          font-size: var(--font-size-xs);
+          color: var(--color-gray-500);
+        }
+
+        .goal-collected {
+          font-size: var(--font-size-xs);
+          color: var(--color-success);
+        }
+
+        .charts-grid {
+          display: grid;
+          grid-template-columns: 2fr 1fr;
+          gap: var(--space-6);
+          margin-bottom: var(--space-6);
+        }
+
+        .chart-card {
+          background-color: white;
+          border-radius: var(--radius-xl);
+          padding: var(--space-6);
+          box-shadow: var(--shadow-sm);
+        }
+
+        .card-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: var(--space-6);
+        }
+
+        .card-title {
+          display: flex;
+          align-items: center;
+          gap: var(--space-2);
+          font-weight: var(--font-weight-semibold);
+          color: var(--color-gray-900);
+        }
+
+        .card-icon {
+          font-size: 20px;
+        }
+
+        .card-actions {
+          display: flex;
+          align-items: center;
+          gap: var(--space-3);
+        }
+
+        .trend-badge {
+          padding: var(--space-1) var(--space-3);
+          border-radius: var(--radius-full);
+          font-size: var(--font-size-xs);
+          font-weight: var(--font-weight-medium);
+        }
+
+        .trend-badge.positive {
+          background-color: #d1fae5;
+          color: #065f46;
+        }
+
+        .period-select {
+          padding: var(--space-2) var(--space-3);
+          border: 1px solid var(--color-gray-300);
+          border-radius: var(--radius-md);
+          font-size: var(--font-size-sm);
+          font-family: var(--font-family);
+          cursor: pointer;
+        }
+
+        .bottom-grid {
+          display: grid;
+          grid-template-columns: 2fr 1fr;
+          gap: var(--space-6);
+        }
+
+        .expenses-card, .subscription-card {
+          background-color: white;
+          border-radius: var(--radius-xl);
+          padding: var(--space-6);
+          box-shadow: var(--shadow-sm);
+        }
+
+        .btn-icon {
+          background: none;
+          border: none;
+          padding: var(--space-2);
+          border-radius: var(--radius-md);
+          cursor: pointer;
+          color: var(--color-gray-600);
+        }
+
+        .btn-icon:hover {
+          background-color: var(--color-gray-100);
+        }
+
+        .btn-text {
+          background: none;
+          border: none;
+          color: var(--color-primary-600);
+          font-size: var(--font-size-sm);
+          font-weight: var(--font-weight-medium);
+          cursor: pointer;
+        }
+
+        .expenses-table {
+          overflow-x: auto;
+        }
+
+        .expenses-table table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+
+        .expenses-table th {
+          text-align: left;
+          padding: var(--space-3);
+          font-size: var(--font-size-xs);
+          font-weight: var(--font-weight-semibold);
+          color: var(--color-gray-600);
+          text-transform: uppercase;
+          border-bottom: 1px solid var(--color-gray-200);
+        }
+
+        .expenses-table td {
+          padding: var(--space-4) var(--space-3);
+          font-size: var(--font-size-sm);
+          color: var(--color-gray-700);
+          border-bottom: 1px solid var(--color-gray-100);
+        }
+
+        .expenses-table td.amount {
+          font-weight: var(--font-weight-semibold);
+          color: var(--color-gray-900);
+        }
+
+        .mode-badge {
+          padding: var(--space-1) var(--space-3);
+          background-color: var(--color-gray-100);
+          border-radius: var(--radius-md);
+          font-size: var(--font-size-xs);
+        }
+
+        .subscription-list {
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-4);
+        }
+
+        .subscription-item {
+          display: flex;
+          align-items: center;
+          gap: var(--space-3);
+          padding: var(--space-4);
+          background-color: var(--color-gray-50);
+          border-radius: var(--radius-lg);
+        }
+
+        .subscription-icon {
+          width: 48px;
+          height: 48px;
+          background-color: white;
+          border-radius: var(--radius-md);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--color-primary-600);
+        }
+
+        .subscription-info {
+          flex: 1;
+        }
+
+        .subscription-name {
+          font-weight: var(--font-weight-semibold);
+          color: var(--color-gray-900);
+          margin-bottom: var(--space-1);
+        }
+
+        .subscription-date {
+          font-size: var(--font-size-xs);
+          color: var(--color-gray-500);
+        }
+
+        .subscription-amount {
+          font-weight: var(--font-weight-bold);
+          color: var(--color-gray-900);
+        }
+
+        .fab {
+          position: fixed;
+          bottom: var(--space-8);
+          right: var(--space-8);
+          width: 60px;
+          height: 60px;
+          border-radius: var(--radius-full);
+          background: linear-gradient(135deg, var(--color-primary-600), var(--color-blue-500));
+          color: white;
+          border: none;
+          box-shadow: var(--shadow-2xl);
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform var(--transition-base);
+        }
+
+        .fab:hover {
+          transform: scale(1.1);
+        }
+
+        .dashboard-loading {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+          gap: var(--space-4);
+        }
+
+        .spinner {
+          width: 50px;
+          height: 50px;
+          border: 4px solid var(--color-gray-200);
+          border-top-color: var(--color-primary-600);
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 1400px) {
+          .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 1024px) {
+          .dashboard-main {
+            margin-left: 0;
+          }
+
+          .charts-grid,
+          .bottom-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .search-box {
+            display: none;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .stats-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .header-time {
+            display: none;
+          }
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default Dashboard;

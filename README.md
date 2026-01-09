@@ -1,0 +1,315 @@
+# 💰 Expensify - Personal Expense Tracker
+
+A modern, full-stack expense tracking web application built with React + TypeScript and Node.js + SQLite.
+
+![Expensify Dashboard](https://img.shields.io/badge/Status-Production%20Ready-success)
+![Version](https://img.shields.io/badge/Version-1.0.0-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+
+## 🌟 Features
+
+- ✅ **Secure Authentication** - JWT-based login/registration system
+- 📊 **Interactive Dashboard** - Real-time statistics and data visualization
+- 💶 **EUR Currency** - All amounts tracked in Euros
+- 📈 **Beautiful Charts** - Monthly trends and category breakdowns
+- 🎨 **Icon Customization** - 100+ icons to choose from for each expense
+- 🔍 **Smart Filtering** - Search and filter by date, category, and more
+- 📱 **Fully Responsive** - Works seamlessly on desktop, tablet, and mobile
+- 👨‍👩‍👧‍👦 **Family Support** - Multiple user accounts for family members
+- ☁️ **Remote Hosting Ready** - Easy deployment to any cloud platform
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 18+ installed
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone <your-repo-url>
+cd expenses
+```
+
+2. **Install backend dependencies**
+```bash
+cd server
+npm install
+```
+
+3. **Install frontend dependencies**
+```bash
+cd ..
+npm install
+```
+
+### Running the Application
+
+1. **Start the backend server** (Terminal 1)
+```bash
+cd server
+npm start
+```
+Server runs on `http://localhost:3001`
+
+2. **Start the frontend** (Terminal 2)
+```bash
+npm run dev
+```
+Application runs on `http://localhost:5173`
+
+3. **Open your browser**
+Navigate to `http://localhost:5173`
+
+### Demo Credentials
+
+- **Email**: `demo@expenses.com`
+- **Password**: `demo123`
+
+## 📸 Screenshots
+
+<div align="center">
+  <img src="public/logo.png" alt="Expensify Logo" width="200"/>
+</div>
+
+### Dashboard
+![Dashboard Overview](./.github/screenshots/dashboard.png)
+
+### Add Expense Modal
+![Add Expense](./.github/screenshots/add-expense.png)
+
+## 🏗️ Tech Stack
+
+### Frontend
+- ⚛️ **React 18** - UI library
+- 📘 **TypeScript** - Type safety
+- ⚡ **Vite** - Build tool
+- 🎨 **Vanilla CSS** - Styling
+- 📊 **Recharts** - Data visualization
+- 🎯 **Lucide React** - Icon library
+- 🛣️ **React Router** - Navigation
+
+### Backend
+- 🚀 **Express** - Web framework
+- 🗄️ **SQLite3** - Database
+- 🔐 **JWT** - Authentication
+- 🔒 **bcryptjs** - Password hashing
+- 🌐 **CORS** - Cross-origin support
+
+## 📂 Project Structure
+
+```
+expenses/
+├── server/              # Backend API
+│   ├── server.js        # Express server
+│   ├── database.js      # Database setup
+│   └── expenses.db      # SQLite database
+├── src/                 # Frontend source
+│   ├── components/      # React components
+│   ├── pages/           # Page components
+│   ├── context/         # React context
+│   ├── services/        # API services
+│   └── types/           # TypeScript types
+├── public/              # Static assets
+└── index.html           # HTML template
+```
+
+## 🎯 Key Features Explained
+
+### 1. Dashboard
+- **4 Statistics Cards**: Account Balance, Monthly Expenses, Total Investment, Goal Tracker
+- **Monthly Expenses Chart**: 6-month bar chart showing spending trends
+- **Category Breakdown**: Donut chart with interactive legend
+- **Recent Expenses**: Table showing last 5 transactions
+- **Bill & Subscription Tracker**: Recurring payment monitoring
+
+### 2. Expense Management
+- Add expenses with amount, category, sub-category, description, icon, date, and payment mode
+- Edit existing expenses
+- Delete expenses
+- Search and filter functionality
+- 6 predefined categories with custom colors
+
+### 3. Categories
+1. 🥬 Food & Grocery
+2. 📈 Investment
+3. 🛍️ Shopping
+4. ✈️ Travelling
+5. 📦 Miscellaneous
+6. 💳 Bill & Subscription
+
+## 🔐 Security
+
+- Passwords hashed with bcryptjs (10 rounds)
+- JWT tokens for stateless authentication
+- Protected API routes
+- Input validation on both frontend and backend
+- CORS configuration for production
+
+## 🌐 Deployment
+
+### Backend Deployment
+
+The application can be deployed to:
+- Heroku
+- DigitalOcean
+- AWS (EC2, Elastic Beanstalk)
+- Azure App Service
+
+**Production Checklist:**
+- [ ] Set secure `JWT_SECRET` environment variable
+- [ ] Consider migrating from SQLite to PostgreSQL/MySQL
+- [ ] Enable HTTPS
+- [ ] Configure CORS for your domain
+- [ ] Set up database backups
+
+### Frontend Deployment
+
+Compatible with:
+- Vercel
+- Netlify
+- AWS S3 + CloudFront
+- GitHub Pages
+
+**Build for production:**
+```bash
+npm run build
+```
+
+## 📊 API Documentation
+
+### Authentication
+
+**Register**
+```http
+POST /api/auth/register
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password123",
+  "name": "John Doe"
+}
+```
+
+**Login**
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+```
+
+### Expenses
+
+**Get All Expenses**
+```http
+GET /api/expenses?startDate=2025-01-01&endDate=2025-12-31&category=Shopping
+Authorization: Bearer <token>
+```
+
+**Create Expense**
+```http
+POST /api/expenses
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "amount": 50.50,
+  "category": "Food & Grocery",
+  "sub_category": "Restaurant",
+  "description": "Dinner",
+  "icon": "UtensilsCrossed",
+  "date": "2025-06-15",
+  "mode": "Card"
+}
+```
+
+**Update Expense**
+```http
+PUT /api/expenses/:id
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "amount": 60.00,
+  ...
+}
+```
+
+**Delete Expense**
+```http
+DELETE /api/expenses/:id
+Authorization: Bearer <token>
+```
+
+### Dashboard
+
+**Get Statistics**
+```http
+GET /api/dashboard/stats?period=month
+Authorization: Bearer <token>
+```
+
+Periods: `recent`, `month`, `year`
+
+## 🛠️ Development
+
+### Available Scripts
+
+**Frontend:**
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+
+**Backend:**
+- `npm start` - Start server
+- `npm run dev` - Start with auto-reload (if configured)
+
+### Environment Variables
+
+Create `.env` file in `server/` directory:
+
+```env
+PORT=3001
+JWT_SECRET=your-super-secret-key-change-in-production
+NODE_ENV=development
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Author
+
+Created with ❤️ for managing personal and family expenses.
+
+## 🙏 Acknowledgments
+
+- Design inspiration from modern fintech applications
+- Icons by [Lucide](https://lucide.dev/)
+- Charts by [Recharts](https://recharts.org/)
+- Font by [Google Fonts (Inter)](https://fonts.google.com/specimen/Inter)
+
+## 📞 Support
+
+For support, email support@expensify.example or open an issue on GitHub.
+
+---
+
+**Happy Expense Tracking! 💰📊**
