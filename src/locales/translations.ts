@@ -3467,6 +3467,11 @@ const translationsMap: Record<LanguageCode, Translation> = {
             manageCards: 'Kartları idarə et',
             welcomeBack: 'Xoş gəldiniz',
             totalBalance: 'Ümumi Balans',
+            trackTagline: 'Bütün xərclərinizi və əməliyyatlarınızı izləyin',
+            general: 'ÜMUMİ',
+            tools: 'ALƏTLƏR',
+            helpCenter: 'Kömək Mərkəzi',
+            support: 'Dəstək',
         },
         expenses: {
             amount: 'Məbləğ',
@@ -3591,6 +3596,11 @@ const translationsMap: Record<LanguageCode, Translation> = {
             manageCards: 'Կառավարել քարտերը',
             welcomeBack: 'Բարի վերադարձ',
             totalBalance: 'Ընդհանուր հաշվեկշիռ',
+            trackTagline: 'Հետևեք ձեր բոլոր ծախսերին և գործարքներին',
+            general: 'ԸՆԴՀԱՆՈՒՐ',
+            tools: 'ԳՈՐԾԻՔՆԵՐ',
+            helpCenter: 'Օգնության կենտրոն',
+            support: 'Աջակցություն',
         },
         expenses: {
             amount: 'Գումար',
