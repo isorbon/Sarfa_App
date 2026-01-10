@@ -116,6 +116,7 @@ export interface Translation {
         viewDetails: string;
         moreThanLastMonth: string;
         lessThanLastMonth: string;
+        vsLastMonth: string;
         periods: {
             m3: string;
             m6: string;

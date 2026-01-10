@@ -119,6 +119,7 @@ const enUS: Translation = {
         viewDetails: 'View Details',
         moreThanLastMonth: 'more than last month',
         lessThanLastMonth: 'less than last month',
+        vsLastMonth: 'vs last month',
         periods: {
             m3: '3 Months',
             m6: '6 Months',
@@ -272,6 +273,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Details anzeigen',
             moreThanLastMonth: 'mehr als im Vormonat',
             lessThanLastMonth: 'weniger als im Vormonat',
+            vsLastMonth: 'vs. letztem Monat',
             periods: {
                 m3: '3 Monate',
                 m6: '6 Monate',
@@ -417,6 +419,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Ver Detalles',
             moreThanLastMonth: 'más que el mes pasado',
             lessThanLastMonth: 'menos que el mes pasado',
+            vsLastMonth: 'vs mes anterior',
             periods: {
                 m3: '3 Meses',
                 m6: '6 Meses',
@@ -562,6 +565,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Voir Détails',
             moreThanLastMonth: 'plus que le mois dernier',
             lessThanLastMonth: 'moins que le mois dernier',
+            vsLastMonth: 'vs mois dernier',
             periods: {
                 m3: '3 Mois',
                 m6: '6 Mois',
@@ -705,6 +709,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Подробнее',
             moreThanLastMonth: 'больше, чем в прошлом месяце',
             lessThanLastMonth: 'меньше, чем в прошлом месяце',
+            vsLastMonth: 'в сравнении с прошлым месяцем',
             periods: {
                 m3: '3 Месяца',
                 m6: '6 Месяцев',
@@ -838,6 +843,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Zobrazit podrobnosti',
             moreThanLastMonth: 'více než minulý měsíc',
             lessThanLastMonth: 'méně než minulý měsíc',
+            vsLastMonth: 'vs minulý měsíc',
             periods: {
                 m3: '3 měsíce',
                 m6: '6 měsíců',
@@ -984,6 +990,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Részletek',
             moreThanLastMonth: 'több mint a múlt hónapban',
             lessThanLastMonth: 'kevesebb mint a múlt hónapban',
+            vsLastMonth: 'vs múlt hónap',
             periods: {
                 m3: '3 Hónap',
                 m6: '6 Hónap',
@@ -1130,6 +1137,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Lihat Detail',
             moreThanLastMonth: 'lebih dari bulan lalu',
             lessThanLastMonth: 'kurang dari bulan lalu',
+            vsLastMonth: 'vs bulan lalu',
             periods: {
                 m3: '3 Bulan',
                 m6: '6 Bulan',
@@ -1276,6 +1284,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Vedi Dettagli',
             moreThanLastMonth: 'più del mese scorso',
             lessThanLastMonth: 'meno del mese scorso',
+            vsLastMonth: 'vs mese scorso',
             periods: {
                 m3: '3 Mesi',
                 m6: '6 Mesi',
@@ -1422,6 +1431,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: '詳細を見る',
             moreThanLastMonth: '先月より多い',
             lessThanLastMonth: '先月より少ない',
+            vsLastMonth: 'vs 先月',
             periods: {
                 m3: '3ヶ月',
                 m6: '6ヶ月',
@@ -1568,6 +1578,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Bekijk Details',
             moreThanLastMonth: 'meer dan vorige maand',
             lessThanLastMonth: 'minder dan vorige maand',
+            vsLastMonth: 'vs vorige maand',
             periods: {
                 m3: '3 Maanden',
                 m6: '6 Maanden',
@@ -1714,6 +1725,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Szczegóły',
             moreThanLastMonth: 'więcej niż w zeszłym miesiącu',
             lessThanLastMonth: 'mniej niż w zeszłym miesiącu',
+            vsLastMonth: 'vs ubiegły miesiąc',
             periods: {
                 m3: '3 Miesiące',
                 m6: '6 Miesięcy',
@@ -1860,6 +1872,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Ver Detalhes',
             moreThanLastMonth: 'mais que mês passado',
             lessThanLastMonth: 'menos que mês passado',
+            vsLastMonth: 'vs mês passado',
             periods: {
                 m3: '3 Meses',
                 m6: '6 Meses',
@@ -2006,6 +2019,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Vezi detalii',
             moreThanLastMonth: 'mai mult ca luna trecută',
             lessThanLastMonth: 'mai puțin ca luna trecută',
+            vsLastMonth: 'vs luna trecută',
             periods: {
                 m3: '3 Luni',
                 m6: '6 Luni',
@@ -2152,6 +2166,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'ดูรายละเอียด',
             moreThanLastMonth: 'มากกว่าเดือนที่แล้ว',
             lessThanLastMonth: 'น้อยกว่าเดือนที่แล้ว',
+            vsLastMonth: 'vs เดือนที่แล้ว',
             periods: {
                 m3: '3 เดือน',
                 m6: '6 เดือน',
@@ -2298,6 +2313,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Detaylar',
             moreThanLastMonth: 'geçen aydan fazla',
             lessThanLastMonth: 'geçen aydan az',
+            vsLastMonth: 'vs geçen ay',
             periods: {
                 m3: '3 Ay',
                 m6: '6 Ay',
@@ -2441,6 +2457,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Детальніше',
             moreThanLastMonth: 'більше, ніж минулого місяця',
             lessThanLastMonth: 'менше, ніж минулого місяця',
+            vsLastMonth: 'порівняно з минулим місяцем',
             periods: {
                 m3: '3 Місяці',
                 m6: '6 Місяців',
@@ -2573,6 +2590,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: '查看详情',
             moreThanLastMonth: '比上月多',
             lessThanLastMonth: '比上月少',
+            vsLastMonth: 'vs 上月',
             periods: {
                 m3: '3个月',
                 m6: '6个月',
@@ -2719,6 +2737,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: '查看詳情',
             moreThanLastMonth: '比上月多',
             lessThanLastMonth: '比上月少',
+            vsLastMonth: 'vs 上月',
             periods: {
                 m3: '3個月',
                 m6: '6個月',
@@ -2867,6 +2886,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Деталдарды көрүү',
             moreThanLastMonth: 'өткөн айдан көп',
             lessThanLastMonth: 'өткөн айдан аз',
+            vsLastMonth: 'өткөн айга карата',
             periods: {
                 m3: '3 ай',
                 m6: '6 ай',
@@ -3001,6 +3021,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Толығырақ',
             moreThanLastMonth: 'өткен айдан көп',
             lessThanLastMonth: 'өткен айдан аз',
+            vsLastMonth: 'өткен айға қарағанда',
             periods: {
                 m3: '3 ай',
                 m6: '6 ай',
@@ -3135,6 +3156,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Дидани тафсилот',
             moreThanLastMonth: 'аз моҳи гузашта бештар',
             lessThanLastMonth: 'аз моҳи гузашта камтар',
+            vsLastMonth: 'нисбат ба моҳи гузашта',
             periods: {
                 m3: '3 моҳ',
                 m6: '6 моҳ',
@@ -3269,6 +3291,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             viewDetails: 'Tafsilotlar',
             moreThanLastMonth: 'oʻtgan oydan koʻp',
             lessThanLastMonth: 'oʻtgan oydan kam',
+            vsLastMonth: 'oʻgg oyga nisbatan',
             periods: {
                 m3: '3 oy',
                 m6: '6 oy',

@@ -103,7 +103,7 @@ const Dashboard: React.FC = () => {
               <div className="stat-amount">{formatPrice(stats?.accountBalance || 0)}</div>
               <div className="stat-trend positive">
                 <span>+2.5%</span>
-                <span className="text-gray">vs last month</span>
+                <span className="text-gray">{t.dashboard.vsLastMonth}</span>
               </div>
             </div>
 
@@ -121,7 +121,7 @@ const Dashboard: React.FC = () => {
               <div className="stat-amount">{formatPrice(stats?.monthlyExpenses || 0)}</div>
               <div className="stat-trend error">
                 <span>-4%</span>
-                <span className="text-gray">vs last month</span>
+                <span className="text-gray">{t.dashboard.vsLastMonth}</span>
               </div>
             </div>
 
