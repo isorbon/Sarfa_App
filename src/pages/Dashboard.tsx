@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Plus, Filter, TrendingUp, TrendingDown, Wallet, BarChart3 } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
@@ -293,7 +294,9 @@ const Dashboard: React.FC = () => {
                   <span className="card-icon">💳</span>
                   <span>{t.common.billsSubscription}</span>
                 </div>
-                <button className="btn-text">{t.dashboard.viewDetails}</button>
+                <Link to="/bills">
+                  <button className="btn-text">{t.dashboard.viewDetails}</button>
+                </Link>
               </div>
 
               <div className="subscription-list">
