@@ -32,6 +32,7 @@ export const languages: { code: LanguageCode; name: string; flag: string; countr
 const enUS: Translation = {
     common: {
         dashboard: 'Dashboard',
+        appTitle: 'Sarfa - Expense Tracker',
         allExpenses: 'All Expenses',
         billsSubscription: 'Bill & Subscription',
         investment: 'Investment',
@@ -3443,6 +3444,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         common: {
             ...enUS.common,
             dashboard: 'İdarə Paneli',
+            appTitle: 'Sarfa - Xərc İzləyicisi',
             allExpenses: 'Bütün Xərclər',
             billsSubscription: 'Fakturalar və Abunəliklər',
             investment: 'İnvestisiya',
@@ -3572,6 +3574,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         common: {
             ...enUS.common,
             dashboard: 'Վահանակ',
+            appTitle: 'Sarfa - Ծախսերի Հետևում',
             allExpenses: 'Ծախսեր',
             billsSubscription: 'Բաժանորդագրություններ',
             investment: 'Ներդրումներ',
