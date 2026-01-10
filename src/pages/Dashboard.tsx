@@ -317,7 +317,7 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        <button className="fab" onClick={() => setIsModalOpen(true)}>
+        <button className="fab" onClick={() => setIsModalOpen(true)} title={t.common.addExpense}>
           <Plus size={24} />
         </button>
       </main>

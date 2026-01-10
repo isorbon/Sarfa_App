@@ -234,7 +234,7 @@ const AllExpenses: React.FC = () => {
       <button
         className="fab"
         onClick={() => setIsModalOpen(true)}
-        title="Add Expense"
+        title={t.common.addExpense}
       >
         <Plus size={24} />
       </button>
@@ -256,9 +256,9 @@ const AllExpenses: React.FC = () => {
           setExpenseToDelete(null);
         }}
         onConfirm={handleConfirmDelete}
-        title="Delete Expense"
-        message={`Are you sure you want to delete ${expenseToDelete?.description || 'this expense'}? This process cannot be undone.`}
-        confirmText="Delete"
+        title={t.expenses.deleteTitle}
+        message={t.expenses.deleteMessage}
+        confirmText={t.common.delete}
         type="danger"
       />
 

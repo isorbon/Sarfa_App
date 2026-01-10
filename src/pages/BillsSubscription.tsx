@@ -285,7 +285,7 @@ const BillsSubscription: React.FC = () => {
           </div>
         </div>
 
-        <button className="fab" onClick={() => { setSelectedBill(null); setIsModalOpen(true); }}>
+        <button className="fab" onClick={() => { setSelectedBill(null); setIsModalOpen(true); }} title={t.common.addExpense}>
           <Plus size={24} />
         </button>
       </main>
@@ -302,9 +302,9 @@ const BillsSubscription: React.FC = () => {
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
         onConfirm={handleConfirmDelete}
-        title="Delete Bill"
-        message="Are you sure you want to delete this bill? This action cannot be undone."
-        confirmText="Delete"
+        title={t.expenses.deleteTitle}
+        message={t.expenses.deleteMessage}
+        confirmText={t.common.delete}
         type="danger"
       />
 
