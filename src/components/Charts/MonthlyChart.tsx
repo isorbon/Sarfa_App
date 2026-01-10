@@ -10,11 +10,23 @@ interface MonthlyChartProps {
 const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
     const { t, language } = useLanguage();
 
+    // Map our custom language codes to standard BCP 47 locale codes
+    const getLocaleCode = (langCode: string): string => {
+        const localeMap: Record<string, string> = {
+            'kg': 'ky-KG', // Kyrgyz
+            'kz': 'kk-KZ', // Kazakh
+            'tj': 'tg-TJ', // Tajik
+            'uz': 'uz-UZ', // Uzbek
+        };
+        return localeMap[langCode] || langCode;
+    };
+
     const formatMonth = (label: string) => {
         try {
             const date = new Date(`${label} 1, 2024`);
             if (isNaN(date.getTime())) return label;
-            return new Intl.DateTimeFormat(language, { month: 'short' }).format(date);
+            const locale = getLocaleCode(language);
+            return new Intl.DateTimeFormat(locale, { month: 'short' }).format(date);
         } catch {
             return label;
         }
