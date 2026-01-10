@@ -1,5 +1,7 @@
 export type LanguageCode =
+    | 'az' // Azərbaycan
     | 'cs' // Čeština
+    | 'hy' // Հայերեն
     | 'de' // Deutsch
     | 'en-GB' // English (UK)
     | 'en-US' // English (US)

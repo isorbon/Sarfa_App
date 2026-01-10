@@ -24,6 +24,7 @@ A modern, full-stack expense tracking web application built with React + TypeScr
   - Enhanced Language Switcher with country flags and native/English names.
   - Added "Recent" filter translation for all supported languages.
   - Improved flag rendering on Windows.
+  - Added support for Azerbaijani (az) and Armenian (hy).
 - **Dark Mode Polish**:
   - Fixed chart tooltips visibility in Dark Mode for Monthly and Category charts.
 

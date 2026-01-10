@@ -1,6 +1,7 @@
 import { Translation, LanguageCode } from './types';
 
 export const languages: { code: LanguageCode; name: string; flag: string; countryCode: string }[] = [
+    { code: 'az', name: 'Azərbaycan', flag: '🇦🇿', countryCode: 'az' },
     { code: 'cs', name: 'Čeština', flag: '🇨🇿', countryCode: 'cz' },
     { code: 'de', name: 'Deutsch', flag: '🇩🇪', countryCode: 'de' },
     { code: 'en-GB', name: 'English (UK)', flag: '🇬🇧', countryCode: 'gb' },
@@ -8,6 +9,7 @@ export const languages: { code: LanguageCode; name: string; flag: string; countr
     { code: 'es', name: 'Español', flag: '🇪🇸', countryCode: 'es' },
     { code: 'fr', name: 'Français', flag: '🇫🇷', countryCode: 'fr' },
     { code: 'hu', name: 'Magyar', flag: '🇭🇺', countryCode: 'hu' },
+    { code: 'hy', name: 'Հայերեն', flag: '🇦🇲', countryCode: 'am' },
     { code: 'id', name: 'Bahasa Indonesia', flag: '🇮🇩', countryCode: 'id' },
     { code: 'it', name: 'Italiano', flag: '🇮🇹', countryCode: 'it' },
     { code: 'ja', name: '日本語', flag: '🇯🇵', countryCode: 'jp' },
@@ -3435,6 +3437,48 @@ const translationsMap: Record<LanguageCode, Translation> = {
                 dec: 'Dek',
             },
         },
+    },
+    'az': {
+        ...enUS,
+        common: {
+            ...enUS.common,
+            dashboard: 'İdarə Paneli',
+            allExpenses: 'Bütün Xərclər',
+            billsSubscription: 'Fakturalar və Abunəliklər',
+            investment: 'İnvestisiya',
+            cards: 'Kartlar',
+            goals: 'Məqsədlər',
+            analytics: 'Analitika',
+            settings: 'Tənzimləmələr',
+            logout: 'Çıxış',
+            addExpense: 'Xərc Əlavə Et',
+            profile: 'Profil',
+            darkMode: 'Qaranlıq Rejim',
+            lightMode: 'İşıqlı Rejim',
+        },
+        filters: { ...enUS.filters, all: 'Hamısı', bills: 'Fakturalar', recent: 'Son', foodGrocery: 'Ərzaq', investment: 'İnvestisiya', shopping: 'Alış-veriş', travelling: 'Səyahət', miscellaneous: 'Müxtəlif' },
+        months: { short: { jan: 'Yan', feb: 'Fev', mar: 'Mar', apr: 'Apr', may: 'May', jun: 'İyun', jul: 'İyul', aug: 'Avq', sep: 'Sen', oct: 'Okt', nov: 'Noy', dec: 'Dek' } }
+    },
+    'hy': {
+        ...enUS,
+        common: {
+            ...enUS.common,
+            dashboard: 'Վահանակ',
+            allExpenses: 'Ծախսեր',
+            billsSubscription: 'Բաժանորդագրություններ',
+            investment: 'Ներդրումներ',
+            cards: 'Քարտեր',
+            goals: 'Նպատակներ',
+            analytics: 'Անալիտիկա',
+            settings: 'Կարգավորումներ',
+            logout: 'Ելք',
+            addExpense: 'Ավելացնել ծախս',
+            profile: 'Պրոֆիլ',
+            darkMode: 'Մութ ռեժիմ',
+            lightMode: 'Լուսավոր ռեժիմ',
+        },
+        filters: { ...enUS.filters, all: 'Բոլորը', bills: 'Վճարումներ', recent: 'Վերջին', foodGrocery: 'Սնունդ', investment: 'Ներդրում', shopping: 'Գնումներ', travelling: 'Ճանապարհորդություն', miscellaneous: 'Այլ' },
+        months: { short: { jan: 'Հնվ', feb: 'Փտր', mar: 'Մրտ', apr: 'Ապր', may: 'Մայ', jun: 'Հնս', jul: 'Հլս', aug: 'Օգս', sep: 'Սպտ', oct: 'Հկտ', nov: 'Նյմ', dec: 'Դկտ' } }
     },
 };
 
