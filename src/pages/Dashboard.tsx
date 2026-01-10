@@ -252,7 +252,7 @@ const Dashboard: React.FC = () => {
                 <div className="card-actions">
                   <button className="btn-icon"><Filter size={18} /></button>
                   <select className="period-select">
-                    <option>Recent</option>
+                    <option>{t.filters.recent}</option>
                   </select>
                 </div>
               </div>

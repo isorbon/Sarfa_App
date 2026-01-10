@@ -25,8 +25,12 @@ const categoryKeyMap: Record<string, keyof import('../../locales/types').Transla
     'Bill & Subscription': 'bills',
 };
 
+import { useTheme } from '../../context/ThemeContext';
+
 const CategoryChart: React.FC<CategoryChartProps> = ({ data }) => {
     const { t } = useLanguage();
+    const { theme } = useTheme();
+    const isDark = theme === 'dark';
 
     const chartData = data.map(item => ({
         name: t.filters[categoryKeyMap[item.category]] || item.category,
@@ -53,10 +57,11 @@ const CategoryChart: React.FC<CategoryChartProps> = ({ data }) => {
                     </Pie>
                     <Tooltip
                         contentStyle={{
-                            backgroundColor: 'white',
-                            border: '1px solid #e5e7eb',
+                            backgroundColor: isDark ? '#1e293b' : '#ffffff',
+                            border: `1px solid ${isDark ? '#374151' : '#e5e7eb'}`,
                             borderRadius: '8px',
                             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                            color: isDark ? '#f9fafb' : '#111827',
                         }}
                         formatter={(value: number) => `€${value.toFixed(2)}`}
                     />

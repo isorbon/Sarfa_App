@@ -166,6 +166,7 @@ export interface Translation {
         travelling: string;
         miscellaneous: string;
         bills: string;
+        recent: string;
     };
     months: {
         short: {

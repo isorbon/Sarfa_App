@@ -169,6 +169,7 @@ const enUS: Translation = {
         travelling: 'Travelling',
         miscellaneous: 'Miscellaneous',
         bills: 'Bill & Subscription',
+        recent: 'Recent',
     },
     months: {
         short: {
@@ -339,6 +340,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             travelling: 'Reisen',
             miscellaneous: 'Sonstiges',
             bills: 'Rechnungen',
+            recent: 'Kürzlich',
         }
     },
     'es': {
@@ -485,6 +487,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             travelling: 'Viajes',
             miscellaneous: 'Varios',
             bills: 'Facturas',
+            recent: 'Reciente',
         }
     },
     'fr': {
@@ -631,6 +634,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             travelling: 'Voyage',
             miscellaneous: 'Divers',
             bills: 'Factures',
+            recent: 'Récent',
         }
     },
     'ru': {
@@ -734,7 +738,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
                 lastYear: 'Прошлый год',
             },
         },
-        filters: { ...enUS.filters, all: 'Все', foodGrocery: 'Продукты', investment: 'Инвестиции', shopping: 'Покупки', travelling: 'Путешествия', miscellaneous: 'Разное', bills: 'Счета' },
+
         modals: { ...enUS.modals, addExpenseTitle: 'Новый расход', editExpenseTitle: 'Редактировать', saving: 'Сохранение...', addCardTitle: 'Новая карта', editCardTitle: 'Редактировать карту' },
         settings: {
             subtitle: 'Управление настройками аккаунта',
@@ -762,6 +766,16 @@ const translationsMap: Record<LanguageCode, Translation> = {
             currencyUpdated: 'Валюта обновлена!',
             currencyError: 'Ошибка обновления валюты',
         },
+        filters: {
+            all: 'Все',
+            foodGrocery: 'Продукты',
+            investment: 'Инвестиции',
+            shopping: 'Покупки',
+            travelling: 'Путешествия',
+            miscellaneous: 'Разное',
+            bills: 'Счета',
+            recent: 'Недавние',
+        }
     },
 
     'cs': { // Czech
@@ -909,6 +923,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             travelling: 'Cestování',
             miscellaneous: 'Různé',
             bills: 'Účty',
+            recent: 'Nedávné',
         }
     },
     'hu': { // Hungarian
@@ -1056,6 +1071,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             travelling: 'Utazás',
             miscellaneous: 'Egyéb',
             bills: 'Számlák',
+            recent: 'Legutóbbi',
         }
     },
     'id': { // Indonesian
@@ -1203,6 +1219,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             travelling: 'Wisata',
             miscellaneous: 'Lainnya',
             bills: 'Tagihan',
+            recent: 'Terkini',
         }
     },
     'it': { // Italian
@@ -1350,6 +1367,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             travelling: 'Viaggi',
             miscellaneous: 'Misto',
             bills: 'Bollette',
+            recent: 'Recente',
         }
     },
     'ja': { // Japanese
@@ -1497,6 +1515,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             travelling: '旅行',
             miscellaneous: 'その他',
             bills: '請求書',
+            recent: '最近',
         }
     },
     'nl': { // Dutch
@@ -1644,6 +1663,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             travelling: 'Reizen',
             miscellaneous: 'Diversen',
             bills: 'Rekeningen',
+            recent: 'Recent',
         }
     },
     'pl': { // Polish
@@ -1791,6 +1811,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             travelling: 'Podróże',
             miscellaneous: 'Różne',
             bills: 'Rachunki',
+            recent: 'Ostatnie',
         }
     },
     'pt-BR': { // Portuguese Brazil
@@ -1938,6 +1959,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             travelling: 'Viagem',
             miscellaneous: 'Diversos',
             bills: 'Contas',
+            recent: 'Recente',
         }
     },
     'ro': { // Romanian
@@ -2085,6 +2107,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             travelling: 'Călătorii',
             miscellaneous: 'Diverse',
             bills: 'Facturi',
+            recent: 'Recent',
         }
     },
     'th': { // Thai
@@ -2232,6 +2255,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             travelling: 'การเดินทาง',
             miscellaneous: 'เบ็ดเตล็ด',
             bills: 'บิล',
+            recent: 'ล่าสุด',
         }
     },
     'tr': { // Turkish
@@ -2379,6 +2403,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             travelling: 'Seyahat',
             miscellaneous: 'Çeşitli',
             bills: 'Faturalar',
+            recent: 'Son',
         }
     },
     'uk': { // Ukrainian
@@ -2482,7 +2507,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
                 lastYear: 'Минулий рік',
             },
         },
-        filters: { ...enUS.filters, all: 'Всі', foodGrocery: 'Продукти', investment: 'Інвестиції', shopping: 'Покупки', travelling: 'Подорожі', miscellaneous: 'Різне', bills: 'Рахунки' },
+        filters: { ...enUS.filters, all: 'Всі', foodGrocery: 'Продукти', investment: 'Інвестиції', shopping: 'Покупки', travelling: 'Подорожі', miscellaneous: 'Різне', bills: 'Рахунки', recent: 'Недавні' },
         modals: { ...enUS.modals, addExpenseTitle: 'Нова витрата', editExpenseTitle: 'Редагувати', saving: 'Збереження...', addCardTitle: 'Нова картка', editCardTitle: 'Редагувати картку' },
         settings: {
             subtitle: 'Управління налаштуваннями акаунту',
@@ -2656,6 +2681,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             travelling: '旅行',
             miscellaneous: '杂项',
             bills: '账单',
+            recent: '最近',
         }
     },
     'zh-TW': { // Chinese Traditional
@@ -2803,6 +2829,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             travelling: '旅行',
             miscellaneous: '雜項',
             bills: '帳單',
+            recent: '最近',
         }
     },
 
@@ -2911,7 +2938,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
                 lastYear: 'Өткөн жыл',
             },
         },
-        filters: { ...enUS.filters, all: 'Баары', foodGrocery: 'Азык-түлүк', investment: 'Инвестициялар', shopping: 'Соода', travelling: 'Саякат', miscellaneous: 'Башкалар', bills: 'Эсептер' },
+        filters: { ...enUS.filters, all: 'Баары', foodGrocery: 'Азык-түлүк', investment: 'Инвестициялар', shopping: 'Соода', travelling: 'Саякат', miscellaneous: 'Башкалар', bills: 'Эсептер', recent: 'Акыркы' },
         modals: { ...enUS.modals, addExpenseTitle: 'Жаңы чыгым', editExpenseTitle: 'Өзгөртүү', saving: 'Сакталууда...', addCardTitle: 'Жаңы карта', editCardTitle: 'Картаны өзгөртүү' },
         settings: {
             subtitle: 'Аккаунт жөндөөлөрү',
@@ -3062,7 +3089,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
                 lastYear: 'Өткен жыл',
             },
         },
-        filters: { ...enUS.filters, all: 'Барлығы', foodGrocery: 'Азық-түлік', investment: 'Инвестициялар', shopping: 'Сауда', travelling: 'Саяхат', miscellaneous: 'Басқалар', bills: 'Есеп-шоттар' },
+        filters: { ...enUS.filters, all: 'Барлығы', foodGrocery: 'Азық-түлік', investment: 'Инвестициялар', shopping: 'Сауда', travelling: 'Саяхат', miscellaneous: 'Басқалар', bills: 'Есеп-шоттар', recent: 'Соңғы' },
         modals: { ...enUS.modals, addExpenseTitle: 'Жаңа шығын', editExpenseTitle: 'Өңдеу', saving: 'Сақталуда...', addCardTitle: 'Жаңа карта', editCardTitle: 'Картаны өңдеу' },
         settings: {
             subtitle: 'Аккаунт параметрлері',
@@ -3213,7 +3240,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
                 lastYear: 'Соли гузашта',
             },
         },
-        filters: { ...enUS.filters, all: 'Ҳама', foodGrocery: 'Хӯрок', investment: 'Сармоягузорӣ', shopping: 'Харид', travelling: 'Сафар', miscellaneous: 'Дигарҳо', bills: 'Ҳисобҳо' },
+        filters: { ...enUS.filters, all: 'Ҳама', foodGrocery: 'Хӯрок', investment: 'Сармоягузорӣ', shopping: 'Харид', travelling: 'Сафар', miscellaneous: 'Дигарҳо', bills: 'Ҳисобҳо', recent: 'Охирин' },
         modals: { ...enUS.modals, addExpenseTitle: 'Хароҷоти нав', editExpenseTitle: 'Таҳрир', saving: 'Нигоҳдорӣ...', addCardTitle: 'Корти нав', editCardTitle: 'Таҳрири корт' },
         settings: {
             subtitle: 'Танзимоти ҳисоб',
@@ -3364,7 +3391,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
                 lastYear: 'Oʻtgan yil',
             },
         },
-        filters: { ...enUS.filters, all: 'Hammasi', foodGrocery: 'Oziq-ovqat', investment: 'Investitsiyalar', shopping: 'Xarid', travelling: 'Sayohat', miscellaneous: 'Boshqalar', bills: 'Hisob-kitoblar' },
+        filters: { ...enUS.filters, all: 'Hammasi', foodGrocery: 'Oziq-ovqat', investment: 'Investitsiyalar', shopping: 'Xarid', travelling: 'Sayohat', miscellaneous: 'Boshqalar', bills: 'Hisob-kitoblar', recent: 'So\'nggi' },
         modals: { ...enUS.modals, addExpenseTitle: 'Yangi xarajat', editExpenseTitle: 'Tahrirlash', saving: 'Saqlanmoqda...', addCardTitle: 'Yangi karta', editCardTitle: 'Kartani tahrirlash' },
         settings: {
             subtitle: 'Hisob sozlamalari',
