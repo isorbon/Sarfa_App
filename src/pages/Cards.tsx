@@ -13,7 +13,11 @@ interface Card {
   user_id: number;
 }
 
+import LanguageSwitcher from '../components/LanguageSwitcher';
+import { useLanguage } from '../context/LanguageContext';
+
 const Cards: React.FC = () => {
+  const { t } = useLanguage();
   const [cards, setCards] = useState<Card[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -88,11 +92,12 @@ const Cards: React.FC = () => {
         <header className="cards-header">
           <div className="header-greeting">
             <h1>
-              <span className="gradient-text">Cards</span>
+              <span className="gradient-text">{t.common.cards}</span>
             </h1>
-            <p>Manage your credit and debit cards</p>
+            <p>{t.common.manageCards}</p>
           </div>
           <div className="header-actions">
+            <LanguageSwitcher />
             <ThemeToggle />
             <UserMenu />
           </div>
@@ -103,13 +108,13 @@ const Cards: React.FC = () => {
             {loading ? (
               <div className="loading-state">
                 <div className="spinner" />
-                <p>Loading cards...</p>
+                <p>{t.common.loading}</p>
               </div>
             ) : cards.length === 0 ? (
               <div className="empty-state">
                 <CreditCard size={48} />
-                <p>No cards added yet</p>
-                <p className="empty-subtitle">Add your first card to track expenses</p>
+                <p>{t.cards.noCards}</p>
+                <p className="empty-subtitle">{t.cards.addFirstCard}</p>
               </div>
             ) : (
               cards.map((card) => (

@@ -9,8 +9,11 @@ import { useCurrency } from '../context/CurrencyContext';
 import { expensesAPI } from '../services/api';
 import type { Expense } from '../types';
 import UserMenu from '../components/UserMenu';
+import LanguageSwitcher from '../components/LanguageSwitcher';
+import { useLanguage } from '../context/LanguageContext';
 
 const AllExpenses: React.FC = () => {
+  const { t } = useLanguage();
   const { formatPrice } = useCurrency();
   const [expenses, setExpenses] = useState<Expense[]>([]);
   // ...
@@ -89,10 +92,13 @@ const AllExpenses: React.FC = () => {
       <main className="expenses-main">
         <header className="expenses-header">
           <div className="header-greeting">
-            <h1>All Expenses</h1>
-            <p>Manage and track all your expenses</p>
+            <h1>
+              <span className="gradient-text">{t.common.allExpenses}</span>
+            </h1>
+            <p>{t.common.expensesList}</p>
           </div>
           <div className="header-actions">
+            <LanguageSwitcher />
             <ThemeToggle />
             <UserMenu />
           </div>
@@ -104,7 +110,7 @@ const AllExpenses: React.FC = () => {
               <Search size={20} />
               <input
                 type="text"
-                placeholder="Search expenses..."
+                placeholder={t.common.searchPlaceholder}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />

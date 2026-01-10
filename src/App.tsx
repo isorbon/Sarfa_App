@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { CurrencyProvider } from './context/CurrencyContext';
+import { LanguageProvider } from './context/LanguageContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -48,58 +49,60 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 const App: React.FC = () => {
     return (
         <ThemeProvider>
-            <CurrencyProvider>
-                <style>{`
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
-                <Routes>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route
-                        path="/"
-                        element={
-                            <ProtectedRoute>
-                                <Dashboard />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route
-                        path="/expenses"
-                        element={
-                            <ProtectedRoute>
-                                <AllExpenses />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route
-                        path="/bills"
-                        element={
-                            <ProtectedRoute>
-                                <BillsSubscription />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route
-                        path="/cards"
-                        element={
-                            <ProtectedRoute>
-                                <Cards />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route
-                        path="/settings"
-                        element={
-                            <ProtectedRoute>
-                                <Settings />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route path="*" element={<Navigate to="/" replace />} />
-                </Routes>
-            </CurrencyProvider>
+            <LanguageProvider>
+                <CurrencyProvider>
+                    <style>{`
+            @keyframes spin {
+              to { transform: rotate(360deg); }
+            }
+          `}</style>
+                    <Routes>
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route
+                            path="/"
+                            element={
+                                <ProtectedRoute>
+                                    <Dashboard />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/expenses"
+                            element={
+                                <ProtectedRoute>
+                                    <AllExpenses />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/bills"
+                            element={
+                                <ProtectedRoute>
+                                    <BillsSubscription />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/cards"
+                            element={
+                                <ProtectedRoute>
+                                    <Cards />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/settings"
+                            element={
+                                <ProtectedRoute>
+                                    <Settings />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route path="*" element={<Navigate to="/" replace />} />
+                    </Routes>
+                </CurrencyProvider>
+            </LanguageProvider>
         </ThemeProvider>
     );
 };

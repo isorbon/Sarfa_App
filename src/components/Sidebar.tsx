@@ -9,20 +9,23 @@ import {
   Wallet,
 } from 'lucide-react';
 
+import { useLanguage } from '../context/LanguageContext';
+
 const Sidebar: React.FC = () => {
   const location = useLocation();
+  const { t } = useLanguage();
 
   const navItems = [
-    { path: '/', label: 'Dashboard', icon: LayoutDashboard, group: 'general' },
-    { path: '/expenses', label: 'All Expenses', icon: Receipt, group: 'general' },
-    { path: '/bills', label: 'Bill & Subscription', icon: CreditCard, group: 'general' },
-    { path: '/cards', label: 'Cards', icon: Wallet, group: 'general' },
-    { path: '/investment', label: 'Investment', icon: TrendingUp, group: 'general' },
-    { path: '/goals', label: 'Goals', icon: Target, group: 'general' },
+    { path: '/', label: t.common.dashboard, icon: LayoutDashboard, group: 'general' },
+    { path: '/expenses', label: t.common.allExpenses, icon: Receipt, group: 'general' },
+    { path: '/bills', label: t.common.billsSubscription, icon: CreditCard, group: 'general' },
+    { path: '/cards', label: t.common.cards, icon: Wallet, group: 'general' },
+    { path: '/investment', label: t.common.investment, icon: TrendingUp, group: 'general' },
+    { path: '/goals', label: t.common.goals, icon: Target, group: 'general' },
   ];
 
   const toolItems = [
-    { path: '/analytics', label: 'Analytics', icon: TrendingUp, group: 'tools' },
+    { path: '/analytics', label: t.common.analytics, icon: TrendingUp, group: 'tools' },
   ];
 
   const isActive = (path: string) => location.pathname === path;

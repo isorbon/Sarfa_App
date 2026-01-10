@@ -9,8 +9,11 @@ import { useCurrency } from '../context/CurrencyContext';
 import { billsAPI, expensesAPI } from '../services/api';
 import type { Expense, BillsStats } from '../types';
 import UserMenu from '../components/UserMenu';
+import LanguageSwitcher from '../components/LanguageSwitcher';
+import { useLanguage } from '../context/LanguageContext';
 
 const BillsSubscription: React.FC = () => {
+  const { t } = useLanguage();
   const { formatPrice } = useCurrency();
   const [bills, setBills] = useState<Expense[]>([]);
   // ...
@@ -117,11 +120,14 @@ const BillsSubscription: React.FC = () => {
       <main className="bills-main">
         <header className="bills-header">
           <div className="header-greeting">
-            <h1>Bills & Subscription</h1>
+            <h1>
+              <span className="gradient-text">{t.common.billsSubscription}</span>
+            </h1>
             <p>Manage all your recurring expenses and subscriptions</p>
           </div>
 
           <div className="header-actions">
+            <LanguageSwitcher />
             <ThemeToggle />
             <UserMenu />
           </div>
