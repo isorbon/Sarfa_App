@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Search, Filter, Calendar, TrendingUp, AlertCircle, CheckCircle, Clock } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
+import ThemeToggle from '../components/ThemeToggle';
 import Sidebar from '../components/Sidebar';
 import AddExpenseModal from '../components/AddExpenseModal';
 import ConfirmationModal from '../components/ConfirmationModal';
@@ -116,19 +117,12 @@ const BillsSubscription: React.FC = () => {
       <main className="bills-main">
         <header className="bills-header">
           <div className="header-greeting">
-            <h1>💳 Bills & Subscription</h1>
+            <h1>Bills & Subscription</h1>
             <p>Manage all your recurring expenses and subscriptions</p>
           </div>
 
           <div className="header-actions">
-            <div className="header-time">
-              {new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })} |{' '}
-              {new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })} | IN
-            </div>
-            <button className="notification-btn">
-              🔔
-              <span className="notification-badge">2</span>
-            </button>
+            <ThemeToggle />
             <UserMenu />
           </div>
         </header>

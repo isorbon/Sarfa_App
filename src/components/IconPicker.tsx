@@ -94,10 +94,10 @@ const IconPicker: React.FC<IconPickerProps> = ({ value, onChange }) => {
           align-items: center;
           gap: var(--space-3);
           padding: var(--space-3) var(--space-4);
-          border: 1px solid var(--color-gray-300);
+          border: 1px solid var(--color-border);
           border-radius: var(--radius-md);
-          background-color: white;
-          color: var(--color-gray-900);
+          background-color: var(--color-bg-secondary);
+          color: var(--color-text-primary);
           font-size: var(--font-size-base);
           font-family: var(--font-family);
           cursor: pointer;
@@ -105,7 +105,7 @@ const IconPicker: React.FC<IconPickerProps> = ({ value, onChange }) => {
         }
 
         .icon-picker-trigger:hover {
-          border-color: var(--color-gray-400);
+          border-color: var(--color-primary-500);
         }
 
         .icon-picker-trigger:focus {
@@ -127,7 +127,8 @@ const IconPicker: React.FC<IconPickerProps> = ({ value, onChange }) => {
           width: 100%;
           min-width: 300px;
           max-height: 400px;
-          background-color: white;
+          background-color: var(--color-bg-secondary);
+          border: 1px solid var(--color-border);
           border-radius: var(--radius-lg);
           box-shadow: var(--shadow-xl);
           z-index: calc(var(--z-dropdown) + 1);
@@ -137,16 +138,18 @@ const IconPicker: React.FC<IconPickerProps> = ({ value, onChange }) => {
 
         .icon-picker-header {
           padding: var(--space-4);
-          border-bottom: 1px solid var(--color-gray-200);
+          border-bottom: 1px solid var(--color-border);
         }
 
         .icon-picker-search {
           width: 100%;
           padding: var(--space-2) var(--space-3);
-          border: 1px solid var(--color-gray-300);
+          border: 1px solid var(--color-border);
           border-radius: var(--radius-md);
           font-size: var(--font-size-sm);
           font-family: var(--font-family);
+          background-color: var(--color-bg-secondary);
+          color: var(--color-text-primary);
         }
 
         .icon-picker-search:focus {
@@ -168,10 +171,10 @@ const IconPicker: React.FC<IconPickerProps> = ({ value, onChange }) => {
           display: flex;
           align-items: center;
           justify-content: center;
-          border: 1px solid var(--color-gray-200);
+          border: 1px solid var(--color-border);
           border-radius: var(--radius-md);
-          background-color: white;
-          color: var(--color-gray-700);
+          background-color: var(--color-bg-secondary);
+          color: var(--color-text-secondary);
           cursor: pointer;
           transition: all var(--transition-fast);
         }
@@ -182,16 +185,26 @@ const IconPicker: React.FC<IconPickerProps> = ({ value, onChange }) => {
           color: var(--color-primary-600);
         }
 
+        .dark-mode .icon-picker-item:hover {
+          background-color: rgba(139, 92, 246, 0.15);
+          color: var(--color-primary-400);
+        }
+
         .icon-picker-item.active {
           border-color: var(--color-primary-600);
           background-color: var(--color-primary-100);
           color: var(--color-primary-600);
         }
 
+        .dark-mode .icon-picker-item.active {
+          background-color: rgba(139, 92, 246, 0.25);
+          color: var(--color-primary-400);
+        }
+
         .icon-picker-empty {
           padding: var(--space-8);
           text-align: center;
-          color: var(--color-gray-500);
+          color: var(--color-text-secondary);
           font-size: var(--font-size-sm);
         }
       `}</style>

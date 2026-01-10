@@ -1,7 +1,17 @@
 import React, { useState, useCallback } from 'react';
 import Cropper from 'react-easy-crop';
 import { X, ZoomIn, ZoomOut, Check } from 'lucide-react';
-import { Point, Area } from 'react-easy-crop/types';
+interface Point {
+    x: number;
+    y: number;
+}
+
+interface Area {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+}
 
 interface ImageCropperModalProps {
     isOpen: boolean;
@@ -28,7 +38,7 @@ const ImageCropperModal: React.FC<ImageCropperModalProps> = ({
         setZoom(zoom);
     };
 
-    const onCropCompleteHandler = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
+    const onCropCompleteHandler = useCallback((_croppedArea: Area, croppedAreaPixels: Area) => {
         setCroppedAreaPixels(croppedAreaPixels);
     }, []);
 

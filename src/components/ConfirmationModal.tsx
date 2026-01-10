@@ -61,7 +61,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                         position: fixed;
                         inset: 0;
                         background-color: rgba(0, 0, 0, 0.5);
-                        z-index: 50;
+                        z-index: 9998;
                         animation: fadeIn 0.2s ease-out;
                     }
 
@@ -75,7 +75,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                         background: white;
                         border-radius: 16px;
                         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-                        z-index: 51;
+                        z-index: 9999;
                         padding: 24px;
                         text-align: center;
                         animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);

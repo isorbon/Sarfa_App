@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import AllExpenses from './pages/AllExpenses';
 import BillsSubscription from './pages/BillsSubscription';
+import Cards from './pages/Cards';
 import Settings from './pages/Settings';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -77,6 +78,14 @@ const App: React.FC = () => {
                         element={
                             <ProtectedRoute>
                                 <BillsSubscription />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/cards"
+                        element={
+                            <ProtectedRoute>
+                                <Cards />
                             </ProtectedRoute>
                         }
                     />

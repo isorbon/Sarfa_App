@@ -87,6 +87,26 @@ function initializeDatabase() {
 
     insertCategory.finalize();
 
+    // Create cards table
+    db.run(`
+      CREATE TABLE IF NOT EXISTS cards (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        name TEXT NOT NULL,
+        bank TEXT NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users (id)
+      )
+    `);
+
+    // Add card_id column to expenses table if it doesn't exist
+    db.run(`ALTER TABLE expenses ADD COLUMN card_id INTEGER REFERENCES cards(id)`, (err) => {
+      // Ignore error if column already exists
+      if (err && !err.message.includes('duplicate column name')) {
+        console.error('Error adding card_id column:', err);
+      }
+    });
+
     // Create demo user
     const demoEmail = 'demo@expenses.com';
     const demoPassword = 'demo123';
