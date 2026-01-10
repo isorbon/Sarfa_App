@@ -32,6 +32,7 @@ export const languages: { code: LanguageCode; name: string; flag: string; countr
 const enUS: Translation = {
     common: {
         dashboard: 'Dashboard',
+        appTitle: 'Sarfa - Expense Tracker',
         allExpenses: 'All Expenses',
         billsSubscription: 'Bill & Subscription',
         investment: 'Investment',
@@ -202,6 +203,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Ausgaben-Tracker',
             dashboard: 'Dashboard',
             allExpenses: 'Alle Ausgaben',
             billsSubscription: 'Rechnungen & Abos',
@@ -349,6 +351,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Rastreador de Gastos',
             dashboard: 'Panel',
             allExpenses: 'Gastos',
             billsSubscription: 'Facturas',
@@ -496,6 +499,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Suivi des Dépenses',
             dashboard: 'Tableau de bord',
             allExpenses: 'Dépenses',
             billsSubscription: 'Factures',
@@ -643,6 +647,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Трекер Расходов',
             dashboard: 'Дашборд',
             allExpenses: 'Все расходы',
             expensesList: 'Список расходов',
@@ -784,6 +789,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Sledování výdajů',
             dashboard: 'Přehled',
             allExpenses: 'Výdaje',
             searchPlaceholder: 'Hledat...',
@@ -932,6 +938,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Kiadáskövető',
             dashboard: 'Irányítópult',
             allExpenses: 'Kiadások',
             searchPlaceholder: 'Keresés...',
@@ -1080,6 +1087,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Pelacak Pengeluaran',
             dashboard: 'Dasbor',
             allExpenses: 'Semua Pengeluaran',
             searchPlaceholder: 'Cari...',
@@ -1228,6 +1236,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Monitoraggio Spese',
             dashboard: 'Dashboard',
             allExpenses: 'Tutte le Spese',
             searchPlaceholder: 'Cerca...',
@@ -1376,6 +1385,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - 経費トラッカー',
             dashboard: 'ダッシュボード',
             allExpenses: 'すべての経費',
             searchPlaceholder: '検索...',
@@ -1524,6 +1534,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Uitgaventracker',
             dashboard: 'Overzicht',
             allExpenses: 'Alle Uitgaven',
             searchPlaceholder: 'Zoeken...',
@@ -1672,6 +1683,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Monitor Wydatków',
             dashboard: 'Pulpit',
             allExpenses: 'Wydatki',
             searchPlaceholder: 'Szukaj...',
@@ -1820,6 +1832,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Controle de Despesas',
             dashboard: 'Painel',
             allExpenses: 'Despesas',
             searchPlaceholder: 'Pesquisar...',
@@ -1968,6 +1981,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Urmărire Cheltuieli',
             dashboard: 'Panou',
             allExpenses: 'Cheltuieli',
             searchPlaceholder: 'Căutare...',
@@ -2116,6 +2130,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - ตัวติดตามค่าใช้จ่าย',
             dashboard: 'แดชบอร์ด',
             allExpenses: 'ค่าใช้จ่ายทั้งหมด',
             searchPlaceholder: 'ค้นหา...',
@@ -2264,6 +2279,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Gider Takibi',
             dashboard: 'Panel',
             allExpenses: 'Tüm Harcamalar',
             searchPlaceholder: 'Ara...',
@@ -2412,6 +2428,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Трекер Витрат',
             dashboard: 'Дашборд',
             allExpenses: 'Всі витрати',
             expensesList: 'Список витрат',
@@ -2542,6 +2559,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - 支出追踪',
             dashboard: '仪表板',
             allExpenses: '所有支出',
             searchPlaceholder: '搜索...',
@@ -2690,6 +2708,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - 支出追蹤',
             dashboard: '儀表板',
             allExpenses: '所有支出',
             searchPlaceholder: '搜尋...',
@@ -2839,6 +2858,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Чыгымдарды көзөмөлдөө',
             dashboard: 'Башкы бет',
             allExpenses: 'Бардык чыгымдар',
             searchPlaceholder: 'Издөө...',
@@ -2990,6 +3010,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Шығындарды қадағалау',
             dashboard: 'Басты бет',
             allExpenses: 'Барлық шығындар',
             searchPlaceholder: 'Іздеу...',
@@ -3141,6 +3162,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Назорати хароҷот',
             dashboard: 'Саҳифаи асосӣ',
             allExpenses: 'Ҳамаи хароҷот',
             searchPlaceholder: 'Ҷустуҷӯ...',
@@ -3292,6 +3314,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         ...enUS,
         common: {
             ...enUS.common,
+            appTitle: 'Sarfa - Xarajatlarni kuzatish',
             dashboard: 'Bosh sahifa',
             allExpenses: 'Barcha xarajatlar',
             searchPlaceholder: 'Qidirish...',
@@ -3443,6 +3466,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         common: {
             ...enUS.common,
             dashboard: 'İdarə Paneli',
+            appTitle: 'Sarfa - Xərc İzləyicisi',
             allExpenses: 'Bütün Xərclər',
             billsSubscription: 'Fakturalar və Abunəliklər',
             investment: 'İnvestisiya',
@@ -3572,6 +3596,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
         common: {
             ...enUS.common,
             dashboard: 'Վահանակ',
+            appTitle: 'Sarfa - Ծախսերի Հետևում',
             allExpenses: 'Ծախսեր',
             billsSubscription: 'Բաժանորդագրություններ',
             investment: 'Ներդրումներ',

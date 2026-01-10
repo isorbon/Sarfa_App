@@ -29,6 +29,7 @@ export type LanguageCode =
 export interface Translation {
     common: {
         dashboard: string;
+        appTitle: string;
         allExpenses: string;
         billsSubscription: string;
         investment: string;

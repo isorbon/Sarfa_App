@@ -38,6 +38,12 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         }
     }, []);
 
+    useEffect(() => {
+        if (translations[language]?.common?.appTitle) {
+            document.title = translations[language].common.appTitle;
+        }
+    }, [language]);
+
     const handleSetLanguage = (lang: LanguageCode) => {
         setLanguage(lang);
         localStorage.setItem('language', lang);

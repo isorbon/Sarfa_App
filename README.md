@@ -24,7 +24,6 @@ A modern, full-stack expense tracking web application built with React + TypeScr
   - Enhanced Language Switcher with country flags and native/English names.
   - Added "Recent" filter translation for all supported languages.
   - Improved flag rendering on Windows.
-  - Added support for Azerbaijani (az) and Armenian (hy).
 - **Dark Mode Polish**:
   - Fixed chart tooltips visibility in Dark Mode for Monthly and Category charts.
 
@@ -120,18 +119,6 @@ Navigate to `http://localhost:5173`
 
 - **Email**: `demo@expenses.com`
 - **Password**: `demo123`
-
-## 📸 Screenshots
-
-<div align="center">
-  <img src="public/logo.png" alt="Sarfa Logo" width="200"/>
-</div>
-
-### Dashboard
-![Dashboard Overview](./.github/screenshots/dashboard.png)
-
-### Add Expense Modal
-![Add Expense](./.github/screenshots/add-expense.png)
 
 ## 🏗️ Tech Stack
 
