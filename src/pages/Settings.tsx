@@ -3,11 +3,13 @@ import { useAuth } from '../context/AuthContext';
 import { authAPI } from '../services/api';
 
 import { useCurrency, CurrencyCode } from '../context/CurrencyContext';
+import { useLanguage } from '../context/LanguageContext';
 import { User, Lock } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
 import ImageCropperModal from '../components/ImageCropperModal';
 
 const Settings: React.FC = () => {
+    const { t } = useLanguage();
     const { user, updateUser, changePassword } = useAuth();
     const { currency, setCurrency } = useCurrency();
 
@@ -28,23 +30,23 @@ const Settings: React.FC = () => {
     const handlePasswordChange = async (e: React.FormEvent) => {
         e.preventDefault();
         if (newPassword !== confirmPassword) {
-            setMessage({ type: 'error', text: 'Passwords do not match.' });
+            setMessage({ type: 'error', text: t.settings.passwordMismatch });
             return;
         }
         if (newPassword.length < 6) {
-            setMessage({ type: 'error', text: 'Password must be at least 6 characters.' });
+            setMessage({ type: 'error', text: t.settings.passwordMinLength });
             return;
         }
 
         setLoading(true);
         try {
             await changePassword(newPassword);
-            setMessage({ type: 'success', text: 'Password changed successfully!' });
+            setMessage({ type: 'success', text: t.settings.passwordChanged });
             setNewPassword('');
             setConfirmPassword('');
             setIsPasswordExpanded(false);
         } catch (error) {
-            setMessage({ type: 'error', text: 'Failed to change password.' });
+            setMessage({ type: 'error', text: t.settings.passwordChangeError });
         } finally {
             setLoading(false);
         }
@@ -73,11 +75,11 @@ const Settings: React.FC = () => {
             const res = await authAPI.uploadAvatar(formData);
             setAvatarUrl(res.avatar_url);
             updateUser({ avatar_url: res.avatar_url });
-            setMessage({ type: 'success', text: 'Avatar updated!' });
+            setMessage({ type: 'success', text: t.settings.avatarUpdated });
             setTimeout(() => setMessage(null), 3000);
         } catch (err: any) {
             console.error(err);
-            setMessage({ type: 'error', text: 'Failed to upload image' });
+            setMessage({ type: 'error', text: t.settings.avatarUploadError });
         } finally {
             setLoading(false);
         }
@@ -88,8 +90,8 @@ const Settings: React.FC = () => {
             <Sidebar />
             <main className="settings-main">
                 <header className="settings-header">
-                    <h1>Settings</h1>
-                    <p>Manage your account preferences and settings</p>
+                    <h1>{t.common.settings}</h1>
+                    <p>{t.settings.subtitle}</p>
                 </header>
 
                 <div className="settings-content">
@@ -101,12 +103,12 @@ const Settings: React.FC = () => {
 
                     {/* Profile Section */}
                     <section className="settings-section">
-                        <h2>Profile Settings</h2>
+                        <h2>{t.common.profile} {t.common.settings}</h2>
                         <form onSubmit={(e) => e.preventDefault()}>
                             <div className="settings-grid">
                                 {/* Avatar */}
                                 <div className="form-group avatar-group">
-                                    <label className="form-label">Avatar</label>
+                                    <label className="form-label">{t.settings.avatar}</label>
                                     <div className="avatar-wrapper">
                                         <div
                                             className="current-avatar clickable"
@@ -121,7 +123,7 @@ const Settings: React.FC = () => {
                                                 </div>
                                             )}
                                             <div className="avatar-overlay">
-                                                <span className="upload-text">Upload</span>
+                                                <span className="upload-text">{t.settings.upload}</span>
                                             </div>
                                         </div>
                                         <input
@@ -135,7 +137,7 @@ const Settings: React.FC = () => {
                                             <input
                                                 type="text"
                                                 className="form-input"
-                                                placeholder="Or enter Avatar URL"
+                                                placeholder={t.settings.avatarUrlPlaceholder}
                                                 value={avatarUrl}
                                                 onChange={(e) => setAvatarUrl(e.target.value)}
                                                 onBlur={async () => {
@@ -143,24 +145,24 @@ const Settings: React.FC = () => {
                                                         setLoading(true);
                                                         try {
                                                             await updateUser({ avatar_url: avatarUrl });
-                                                            setMessage({ type: 'success', text: 'Avatar URL saved!' });
+                                                            setMessage({ type: 'success', text: t.settings.avatarUrlSaved });
                                                             setTimeout(() => setMessage(null), 3000);
                                                         } catch (error) {
-                                                            setMessage({ type: 'error', text: 'Failed to save avatar URL' });
+                                                            setMessage({ type: 'error', text: t.settings.avatarUrlError });
                                                         } finally {
                                                             setLoading(false);
                                                         }
                                                     }
                                                 }}
                                             />
-                                            <p className="help-text">Click image to upload or paste a URL</p>
+                                            <p className="help-text">{t.settings.avatarHelp}</p>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Full Name */}
                                 <div className="form-group">
-                                    <label className="form-label">Full Name</label>
+                                    <label className="form-label">{t.settings.fullName}</label>
                                     <input
                                         type="text"
                                         className="form-input"
@@ -171,10 +173,10 @@ const Settings: React.FC = () => {
                                                 setLoading(true);
                                                 try {
                                                     await updateUser({ name });
-                                                    setMessage({ type: 'success', text: 'Name saved!' });
+                                                    setMessage({ type: 'success', text: t.settings.nameSaved });
                                                     setTimeout(() => setMessage(null), 3000);
                                                 } catch (error) {
-                                                    setMessage({ type: 'error', text: 'Failed to save name' });
+                                                    setMessage({ type: 'error', text: t.settings.nameError });
                                                 } finally {
                                                     setLoading(false);
                                                 }
@@ -186,7 +188,7 @@ const Settings: React.FC = () => {
 
                                 {/* Currency */}
                                 <div className="form-group">
-                                    <label className="form-label">Currency</label>
+                                    <label className="form-label">{t.settings.currency}</label>
                                     <div className="currency-selector">
                                         <select
                                             className="form-select"
@@ -197,10 +199,10 @@ const Settings: React.FC = () => {
                                                 setLoading(true);
                                                 try {
                                                     await updateUser({ currency: newCurrency });
-                                                    setMessage({ type: 'success', text: 'Currency updated!' });
+                                                    setMessage({ type: 'success', text: t.settings.currencyUpdated });
                                                     setTimeout(() => setMessage(null), 3000);
                                                 } catch (error) {
-                                                    setMessage({ type: 'error', text: 'Failed to update currency' });
+                                                    setMessage({ type: 'error', text: t.settings.currencyError });
                                                 } finally {
                                                     setLoading(false);
                                                 }
@@ -213,7 +215,7 @@ const Settings: React.FC = () => {
                                         </select>
                                     </div>
                                     <p className="help-text">
-                                        Exchange rates are fetched from Wise.
+                                        {t.settings.currencyHelp}
                                     </p>
                                 </div>
                             </div>
@@ -228,7 +230,7 @@ const Settings: React.FC = () => {
                         >
                             <div className="header-content">
                                 <Lock size={20} />
-                                <h2>Change Password</h2>
+                                <h2>{t.settings.changePassword}</h2>
                             </div>
                             <span className={`arrow ${isPasswordExpanded ? 'expanded' : ''}`}>▼</span>
                         </button>
@@ -236,7 +238,7 @@ const Settings: React.FC = () => {
                         {isPasswordExpanded && (
                             <form onSubmit={handlePasswordChange} className="accordion-content fade-in">
                                 <div className="form-group">
-                                    <label className="form-label">New Password</label>
+                                    <label className="form-label">{t.settings.newPassword}</label>
                                     <input
                                         type="password"
                                         className="form-input"
@@ -246,7 +248,7 @@ const Settings: React.FC = () => {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label className="form-label">Repeat New Password</label>
+                                    <label className="form-label">{t.settings.repeatPassword}</label>
                                     <input
                                         type="password"
                                         className="form-input"
@@ -257,7 +259,7 @@ const Settings: React.FC = () => {
                                 </div>
                                 <div className="form-actions">
                                     <button type="submit" className="btn btn-primary" disabled={loading}>
-                                        Update Password
+                                        {t.settings.updatePassword}
                                     </button>
                                 </div>
                             </form>

@@ -9,20 +9,23 @@ import {
   Wallet,
 } from 'lucide-react';
 
+import { useLanguage } from '../context/LanguageContext';
+
 const Sidebar: React.FC = () => {
   const location = useLocation();
+  const { t } = useLanguage();
 
   const navItems = [
-    { path: '/', label: 'Dashboard', icon: LayoutDashboard, group: 'general' },
-    { path: '/expenses', label: 'All Expenses', icon: Receipt, group: 'general' },
-    { path: '/bills', label: 'Bill & Subscription', icon: CreditCard, group: 'general' },
-    { path: '/cards', label: 'Cards', icon: Wallet, group: 'general' },
-    { path: '/investment', label: 'Investment', icon: TrendingUp, group: 'general' },
-    { path: '/goals', label: 'Goals', icon: Target, group: 'general' },
+    { path: '/', label: t.common.dashboard, icon: LayoutDashboard, group: 'general' },
+    { path: '/expenses', label: t.common.allExpenses, icon: Receipt, group: 'general' },
+    { path: '/bills', label: t.common.billsSubscription, icon: CreditCard, group: 'general' },
+    { path: '/cards', label: t.common.cards, icon: Wallet, group: 'general' },
+    { path: '/investment', label: t.common.investment, icon: TrendingUp, group: 'general' },
+    { path: '/goals', label: t.common.goals, icon: Target, group: 'general' },
   ];
 
   const toolItems = [
-    { path: '/analytics', label: 'Analytics', icon: TrendingUp, group: 'tools' },
+    { path: '/analytics', label: t.common.analytics, icon: TrendingUp, group: 'tools' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -34,12 +37,12 @@ const Sidebar: React.FC = () => {
           <img src="/logo.png" alt="Sarfa" style={{ width: '40px', height: '40px' }} />
           <span className="sidebar-logo-text">SARFA</span>
         </div>
-        <p className="sidebar-tagline">Track your all expenses and transactions</p>
+        <p className="sidebar-tagline">{t.common.trackTagline}</p>
       </div>
 
       <nav className="sidebar-nav">
         <div className="sidebar-section">
-          <h3 className="sidebar-section-title">General</h3>
+          <h3 className="sidebar-section-title">{t.common.general}</h3>
           {navItems.map((item) => (
             <Link
               key={item.path}
@@ -53,7 +56,7 @@ const Sidebar: React.FC = () => {
         </div>
 
         <div className="sidebar-section">
-          <h3 className="sidebar-section-title">Tools</h3>
+          <h3 className="sidebar-section-title">{t.common.tools}</h3>
           {toolItems.map((item) => (
             <Link
               key={item.path}
@@ -69,7 +72,7 @@ const Sidebar: React.FC = () => {
       </nav>
 
       <div className="sidebar-footer">
-        <p className="app-version">v1.2.0</p>
+        <p className="app-version">v1.2.1</p>
         <p className="app-copyright">&copy; 2026 Sarfa. All rights reserved.</p>
       </div>
 

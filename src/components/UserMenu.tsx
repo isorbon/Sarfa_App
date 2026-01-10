@@ -2,9 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Settings, HelpCircle, Headphones, LogOut, User } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 
 const UserMenu: React.FC = () => {
   const { user, logout } = useAuth();
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -47,22 +49,22 @@ const UserMenu: React.FC = () => {
           <nav className="dropdown-nav">
             <Link to="/settings" className="dropdown-item" onClick={() => setIsOpen(false)}>
               <Settings size={18} />
-              <span>Settings</span>
+              <span>{t.common.settings}</span>
             </Link>
             <Link to="/help" className="dropdown-item" onClick={() => setIsOpen(false)}>
               <HelpCircle size={18} />
-              <span>Help Center</span>
+              <span>{t.common.helpCenter}</span>
             </Link>
             <Link to="/support" className="dropdown-item" onClick={() => setIsOpen(false)}>
               <Headphones size={18} />
-              <span>Support</span>
+              <span>{t.common.support}</span>
             </Link>
 
             <div className="dropdown-divider" />
 
             <button onClick={() => { logout(); setIsOpen(false); }} className="dropdown-item logout">
               <LogOut size={18} />
-              <span>Logout</span>
+              <span>{t.common.logout}</span>
             </button>
           </nav>
         </div>

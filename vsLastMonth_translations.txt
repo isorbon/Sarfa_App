@@ -1,0 +1,46 @@
+# Script to add vsLastMonth translations to all languages
+
+# De (line 275)
+vsLastMonth: 'vs. letztem Monat',
+# Es (line 420)
+vsLastMonth: 'vs mes anterior',
+# Fr (line 565)
+vsLastMonth: 'vs mois dernier',
+# Ru (line 708)
+vsLastMonth: 'в сравнении с прошлым месяцем',
+# Cs (line 841)
+vsLastMonth: 'vs minulý měsíc',
+# Hu (line 987)
+vsLastMonth: 'vs múlt hónap',
+# Id (line 1133)
+vsLastMonth: 'vs bulan lalu',
+# It (line 1279)
+vsLastMonth: 'vs mese scorso',
+# Ja (line 1425)
+vsLastMonth: 'vs 先月',
+# Nl (line 1571)
+vsLastMonth: 'vs vorige maand',
+# Pl (line 1717)
+vsLastMonth: 'vs ubiegły miesiąc',
+# Pt-BR (line 1863)
+vsLastMonth: 'vs mês passado',
+# Ro (line 2009)
+vsLastMonth: 'vs luna trecută',
+# Th (line 2155)
+vsLastMonth: 'vs เดือนที่แล้ว',
+# Tr (line 2301)
+vsLastMonth: 'vs geçen ay',
+# Uk (line 2444)
+vsLastMonth: 'порівняно з минулим місяцем',
+# Zh-CN (line 2576)
+vsLastMonth: 'vs 上月',
+# Zh-TW (line 2722)
+vsLastMonth: 'vs 上月',
+# Kg (line 2870)
+vsLastMonth: 'өткөн айга карата',
+# Kz (line 3004)
+vsLastMonth: 'өткен айға қарағанда',
+# Tj (line 3138)
+vsLastMonth: 'нисбат ба моҳи гузашта',
+# Uz (line 3272)
+vsLastMonth: 'oʻtgan oyga nisbatan',

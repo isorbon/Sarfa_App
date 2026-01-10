@@ -9,8 +9,11 @@ import { useCurrency } from '../context/CurrencyContext';
 import { expensesAPI } from '../services/api';
 import type { Expense } from '../types';
 import UserMenu from '../components/UserMenu';
+import LanguageSwitcher from '../components/LanguageSwitcher';
+import { useLanguage } from '../context/LanguageContext';
 
 const AllExpenses: React.FC = () => {
+  const { t } = useLanguage();
   const { formatPrice } = useCurrency();
   const [expenses, setExpenses] = useState<Expense[]>([]);
   // ...
@@ -68,11 +71,35 @@ const AllExpenses: React.FC = () => {
     setIsModalOpen(true);
   };
 
+  const getCategoryLabel = (cat: string) => {
+    const map: Record<string, string> = {
+      'All': t.filters.all,
+      'Food & Grocery': t.filters.foodGrocery,
+      'Investment': t.filters.investment,
+      'Shopping': t.filters.shopping,
+      'Travelling': t.filters.travelling,
+      'Miscellaneous': t.filters.miscellaneous,
+      'Bill & Subscription': t.filters.bills,
+    };
+    return map[cat] || cat;
+  };
+
+  const getPaymentModeLabel = (mode: string) => {
+    const map: Record<string, string> = {
+      'Cash': t.expenses.paymentModeCash,
+      'Credit Card': t.expenses.paymentModeCard,
+      'Bank Transfer': t.expenses.paymentModeBank,
+      'Digital Wallet': t.expenses.paymentModeWallet,
+      'Other': t.expenses.paymentModeOther,
+    };
+    return map[mode] || mode;
+  };
+
   const filteredExpenses = expenses.filter(expense => {
     const matchesSearch =
       expense.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       expense.sub_category?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      expense.category.toLowerCase().includes(searchTerm.toLowerCase());
+      (expense.category && getCategoryLabel(expense.category).toLowerCase().includes(searchTerm.toLowerCase())); // Search across translated label too? Or just original? Original is safer but user searches what they see.
 
     const matchesCategory = categoryFilter === 'All' || expense.category === categoryFilter;
 
@@ -89,10 +116,13 @@ const AllExpenses: React.FC = () => {
       <main className="expenses-main">
         <header className="expenses-header">
           <div className="header-greeting">
-            <h1>All Expenses</h1>
-            <p>Manage and track all your expenses</p>
+            <h1>
+              <span className="gradient-text">{t.common.allExpenses}</span>
+            </h1>
+            <p>{t.common.expensesList}</p>
           </div>
           <div className="header-actions">
+            <LanguageSwitcher />
             <ThemeToggle />
             <UserMenu />
           </div>
@@ -104,7 +134,7 @@ const AllExpenses: React.FC = () => {
               <Search size={20} />
               <input
                 type="text"
-                placeholder="Search expenses..."
+                placeholder={t.common.searchPlaceholder}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -116,18 +146,18 @@ const AllExpenses: React.FC = () => {
               onChange={(e) => setCategoryFilter(e.target.value)}
             >
               {categories.map(cat => (
-                <option key={cat} value={cat}>{cat}</option>
+                <option key={cat} value={cat}>{getCategoryLabel(cat)}</option>
               ))}
             </select>
           </div>
 
           <div className="expenses-summary">
             <div className="summary-item">
-              <span className="summary-label">Total Expenses:</span>
+              <span className="summary-label">{t.common.totalExpenses}:</span>
               <span className="summary-value">{formatPrice(totalAmount)}</span>
             </div>
             <div className="summary-item">
-              <span className="summary-label">Count:</span>
+              <span className="summary-label">{t.common.count}:</span>
               <span className="summary-value">{filteredExpenses.length}</span>
             </div>
           </div>
@@ -135,25 +165,25 @@ const AllExpenses: React.FC = () => {
           {loading ? (
             <div className="loading-state">
               <div className="spinner" />
-              <p>Loading expenses...</p>
+              <p>{t.common.loading}</p>
             </div>
           ) : filteredExpenses.length === 0 ? (
             <div className="empty-state">
-              <p>No expenses found</p>
+              <p>{t.expenses.noExpenses}</p>
             </div>
           ) : (
             <div className="expenses-table-container">
               <table className="expenses-table">
                 <thead>
                   <tr>
-                    <th>Date</th>
-                    <th>Icon</th>
-                    <th>Category</th>
-                    <th>Sub Category</th>
-                    <th>Description</th>
-                    <th>Amount</th>
-                    <th>Mode</th>
-                    <th>Actions</th>
+                    <th>{t.expenses.date}</th>
+                    <th>{t.expenses.icon}</th>
+                    <th>{t.expenses.category}</th>
+                    <th>{t.expenses.subCategory}</th>
+                    <th>{t.expenses.description}</th>
+                    <th>{t.expenses.amount}</th>
+                    <th>{t.expenses.mode}</th>
+                    <th>{t.common.actions}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -167,24 +197,24 @@ const AllExpenses: React.FC = () => {
                             <Icon size={20} />
                           </div>
                         </td>
-                        <td><span className="category-badge">{expense.category}</span></td>
+                        <td><span className="category-badge">{getCategoryLabel(expense.category)}</span></td>
                         <td>{expense.sub_category || '-'}</td>
                         <td>{expense.description || '-'}</td>
                         <td className="amount">{formatPrice(expense.amount)}</td>
-                        <td><span className="mode-badge">{expense.mode}</span></td>
+                        <td><span className="mode-badge">{getPaymentModeLabel(expense.mode)}</span></td>
                         <td>
                           <div className="action-buttons">
                             <button
                               className="btn-icon edit"
                               onClick={() => handleEdit(expense)}
-                              title="Edit"
+                              title={t.common.edit}
                             >
                               <Edit size={16} />
                             </button>
                             <button
                               className="btn-icon delete"
                               onClick={() => handleDeleteClick(expense)}
-                              title="Delete"
+                              title={t.common.delete}
                             >
                               <Trash2 size={16} />
                             </button>
@@ -204,7 +234,7 @@ const AllExpenses: React.FC = () => {
       <button
         className="fab"
         onClick={() => setIsModalOpen(true)}
-        title="Add Expense"
+        title={t.common.addExpense}
       >
         <Plus size={24} />
       </button>
@@ -226,9 +256,9 @@ const AllExpenses: React.FC = () => {
           setExpenseToDelete(null);
         }}
         onConfirm={handleConfirmDelete}
-        title="Delete Expense"
-        message={`Are you sure you want to delete ${expenseToDelete?.description || 'this expense'}? This process cannot be undone.`}
-        confirmText="Delete"
+        title={t.expenses.deleteTitle}
+        message={t.expenses.deleteMessage}
+        confirmText={t.common.delete}
         type="danger"
       />
 

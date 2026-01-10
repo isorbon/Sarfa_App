@@ -1,6 +1,8 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
+import { useLanguage } from '../../context/LanguageContext';
+
 interface CategoryChartProps {
     data: Array<{ category: string; total: number }>;
 }
@@ -14,9 +16,24 @@ const COLORS: Record<string, string> = {
     'Bill & Subscription': '#06b6d4',
 };
 
+const categoryKeyMap: Record<string, keyof import('../../locales/types').Translation['filters']> = {
+    'Food & Grocery': 'foodGrocery',
+    'Investment': 'investment',
+    'Shopping': 'shopping',
+    'Travelling': 'travelling',
+    'Miscellaneous': 'miscellaneous',
+    'Bill & Subscription': 'bills',
+};
+
+import { useTheme } from '../../context/ThemeContext';
+
 const CategoryChart: React.FC<CategoryChartProps> = ({ data }) => {
+    const { t } = useLanguage();
+    const { theme } = useTheme();
+    const isDark = theme === 'dark';
+
     const chartData = data.map(item => ({
-        name: item.category,
+        name: t.filters[categoryKeyMap[item.category]] || item.category,
         value: item.total,
         color: COLORS[item.category] || '#6b7280',
     }));
@@ -40,10 +57,11 @@ const CategoryChart: React.FC<CategoryChartProps> = ({ data }) => {
                     </Pie>
                     <Tooltip
                         contentStyle={{
-                            backgroundColor: 'white',
-                            border: '1px solid #e5e7eb',
+                            backgroundColor: isDark ? '#1e293b' : '#ffffff',
+                            border: `1px solid ${isDark ? '#374151' : '#e5e7eb'}`,
                             borderRadius: '8px',
                             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                            color: isDark ? '#f9fafb' : '#111827',
                         }}
                         formatter={(value: number) => `€${value.toFixed(2)}`}
                     />

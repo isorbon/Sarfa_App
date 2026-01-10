@@ -13,7 +13,11 @@ interface Card {
   user_id: number;
 }
 
+import LanguageSwitcher from '../components/LanguageSwitcher';
+import { useLanguage } from '../context/LanguageContext';
+
 const Cards: React.FC = () => {
+  const { t } = useLanguage();
   const [cards, setCards] = useState<Card[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -88,11 +92,12 @@ const Cards: React.FC = () => {
         <header className="cards-header">
           <div className="header-greeting">
             <h1>
-              <span className="gradient-text">Cards</span>
+              <span className="gradient-text">{t.common.cards}</span>
             </h1>
-            <p>Manage your credit and debit cards</p>
+            <p>{t.common.manageCards}</p>
           </div>
           <div className="header-actions">
+            <LanguageSwitcher />
             <ThemeToggle />
             <UserMenu />
           </div>
@@ -103,13 +108,13 @@ const Cards: React.FC = () => {
             {loading ? (
               <div className="loading-state">
                 <div className="spinner" />
-                <p>Loading cards...</p>
+                <p>{t.common.loading}</p>
               </div>
             ) : cards.length === 0 ? (
               <div className="empty-state">
                 <CreditCard size={48} />
-                <p>No cards added yet</p>
-                <p className="empty-subtitle">Add your first card to track expenses</p>
+                <p>{t.cards.noCards}</p>
+                <p className="empty-subtitle">{t.cards.addFirstCard}</p>
               </div>
             ) : (
               cards.map((card) => (
@@ -125,14 +130,14 @@ const Cards: React.FC = () => {
                     <button
                       className="btn-icon"
                       onClick={() => handleEdit(card)}
-                      title="Edit card"
+                      title={t.modals.editCardTitle}
                     >
                       <Edit size={18} />
                     </button>
                     <button
                       className="btn-icon danger"
                       onClick={() => handleDelete(card.id)}
-                      title="Delete card"
+                      title={t.cards.deleteTitle}
                     >
                       <Trash2 size={18} />
                     </button>
@@ -152,7 +157,7 @@ const Cards: React.FC = () => {
           setFormData({ name: '', bank: '' });
           setIsModalOpen(true);
         }}
-        title="Add Card"
+        title={t.common.addCard}
       >
         <Plus size={24} />
       </button>
@@ -163,7 +168,7 @@ const Cards: React.FC = () => {
           <div className="modal-backdrop" onClick={() => setIsModalOpen(false)} />
           <div className="modal">
             <div className="modal-header">
-              <h2>{editingCard ? 'Edit Card' : 'Add New Card'}</h2>
+              <h2>{editingCard ? t.modals.editCardTitle : t.modals.addCardTitle}</h2>
               <button className="modal-close" onClick={() => setIsModalOpen(false)}>
                 ×
               </button>
@@ -172,13 +177,13 @@ const Cards: React.FC = () => {
             <form onSubmit={handleSubmit} className="modal-form">
               <div className="form-group">
                 <label htmlFor="card-name" className="form-label">
-                  Card Name *
+                  {t.cards.cardName} *
                 </label>
                 <input
                   id="card-name"
                   type="text"
                   className="form-input"
-                  placeholder="e.g., Visa Gold"
+                  placeholder={t.cards.namePlaceholder}
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   required
@@ -187,13 +192,13 @@ const Cards: React.FC = () => {
 
               <div className="form-group">
                 <label htmlFor="bank" className="form-label">
-                  Bank *
+                  {t.cards.bank} *
                 </label>
                 <input
                   id="bank"
                   type="text"
                   className="form-input"
-                  placeholder="e.g., Chase Bank"
+                  placeholder={t.cards.bankPlaceholder}
                   value={formData.bank}
                   onChange={(e) => setFormData({ ...formData, bank: e.target.value })}
                   required
@@ -202,10 +207,10 @@ const Cards: React.FC = () => {
 
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" onClick={() => setIsModalOpen(false)}>
-                  Cancel
+                  {t.common.cancel}
                 </button>
                 <button type="submit" className="btn btn-primary">
-                  {editingCard ? 'Update Card' : 'Add Card'}
+                  {editingCard ? t.common.save : t.common.addCard}
                 </button>
               </div>
             </form>
@@ -220,9 +225,10 @@ const Cards: React.FC = () => {
           setCardToDelete(null);
         }}
         onConfirm={confirmDelete}
-        title="Delete Card"
-        message="Are you sure you want to delete this card? This action cannot be undone."
-        confirmText="Delete"
+        title={t.cards.deleteTitle}
+        message={t.cards.deleteMessage}
+        confirmText={t.common.delete}
+        cancelText={t.common.cancel}
         type="danger"
       />
 
