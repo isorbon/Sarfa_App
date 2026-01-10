@@ -780,3 +780,23 @@ a:hover {
 .fab:active {
   transform: scale(0.95);
 }
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  .fab {
+    bottom: 88px; /* Above mobile nav bar */
+    right: 16px;
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Hide desktop-only header actions on mobile */
+  .desktop-header .header-actions {
+    display: none;
+  }
+
+  /* Add padding to containers for better mobile spacing */
+  .dashboard-content {
+    padding: var(--space-4);
+  }
+}

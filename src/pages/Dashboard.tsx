@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Plus, Filter, TrendingUp, TrendingDown, Wallet, BarChart3 } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import AddExpenseModal from '../components/AddExpenseModal';
 import MonthlyChart from '../components/Charts/MonthlyChart';
 import CategoryChart from '../components/Charts/CategoryChart';
@@ -60,11 +60,9 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <div className="dashboard">
-      <Sidebar />
-
+    <Layout>
       <main className="dashboard-main">
-        <header className="dashboard-header">
+        <header className="dashboard-header desktop-header">
           <div className="header-greeting">
             <h1>
               <span className="gradient-text">{t.common.welcomeBack}, {user?.name?.split(' ')[0] || 'User'}</span>{' '}
@@ -811,9 +809,13 @@ const Dashboard: React.FC = () => {
           .header-time {
             display: none;
           }
+
+          .desktop-header {
+            display: none !important;
+          }
         }
       `}</style>
-    </div>
+    </Layout>
   );
 };
 
