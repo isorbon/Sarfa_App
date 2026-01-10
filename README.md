@@ -340,10 +340,6 @@ Created with ❤️ for managing personal and family expenses.
 - Charts by [Recharts](https://recharts.org/)
 - Font by [Google Fonts (Inter)](https://fonts.google.com/specimen/Inter)
 
-## 📞 Support
-
-For support, email support@sarfa.example or open an issue on GitHub.
-
 ---
 
 **Happy Expense Tracking! 💰📊**
