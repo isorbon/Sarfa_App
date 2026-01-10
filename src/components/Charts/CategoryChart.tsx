@@ -1,6 +1,8 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
+import { useLanguage } from '../../context/LanguageContext';
+
 interface CategoryChartProps {
     data: Array<{ category: string; total: number }>;
 }
@@ -14,9 +16,20 @@ const COLORS: Record<string, string> = {
     'Bill & Subscription': '#06b6d4',
 };
 
+const categoryKeyMap: Record<string, keyof import('../../locales/types').Translation['filters']> = {
+    'Food & Grocery': 'foodGrocery',
+    'Investment': 'investment',
+    'Shopping': 'shopping',
+    'Travelling': 'travelling',
+    'Miscellaneous': 'miscellaneous',
+    'Bill & Subscription': 'bills',
+};
+
 const CategoryChart: React.FC<CategoryChartProps> = ({ data }) => {
+    const { t } = useLanguage();
+
     const chartData = data.map(item => ({
-        name: item.category,
+        name: t.filters[categoryKeyMap[item.category]] || item.category,
         value: item.total,
         color: COLORS[item.category] || '#6b7280',
     }));

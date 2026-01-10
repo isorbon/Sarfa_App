@@ -99,16 +99,16 @@ const BillsSubscription: React.FC = () => {
     const now = new Date();
     const daysUntil = Math.ceil((billDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 
-    if (daysUntil < 0) return { label: 'Overdue', color: 'error', icon: AlertCircle };
-    if (daysUntil <= 7) return { label: 'Due Soon', color: 'warning', icon: Clock };
-    return { label: 'Active', color: 'success', icon: CheckCircle };
+    if (daysUntil < 0) return { label: t.bills.statusOverdue, color: 'error', icon: AlertCircle };
+    if (daysUntil <= 7) return { label: t.bills.statusDueSoon, color: 'warning', icon: Clock };
+    return { label: t.bills.statusActive, color: 'success', icon: CheckCircle };
   };
 
   if (loading) {
     return (
       <div className="dashboard-loading">
         <div className="spinner" />
-        <p>Loading bills...</p>
+        <p>{t.common.loading}</p>
       </div>
     );
   }
@@ -123,7 +123,7 @@ const BillsSubscription: React.FC = () => {
             <h1>
               <span className="gradient-text">{t.common.billsSubscription}</span>
             </h1>
-            <p>Manage all your recurring expenses and subscriptions</p>
+            <p>{t.dashboard.subtitle}</p>
           </div>
 
           <div className="header-actions">
@@ -141,10 +141,10 @@ const BillsSubscription: React.FC = () => {
                 <TrendingUp size={32} />
               </div>
               <div className="stat-content">
-                <span className="stat-label">Total Monthly Bills</span>
+                <span className="stat-label">{t.bills.totalMonthly}</span>
                 <div className="stat-amount">{formatPrice(stats?.totalMonthly || 0)}</div>
                 <div className="stat-footer">
-                  <span className="stat-trend">+2.5% from last month</span>
+                  <span className="stat-trend">{t.bills.trendMonthly}</span>
                 </div>
               </div>
             </div>
@@ -154,10 +154,10 @@ const BillsSubscription: React.FC = () => {
                 <Calendar size={32} />
               </div>
               <div className="stat-content">
-                <span className="stat-label">Upcoming Bills</span>
+                <span className="stat-label">{t.bills.upcoming}</span>
                 <div className="stat-amount">{stats?.upcomingCount || 0}</div>
                 <div className="stat-footer">
-                  <span className="stat-trend">Due in next 7 days</span>
+                  <span className="stat-trend">{t.bills.trendUpcoming}</span>
                 </div>
               </div>
             </div>
@@ -167,10 +167,10 @@ const BillsSubscription: React.FC = () => {
                 <AlertCircle size={32} />
               </div>
               <div className="stat-content">
-                <span className="stat-label">Overdue Bills</span>
+                <span className="stat-label">{t.bills.overdue}</span>
                 <div className="stat-amount">{stats?.overdueCount || 0}</div>
                 <div className="stat-footer">
-                  <span className="stat-trend">Requires attention</span>
+                  <span className="stat-trend">{t.bills.trendOverdue}</span>
                 </div>
               </div>
             </div>
@@ -180,10 +180,10 @@ const BillsSubscription: React.FC = () => {
                 <CheckCircle size={32} />
               </div>
               <div className="stat-content">
-                <span className="stat-label">Total Bills</span>
+                <span className="stat-label">{t.bills.total}</span>
                 <div className="stat-amount">{stats?.totalBills || 0}</div>
                 <div className="stat-footer">
-                  <span className="stat-trend">All subscriptions</span>
+                  <span className="stat-trend">{t.bills.trendTotal}</span>
                 </div>
               </div>
             </div>
@@ -195,7 +195,7 @@ const BillsSubscription: React.FC = () => {
               <Search size={20} />
               <input
                 type="text"
-                placeholder="Search bills, subscriptions..."
+                placeholder={t.common.searchPlaceholder}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -207,13 +207,13 @@ const BillsSubscription: React.FC = () => {
                 value={filterPeriod}
                 onChange={(e) => setFilterPeriod(e.target.value as any)}
               >
-                <option value="all">All Time</option>
-                <option value="month">This Month</option>
-                <option value="year">This Year</option>
+                <option value="all">{t.bills.allTime}</option>
+                <option value="month">{t.dashboard.periods.month}</option>
+                <option value="year">{t.dashboard.periods.year}</option>
               </select>
               <button className="filter-btn">
                 <Filter size={18} />
-                <span>More Filters</span>
+                <span>{t.bills.moreFilters}</span>
               </button>
             </div>
           </div>
@@ -223,11 +223,11 @@ const BillsSubscription: React.FC = () => {
             {bills.length === 0 ? (
               <div className="empty-state">
                 <div className="empty-icon">📋</div>
-                <h3>No Bills Found</h3>
+                <h3>{t.expenses.noExpenses}</h3>
                 <p>Add your first bill or subscription to get started</p>
                 <button className="btn-primary" onClick={() => { setSelectedBill(null); setIsModalOpen(true); }}>
                   <Plus size={20} />
-                  <span>Add Bill</span>
+                  <span>{t.common.addExpense}</span>
                 </button>
               </div>
             ) : (
@@ -254,11 +254,11 @@ const BillsSubscription: React.FC = () => {
 
                       <div className="bill-details">
                         <div className="detail-item">
-                          <span className="detail-label">Amount</span>
+                          <span className="detail-label">{t.expenses.amount}</span>
                           <span className="detail-value">{formatPrice(bill.amount)}</span>
                         </div>
                         <div className="detail-item">
-                          <span className="detail-label">Due Date</span>
+                          <span className="detail-label">{t.expenses.date}</span>
                           <span className="detail-value">
                             {new Date(bill.date).toLocaleDateString('en-GB', {
                               day: 'numeric',
@@ -268,15 +268,15 @@ const BillsSubscription: React.FC = () => {
                           </span>
                         </div>
                         <div className="detail-item">
-                          <span className="detail-label">Payment Mode</span>
+                          <span className="detail-label">{t.expenses.paymentMode}</span>
                           <span className="detail-value mode-badge">{bill.mode}</span>
                         </div>
                       </div>
                     </div>
 
                     <div className="bill-footer">
-                      <button className="btn-action" onClick={() => handleEdit(bill)}>Edit</button>
-                      <button className="btn-action danger" onClick={() => handleDelete(bill.id)}>Delete</button>
+                      <button className="btn-action" onClick={() => handleEdit(bill)}>{t.common.edit}</button>
+                      <button className="btn-action danger" onClick={() => handleDelete(bill.id)}>{t.common.delete}</button>
                     </div>
                   </div>
                 );

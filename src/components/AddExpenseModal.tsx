@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import IconPicker from './IconPicker';
 import { cardsAPI } from '../services/api';
+import { useLanguage } from '../context/LanguageContext';
 import type { Expense } from '../types';
 
 interface AddExpenseModalProps {
@@ -20,6 +21,7 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
     expense,
     defaultCategory = 'Food & Grocery',
 }) => {
+    const { t } = useLanguage();
     const [formData, setFormData] = useState({
         amount: '',
         category: defaultCategory,
@@ -99,7 +101,7 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
             <div className="modal-backdrop" onClick={onClose} />
             <div className="modal">
                 <div className="modal-header">
-                    <h2>{expense ? 'Edit Expense' : 'Add New Expense'}</h2>
+                    <h2>{expense ? t.modals.editExpenseTitle : t.modals.addExpenseTitle}</h2>
                     <button className="modal-close" onClick={onClose}>
                         <X size={24} />
                     </button>
@@ -113,7 +115,7 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                     <div className="form-row">
                         <div className="form-group">
                             <label htmlFor="amount" className="form-label">
-                                Amount (EUR) *
+                                {t.expenses.amount} (EUR) *
                             </label>
                             <input
                                 id="amount"
@@ -130,7 +132,7 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
 
                         <div className="form-group">
                             <label htmlFor="date" className="form-label">
-                                Date *
+                                {t.expenses.date} *
                             </label>
                             <input
                                 id="date"
@@ -146,7 +148,7 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                     <div className="form-row">
                         <div className="form-group">
                             <label htmlFor="category" className="form-label">
-                                Category *
+                                {t.expenses.category} *
                             </label>
                             <select
                                 id="category"
@@ -155,18 +157,18 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                                 required
                             >
-                                <option value="Food & Grocery">Food & Grocery</option>
-                                <option value="Investment">Investment</option>
-                                <option value="Shopping">Shopping</option>
-                                <option value="Travelling">Travelling</option>
-                                <option value="Miscellaneous">Miscellaneous</option>
-                                <option value="Bill & Subscription">Bill & Subscription</option>
+                                <option value="Food & Grocery">{t.filters.foodGrocery}</option>
+                                <option value="Investment">{t.filters.investment}</option>
+                                <option value="Shopping">{t.filters.shopping}</option>
+                                <option value="Travelling">{t.filters.travelling}</option>
+                                <option value="Miscellaneous">{t.filters.miscellaneous}</option>
+                                <option value="Bill & Subscription">{t.filters.bills}</option>
                             </select>
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="sub_category" className="form-label">
-                                Sub Category
+                                {t.expenses.subCategory}
                             </label>
                             <input
                                 id="sub_category"
@@ -181,7 +183,7 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
 
                     <div className="form-group">
                         <label className="form-label">
-                            Icon
+                            {t.expenses.icon}
                         </label>
                         <IconPicker
                             value={formData.icon}
@@ -191,7 +193,7 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
 
                     <div className="form-group">
                         <label htmlFor="description" className="form-label">
-                            Description
+                            {t.expenses.description}
                         </label>
                         <textarea
                             id="description"
@@ -205,7 +207,7 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
 
                     <div className="form-group">
                         <label htmlFor="mode" className="form-label">
-                            Payment Mode *
+                            {t.expenses.paymentMode} *
                         </label>
                         <select
                             id="mode"
@@ -214,11 +216,11 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                             onChange={(e) => setFormData({ ...formData, mode: e.target.value })}
                             required
                         >
-                            <option value="Cash">Cash</option>
-                            <option value="Credit Card">Credit Card</option>
-                            <option value="Bank Transfer">Bank Transfer</option>
-                            <option value="Digital Wallet">Digital Wallet</option>
-                            <option value="Other">Other</option>
+                            <option value="Cash">{t.expenses.paymentModeCash}</option>
+                            <option value="Credit Card">{t.expenses.paymentModeCard}</option>
+                            <option value="Bank Transfer">{t.expenses.paymentModeBank}</option>
+                            <option value="Digital Wallet">{t.expenses.paymentModeWallet}</option>
+                            <option value="Other">{t.expenses.paymentModeOther}</option>
                         </select>
                     </div>
 
@@ -229,7 +231,7 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                             </label>
                             {cards.length === 0 ? (
                                 <div className="no-cards-message">
-                                    <p>No cards available. Please add a card from the Cards page first.</p>
+                                    <p>{t.cards.noCardsAvailable}</p>
                                 </div>
                             ) : (
                                 <select
@@ -239,7 +241,7 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                                     onChange={(e) => setFormData({ ...formData, card_id: e.target.value })}
                                     required
                                 >
-                                    <option value="">Select a card</option>
+                                    <option value="">{t.cards.selectCard}</option>
                                     {cards.map((card: any) => (
                                         <option key={card.id} value={card.id}>
                                             {card.name} - {card.bank}
@@ -252,10 +254,10 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
 
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" onClick={onClose}>
-                            Cancel
+                            {t.common.cancel}
                         </button>
                         <button type="submit" className="btn btn-primary" disabled={loading}>
-                            {loading ? 'Saving...' : expense ? 'Update Expense' : 'Add Expense'}
+                            {loading ? t.modals.saving : expense ? t.common.save : t.common.addExpense}
                         </button>
                     </div>
                 </form>

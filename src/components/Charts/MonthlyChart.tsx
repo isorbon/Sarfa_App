@@ -1,11 +1,25 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
+import { useLanguage } from '../../context/LanguageContext';
+
 interface MonthlyChartProps {
     data: Array<{ label: string; total: number }>;
 }
 
 const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
+    const { t, language } = useLanguage();
+
+    const formatMonth = (label: string) => {
+        try {
+            const date = new Date(`${label} 1, 2024`);
+            if (isNaN(date.getTime())) return label;
+            return new Intl.DateTimeFormat(language, { month: 'short' }).format(date);
+        } catch {
+            return label;
+        }
+    };
+
     return (
         <ResponsiveContainer width="100%" height={300}>
             <BarChart data={data}>
@@ -15,6 +29,7 @@ const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
                     axisLine={false}
                     tickLine={false}
                     tick={{ fill: '#6b7280', fontSize: 12 }}
+                    tickFormatter={(value) => formatMonth(value)}
                 />
                 <YAxis
                     axisLine={false}
@@ -29,7 +44,8 @@ const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
                         borderRadius: '8px',
                         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                     }}
-                    formatter={(value: number) => [`€${value.toFixed(2)}`, 'Amount']}
+                    formatter={(value: number) => [`€${value.toFixed(2)}`, t.expenses.amount]}
+                    labelFormatter={(label) => formatMonth(label)}
                     labelStyle={{ color: '#111827', fontWeight: 600 }}
                 />
                 <Bar

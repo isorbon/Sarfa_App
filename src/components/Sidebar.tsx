@@ -37,12 +37,12 @@ const Sidebar: React.FC = () => {
           <img src="/logo.png" alt="Sarfa" style={{ width: '40px', height: '40px' }} />
           <span className="sidebar-logo-text">SARFA</span>
         </div>
-        <p className="sidebar-tagline">Track your all expenses and transactions</p>
+        <p className="sidebar-tagline">{t.common.trackTagline}</p>
       </div>
 
       <nav className="sidebar-nav">
         <div className="sidebar-section">
-          <h3 className="sidebar-section-title">General</h3>
+          <h3 className="sidebar-section-title">{t.common.general}</h3>
           {navItems.map((item) => (
             <Link
               key={item.path}
@@ -56,7 +56,7 @@ const Sidebar: React.FC = () => {
         </div>
 
         <div className="sidebar-section">
-          <h3 className="sidebar-section-title">Tools</h3>
+          <h3 className="sidebar-section-title">{t.common.tools}</h3>
           {toolItems.map((item) => (
             <Link
               key={item.path}

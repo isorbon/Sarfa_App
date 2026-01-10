@@ -69,7 +69,7 @@ const Dashboard: React.FC = () => {
               <span className="gradient-text">{t.common.welcomeBack}, {user?.name?.split(' ')[0] || 'User'}</span>{' '}
               <span className="emoji">👋</span>
             </h1>
-            <p>{t.common.manageCards.replace('cards', 'expenses')}</p>
+            <p>{t.dashboard.subtitle}</p>
             {/* Using a makeshift translation for now or fixed text if not in dictionary exactly */}
             {/* actually I should update the dictionary or just use a placeholder for subtitle as I didn't add it specifically */}
             {/* Let's stick closer to existing text or use what I have. t.common.expensesList might not fit exactly. */}
@@ -130,7 +130,7 @@ const Dashboard: React.FC = () => {
                 <div className="stat-icon-wrapper icon-wrapper-purple">
                   <TrendingUp size={24} />
                 </div>
-                <h3 className="stat-title">Total Investment</h3>
+                <h3 className="stat-title">{t.dashboard.totalInvestment}</h3>
               </div>
               <div className="stat-amount">{formatPrice(stats?.totalInvestment || 0)}</div>
               <div className="stat-chart">
@@ -151,14 +151,14 @@ const Dashboard: React.FC = () => {
               </div>
               <div className="stat-trend positive">
                 <TrendingUp size={14} />
-                <span>Invest Amount {formatPrice(100000)}</span>
+                <span>{t.dashboard.investAmount} {formatPrice(100000)}</span>
               </div>
             </div>
 
             <div className="stat-card">
               <div className="stat-header">
                 <span className="stat-icon">🎯</span>
-                <span className="stat-label">Goal</span>
+                <span className="stat-label">{t.common.goals}</span>
               </div>
               <div className="goal-content">
                 <div className="goal-circle">
@@ -185,8 +185,8 @@ const Dashboard: React.FC = () => {
                 </div>
                 <div className="goal-info">
                   <div className="goal-name">{stats?.goal.name}</div>
-                  <div className="goal-required">Required {formatPrice(stats?.goal.required || 0)}</div>
-                  <div className="goal-collected">Collect: {formatPrice(stats?.goal.collected || 0)}</div>
+                  <div className="goal-required">{t.dashboard.required} {formatPrice(stats?.goal.required || 0)}</div>
+                  <div className="goal-collected">{t.dashboard.collected} {formatPrice(stats?.goal.collected || 0)}</div>
                 </div>
               </div>
             </div>
@@ -198,20 +198,20 @@ const Dashboard: React.FC = () => {
               <div className="card-header">
                 <div className="card-title">
                   <span className="card-icon">📊</span>
-                  <span>Monthly Expenses</span>
+                  <span>{t.common.monthlyExpenses}</span>
                 </div>
                 <div className="card-actions">
-                  <span className="trend-badge positive">6% more than last month</span>
+                  <span className="trend-badge positive">6% {t.dashboard.moreThanLastMonth}</span>
                   <select
                     className="period-select"
                     value={monthlyPeriod}
                     onChange={(e) => setMonthlyPeriod(e.target.value as any)}
                   >
-                    <option value="3months">3 Months</option>
-                    <option value="6months">6 Months</option>
-                    <option value="month">Month</option>
-                    <option value="year">Year</option>
-                    <option value="lastYear">Last Year</option>
+                    <option value="3months">{t.dashboard.periods.m3}</option>
+                    <option value="6months">{t.dashboard.periods.m6}</option>
+                    <option value="month">{t.dashboard.periods.month}</option>
+                    <option value="year">{t.dashboard.periods.year}</option>
+                    <option value="lastYear">{t.dashboard.periods.lastYear}</option>
                   </select>
                 </div>
               </div>
@@ -222,18 +222,18 @@ const Dashboard: React.FC = () => {
               <div className="card-header">
                 <div className="card-title">
                   <span className="card-icon">🥧</span>
-                  <span>Top Category</span>
+                  <span>{t.dashboard.topCategory}</span>
                 </div>
                 <select
                   className="period-select"
                   value={categoryPeriod}
                   onChange={(e) => setCategoryPeriod(e.target.value as any)}
                 >
-                  <option value="3months">3 Months</option>
-                  <option value="6months">6 Months</option>
-                  <option value="month">Month</option>
-                  <option value="year">Year</option>
-                  <option value="lastYear">Last Year</option>
+                  <option value="3months">{t.dashboard.periods.m3}</option>
+                  <option value="6months">{t.dashboard.periods.m6}</option>
+                  <option value="month">{t.dashboard.periods.month}</option>
+                  <option value="year">{t.dashboard.periods.year}</option>
+                  <option value="lastYear">{t.dashboard.periods.lastYear}</option>
                 </select>
               </div>
               <CategoryChart data={stats?.categoryBreakdown || []} />
@@ -246,7 +246,7 @@ const Dashboard: React.FC = () => {
               <div className="card-header">
                 <div className="card-title">
                   <span className="card-icon">📋</span>
-                  <span>Recent Expenses</span>
+                  <span>{t.common.expensesList}</span>
                 </div>
                 <div className="card-actions">
                   <button className="btn-icon"><Filter size={18} /></button>
@@ -260,12 +260,12 @@ const Dashboard: React.FC = () => {
                 <table>
                   <thead>
                     <tr>
-                      <th>S.N</th>
-                      <th>Amount</th>
-                      <th>Category</th>
-                      <th>Sub Category</th>
-                      <th>Date</th>
-                      <th>Mode</th>
+                      <th>#</th>
+                      <th>{t.expenses.amount}</th>
+                      <th>{t.expenses.category}</th>
+                      <th>{t.expenses.subCategory}</th>
+                      <th>{t.expenses.date}</th>
+                      <th>{t.expenses.mode}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -291,9 +291,9 @@ const Dashboard: React.FC = () => {
               <div className="card-header">
                 <div className="card-title">
                   <span className="card-icon">💳</span>
-                  <span>Bill & Subscription</span>
+                  <span>{t.common.billsSubscription}</span>
                 </div>
-                <button className="btn-text">View Details</button>
+                <button className="btn-text">{t.dashboard.viewDetails}</button>
               </div>
 
               <div className="subscription-list">
