@@ -3,14 +3,6 @@ import { languages } from '../locales/translations';
 import { useLanguage } from '../context/LanguageContext';
 import { ChevronDown } from 'lucide-react';
 
-declare global {
-  interface Window {
-    twemoji?: {
-      parse: (node: HTMLElement, options?: { folder?: string; ext?: string }) => void;
-    };
-  }
-}
-
 const LanguageSwitcher: React.FC = () => {
   const { language, setLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
@@ -31,16 +23,6 @@ const LanguageSwitcher: React.FC = () => {
     };
   }, []);
 
-  useEffect(() => {
-    // Parse emojis with Twemoji when dropdown is opened or language changes
-    if (window.twemoji && dropdownRef.current) {
-      window.twemoji.parse(dropdownRef.current, {
-        folder: 'svg',
-        ext: '.svg'
-      });
-    }
-  }, [isOpen, language]);
-
   return (
     <div className="language-switcher" ref={dropdownRef}>
       <button
@@ -48,7 +30,11 @@ const LanguageSwitcher: React.FC = () => {
         onClick={() => setIsOpen(!isOpen)}
         title="Select Language"
       >
-        <span className="language-flag">{currentLanguage.flag}</span>
+        <img
+          src={`https://flagcdn.com/w40/${currentLanguage.countryCode}.png`}
+          alt={currentLanguage.name}
+          className="language-flag-img"
+        />
         <span className="language-code">{currentLanguage.code === 'en-US' || currentLanguage.code === 'en-GB' ? 'EN' : currentLanguage.code.split('-')[0].toUpperCase()}</span>
         <ChevronDown size={14} className={`chevron ${isOpen ? 'open' : ''}`} />
       </button>
@@ -65,7 +51,11 @@ const LanguageSwitcher: React.FC = () => {
                   setIsOpen(false);
                 }}
               >
-                <span className="language-flag">{lang.flag}</span>
+                <img
+                  src={`https://flagcdn.com/w40/${lang.countryCode}.png`}
+                  alt={lang.name}
+                  className="language-flag-img"
+                />
                 <span className="language-name">{lang.name}</span>
               </button>
             );
@@ -99,10 +89,11 @@ const LanguageSwitcher: React.FC = () => {
           border-color: var(--color-primary-500);
         }
 
-        .language-flag {
-          font-size: 1.2rem;
-          line-height: 1;
-          font-family: "Twemoji Country Flags", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+        .language-flag-img {
+          width: 20px;
+          height: auto;
+          border-radius: 2px;
+          box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
         
         .language-code {
