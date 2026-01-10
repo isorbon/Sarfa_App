@@ -12,6 +12,7 @@ const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
 
     const formatMonth = (label: string) => {
         const monthMap: Record<string, keyof typeof t.months.short> = {
+            // Full month names
             'January': 'jan',
             'February': 'feb',
             'March': 'mar',
@@ -24,6 +25,18 @@ const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
             'October': 'oct',
             'November': 'nov',
             'December': 'dec',
+            // Abbreviated month names
+            'Jan': 'jan',
+            'Feb': 'feb',
+            'Mar': 'mar',
+            'Apr': 'apr',
+            'Jun': 'jun',
+            'Jul': 'jul',
+            'Aug': 'aug',
+            'Sep': 'sep',
+            'Oct': 'oct',
+            'Nov': 'nov',
+            'Dec': 'dec',
         };
 
         const monthKey = monthMap[label];
