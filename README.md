@@ -3,7 +3,7 @@
 A modern, full-stack expense tracking web application built with React + TypeScript and Node.js + SQLite.
 
 ![Expensify Dashboard](https://img.shields.io/badge/Status-Production%20Ready-success)
-![Version](https://img.shields.io/badge/Version-1.1.0-blue)
+![Version](https://img.shields.io/badge/Version-1.2.0-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ## 🌟 Features
@@ -17,6 +17,33 @@ A modern, full-stack expense tracking web application built with React + TypeScr
 - 📱 **Fully Responsive** - Works seamlessly on desktop, tablet, and mobile
 - 👨‍👩‍👧‍👦 **Family Support** - Multiple user accounts for family members
 - ☁️ **Remote Hosting Ready** - Easy deployment to any cloud platform
+
+## 🆕 What's New in v1.2.0
+
+- **Cards Management System**:
+  - Dedicated Cards page for managing credit/debit cards
+  - Add, edit, and delete cards with name and bank information
+  - Link expenses to specific cards when using Credit Card payment mode
+  - Card selection dropdown in expense form (visible when Credit Card is selected)
+- **Enhanced UX/UI**:
+  - Consistent purple gradient headers across all pages
+  - Theme toggle moved to page headers for easier access
+  - Removed redundant time/date display from headers
+  - Floating Action Button (FAB) added to All Expenses and Cards pages
+  - Cash set as default payment mode for better workflow
+- **Modal Improvements**:
+  - Fixed modal z-index conflicts for better layering
+  - Centered modals with proper backdrop
+  - Confirmation modals for destructive actions (delete cards)
+  - Dark mode compatibility for all modals and components
+- **Navigation Updates**:
+  - Cards menu item moved before Investment in sidebar
+  - Updated payment mode options (removed UPI, added Digital Wallet and Other)
+- **Backend Enhancements**:
+  - New cards table with user-specific card storage
+  - Added card_id foreign key to expenses table
+  - Complete CRUD API for cards management
+  - Enhanced expense endpoints to support card linking
 
 ## 🆕 What's New in v1.1.0
 

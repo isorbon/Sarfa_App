@@ -263,15 +263,15 @@ app.get('/api/expenses', authenticateToken, async (req, res) => {
 
 app.post('/api/expenses', authenticateToken, async (req, res) => {
     try {
-        const { amount, category, sub_category, description, icon, date, mode } = req.body;
+        const { amount, category, sub_category, description, icon, date, mode, card_id } = req.body;
 
         if (!amount || !category || !date || !mode) {
             return res.status(400).json({ error: 'Amount, category, date, and mode are required' });
         }
 
         const result = await dbRun(
-            'INSERT INTO expenses (user_id, amount, category, sub_category, description, icon, date, mode) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-            [req.user.id, amount, category, sub_category, description, icon || 'ShoppingCart', date, mode]
+            'INSERT INTO expenses (user_id, amount, category, sub_category, description, icon, date, mode, card_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [req.user.id, amount, category, sub_category, description, icon || 'ShoppingCart', date, mode, card_id || null]
         );
 
         const newExpense = await dbGet('SELECT * FROM expenses WHERE id = ?', [result.lastID]);
@@ -285,7 +285,7 @@ app.post('/api/expenses', authenticateToken, async (req, res) => {
 app.put('/api/expenses/:id', authenticateToken, async (req, res) => {
     try {
         const { id } = req.params;
-        const { amount, category, sub_category, description, icon, date, mode } = req.body;
+        const { amount, category, sub_category, description, icon, date, mode, card_id } = req.body;
 
         // Verify expense belongs to user
         const expense = await dbGet('SELECT * FROM expenses WHERE id = ? AND user_id = ?', [id, req.user.id]);
@@ -294,8 +294,8 @@ app.put('/api/expenses/:id', authenticateToken, async (req, res) => {
         }
 
         await dbRun(
-            'UPDATE expenses SET amount = ?, category = ?, sub_category = ?, description = ?, icon = ?, date = ?, mode = ? WHERE id = ?',
-            [amount, category, sub_category, description, icon, date, mode, id]
+            'UPDATE expenses SET amount = ?, category = ?, sub_category = ?, description = ?, icon = ?, date = ?, mode = ?, card_id = ? WHERE id = ?',
+            [amount, category, sub_category, description, icon, date, mode, card_id || null, id]
         );
 
         const updatedExpense = await dbGet('SELECT * FROM expenses WHERE id = ?', [id]);
@@ -555,6 +555,93 @@ app.get('/api/bills', authenticateToken, async (req, res) => {
         console.error('Error fetching bills:', error);
         res.status(500).json({ error: 'Server error' });
     }
+});
+
+// Cards Routes
+// Get all cards for authenticated user
+app.get('/api/cards', authenticateToken, (req, res) => {
+    db.all(
+        'SELECT * FROM cards WHERE user_id = ? ORDER BY created_at DESC',
+        [req.user.id],
+        (err, cards) => {
+            if (err) {
+                console.error('Error fetching cards:', err);
+                return res.status(500).json({ error: 'Server error' });
+            }
+            res.json(cards);
+        }
+    );
+});
+
+// Create new card
+app.post('/api/cards', authenticateToken, (req, res) => {
+    const { name, bank } = req.body;
+
+    if (!name || !bank) {
+        return res.status(400).json({ error: 'Card name and bank are required' });
+    }
+
+    db.run(
+        'INSERT INTO cards (user_id, name, bank) VALUES (?, ?, ?)',
+        [req.user.id, name, bank],
+        function (err) {
+            if (err) {
+                console.error('Error creating card:', err);
+                return res.status(500).json({ error: 'Server error' });
+            }
+            res.status(201).json({
+                id: this.lastID,
+                user_id: req.user.id,
+                name,
+                bank
+            });
+        }
+    );
+});
+
+// Update card
+app.put('/api/cards/:id', authenticateToken, (req, res) => {
+    const { id } = req.params;
+    const { name, bank } = req.body;
+
+    if (!name || !bank) {
+        return res.status(400).json({ error: 'Card name and bank are required' });
+    }
+
+    db.run(
+        'UPDATE cards SET name = ?, bank = ? WHERE id = ? AND user_id = ?',
+        [name, bank, id, req.user.id],
+        function (err) {
+            if (err) {
+                console.error('Error updating card:', err);
+                return res.status(500).json({ error: 'Server error' });
+            }
+            if (this.changes === 0) {
+                return res.status(404).json({ error: 'Card not found' });
+            }
+            res.json({ id: parseInt(id), name, bank });
+        }
+    );
+});
+
+// Delete card
+app.delete('/api/cards/:id', authenticateToken, (req, res) => {
+    const { id } = req.params;
+
+    db.run(
+        'DELETE FROM cards WHERE id = ? AND user_id = ?',
+        [id, req.user.id],
+        function (err) {
+            if (err) {
+                console.error('Error deleting card:', err);
+                return res.status(500).json({ error: 'Server error' });
+            }
+            if (this.changes === 0) {
+                return res.status(404).json({ error: 'Card not found' });
+            }
+            res.json({ message: 'Card deleted successfully' });
+        }
+    );
 });
 
 // Start server

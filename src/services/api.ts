@@ -96,4 +96,23 @@ export const dashboardAPI = {
     },
 };
 
+//Cards API
+export const cardsAPI = {
+    getAll: async (): Promise<any[]> => {
+        const response = await api.get('/cards');
+        return response.data;
+    },
+    create: async (data: { name: string; bank: string }): Promise<any> => {
+        const response = await api.post('/cards', data);
+        return response.data;
+    },
+    update: async (id: number, data: { name: string; bank: string }): Promise<any> => {
+        const response = await api.put(`/cards/${id}`, data);
+        return response.data;
+    },
+    delete: async (id: number): Promise<void> => {
+        await api.delete(`/cards/${id}`);
+    },
+};
+
 export default api;

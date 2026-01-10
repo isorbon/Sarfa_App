@@ -686,3 +686,97 @@ a:hover {
   background-color: rgba(124, 58, 237, 0.2);
   color: #a78bfa;
 }
+
+/* Theme Toggle Styles */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.2s;
+}
+
+.theme-toggle:hover {
+  opacity: 0.8;
+}
+
+
+.toggle-track {
+  width: 56px;
+  height: 28px;
+  background-color: var(--color-gray-200);
+  border-radius: 14px;
+  position: relative;
+  transition: background-color 0.2s;
+  border: 1px solid var(--color-gray-300);
+}
+
+.theme-toggle.dark .toggle-track {
+  background-color: var(--color-primary-600);
+  border-color: var(--color-primary-600);
+}
+
+.toggle-thumb {
+  width: 22px;
+  height: 22px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-600);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.theme-toggle.dark .toggle-thumb {
+  transform: translateX(28px);
+  color: var(--color-primary-600);
+}
+
+.toggle-label {
+  display: none;
+  /* Hide label on mobile/compact headers if needed, or show it */
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .toggle-label {
+    display: block;
+  }
+}
+
+/* Floating Action Button */
+.fab {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary-600), var(--color-blue-500));
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+  transition: all 0.3s ease;
+  z-index: var(--z-fixed);
+}
+
+.fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+}
+
+.fab:active {
+  transform: scale(0.95);
+}

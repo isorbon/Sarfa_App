@@ -16,8 +16,8 @@ const Sidebar: React.FC = () => {
     { path: '/', label: 'Dashboard', icon: LayoutDashboard, group: 'general' },
     { path: '/expenses', label: 'All Expenses', icon: Receipt, group: 'general' },
     { path: '/bills', label: 'Bill & Subscription', icon: CreditCard, group: 'general' },
+    { path: '/cards', label: 'Cards', icon: Wallet, group: 'general' },
     { path: '/investment', label: 'Investment', icon: TrendingUp, group: 'general' },
-    { path: '/card', label: 'Card', icon: Wallet, group: 'general' },
     { path: '/goals', label: 'Goals', icon: Target, group: 'general' },
   ];
 

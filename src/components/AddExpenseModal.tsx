@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import IconPicker from './IconPicker';
+import { cardsAPI } from '../services/api';
 import type { Expense } from '../types';
 
 interface AddExpenseModalProps {
@@ -26,10 +27,12 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
         description: '',
         icon: 'ShoppingCart',
         date: new Date().toISOString().split('T')[0],
-        mode: 'UPI',
+        mode: 'Cash',
+        card_id: '',
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [cards, setCards] = useState<any[]>([]);
 
     useEffect(() => {
         if (expense) {
@@ -41,6 +44,7 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                 icon: expense.icon,
                 date: expense.date,
                 mode: expense.mode,
+                card_id: (expense as any).card_id || '',
             });
         } else {
             setFormData({
@@ -50,10 +54,25 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                 description: '',
                 icon: 'ShoppingCart',
                 date: new Date().toISOString().split('T')[0],
-                mode: 'UPI',
+                mode: 'Cash',
+                card_id: '',
             });
         }
     }, [expense]);
+
+    useEffect(() => {
+        const loadCards = async () => {
+            try {
+                const data = await cardsAPI.getAll();
+                setCards(data);
+            } catch (error) {
+                console.error('Error loading cards:', error);
+            }
+        };
+        if (isOpen) {
+            loadCards();
+        }
+    }, [isOpen]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -195,12 +214,41 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                             onChange={(e) => setFormData({ ...formData, mode: e.target.value })}
                             required
                         >
-                            <option value="UPI">UPI</option>
-                            <option value="Card">Card</option>
                             <option value="Cash">Cash</option>
-                            <option value="Bank">Bank Transfer</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Digital Wallet">Digital Wallet</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
+
+                    {formData.mode === 'Credit Card' && (
+                        <div className="form-group">
+                            <label htmlFor="card" className="form-label">
+                                Card {cards.length > 0 && '*'}
+                            </label>
+                            {cards.length === 0 ? (
+                                <div className="no-cards-message">
+                                    <p>No cards available. Please add a card from the Cards page first.</p>
+                                </div>
+                            ) : (
+                                <select
+                                    id="card"
+                                    className="form-select"
+                                    value={formData.card_id}
+                                    onChange={(e) => setFormData({ ...formData, card_id: e.target.value })}
+                                    required
+                                >
+                                    <option value="">Select a card</option>
+                                    {cards.map((card: any) => (
+                                        <option key={card.id} value={card.id}>
+                                            {card.name} - {card.bank}
+                                        </option>
+                                    ))}
+                                </select>
+                            )}
+                        </div>
+                    )}
 
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" onClick={onClose}>
@@ -229,7 +277,7 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
             width: 90%;
             max-width: 600px;
             max-height: 90vh;
-            background-color: white;
+            background-color: var(--color-bg-secondary);
             border-radius: var(--radius-xl);
             box-shadow: var(--shadow-2xl);
             z-index: var(--z-modal);
@@ -242,18 +290,19 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
             align-items: center;
             justify-content: space-between;
             padding: var(--space-6);
-            border-bottom: 1px solid var(--color-gray-200);
+            border-bottom: 1px solid var(--color-border);
           }
 
           .modal-header h2 {
             font-size: var(--font-size-2xl);
-            color: var(--color-gray-900);
+            color: var(--color-text-primary);
+            margin: 0;
           }
 
           .modal-close {
             background: none;
             border: none;
-            color: var(--color-gray-500);
+            color: var(--color-text-secondary);
             cursor: pointer;
             padding: var(--space-2);
             border-radius: var(--radius-md);
@@ -261,8 +310,8 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
           }
 
           .modal-close:hover {
-            background-color: var(--color-gray-100);
-            color: var(--color-gray-900);
+            background-color: var(--color-bg-tertiary);
+            color: var(--color-text-primary);
           }
 
           .error-alert {
@@ -273,6 +322,11 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
             padding: var(--space-4);
             border-radius: var(--radius-md);
             font-size: var(--font-size-sm);
+          }
+
+          .dark-mode .error-alert {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #fca5a5;
           }
 
           .modal-form {
@@ -287,13 +341,26 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
             gap: var(--space-4);
           }
 
+          .no-cards-message {
+            padding: var(--space-4);
+            background-color: var(--color-bg-tertiary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+          }
+
+          .no-cards-message p {
+            margin: 0;
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-sm);
+          }
+
           .modal-footer {
             display: flex;
             gap: var(--space-4);
             justify-content: flex-end;
             padding: var(--space-6);
-            border-top: 1px solid var(--color-gray-200);
-            background-color: var(--color-gray-50);
+            border-top: 1px solid var(--color-border);
+            background-color: var(--color-bg-secondary);
           }
 
           textarea.form-input {

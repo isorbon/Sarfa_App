@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { authAPI } from '../services/api';
-import { useTheme } from '../context/ThemeContext';
+
 import { useCurrency, CurrencyCode } from '../context/CurrencyContext';
-import { User, Moon, Sun, Lock } from 'lucide-react';
+import { User, Lock } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
 import ImageCropperModal from '../components/ImageCropperModal';
 
 const Settings: React.FC = () => {
     const { user, updateUser, changePassword } = useAuth();
-    const { theme, toggleTheme } = useTheme();
     const { currency, setCurrency } = useCurrency();
 
     const [name, setName] = useState(user?.name || '');
@@ -184,26 +183,6 @@ const Settings: React.FC = () => {
                                     />
                                 </div>
 
-                                {/* App Appearance */}
-                                <div className="form-group">
-                                    <label className="form-label">App Appearance</label>
-                                    <button
-                                        type="button"
-                                        className={`theme-toggle ${theme}`}
-                                        onClick={async () => {
-                                            toggleTheme();
-                                            const newTheme = theme === 'light' ? 'dark' : 'light';
-                                            updateUser({ theme: newTheme });
-                                        }}
-                                    >
-                                        <div className="toggle-track">
-                                            <div className="toggle-thumb">
-                                                {theme === 'light' ? <Sun size={14} /> : <Moon size={14} />}
-                                            </div>
-                                        </div>
-                                        <span>{theme === 'light' ? 'Light Mode' : 'Dark Mode'}</span>
-                                    </button>
-                                </div>
 
                                 {/* Currency */}
                                 <div className="form-group">

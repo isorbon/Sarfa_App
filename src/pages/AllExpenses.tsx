@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Search, Edit, Trash2 } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
+import ThemeToggle from '../components/ThemeToggle';
 import Sidebar from '../components/Sidebar';
 import AddExpenseModal from '../components/AddExpenseModal';
 import ConfirmationModal from '../components/ConfirmationModal';
@@ -87,15 +88,12 @@ const AllExpenses: React.FC = () => {
 
       <main className="expenses-main">
         <header className="expenses-header">
-          <div>
+          <div className="header-greeting">
             <h1>All Expenses</h1>
             <p>Manage and track all your expenses</p>
           </div>
           <div className="header-actions">
-            <button className="btn btn-primary" onClick={() => setIsModalOpen(true)}>
-              <Plus size={20} />
-              Add Expense
-            </button>
+            <ThemeToggle />
             <UserMenu />
           </div>
         </header>
@@ -202,6 +200,15 @@ const AllExpenses: React.FC = () => {
         </div>
       </main>
 
+      {/* Floating Action Button */}
+      <button
+        className="fab"
+        onClick={() => setIsModalOpen(true)}
+        title="Add Expense"
+      >
+        <Plus size={24} />
+      </button>
+
       <AddExpenseModal
         isOpen={isModalOpen}
         onClose={() => {
@@ -256,6 +263,10 @@ const AllExpenses: React.FC = () => {
         .expenses-header h1 {
           font-size: var(--font-size-2xl);
           margin-bottom: var(--space-1);
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
 
         .expenses-header p {

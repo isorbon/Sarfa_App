@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, Filter, TrendingUp, TrendingDown, Wallet, BarChart3 } from 'lucide-react';
+import { Plus, Filter, TrendingUp, TrendingDown, Wallet, BarChart3 } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
+import ThemeToggle from '../components/ThemeToggle';
 import Sidebar from '../components/Sidebar';
 import AddExpenseModal from '../components/AddExpenseModal';
 import MonthlyChart from '../components/Charts/MonthlyChart';
@@ -64,23 +65,15 @@ const Dashboard: React.FC = () => {
       <main className="dashboard-main">
         <header className="dashboard-header">
           <div className="header-greeting">
-            <h1>Hi, {user?.name?.split(' ')[0] || 'User'} 👋</h1>
+            <h1>
+              <span className="gradient-text">Hi, {user?.name?.split(' ')[0] || 'User'}</span>{' '}
+              <span className="emoji">👋</span>
+            </h1>
             <p>Track your all expenses and transactions</p>
           </div>
 
           <div className="header-actions">
-            <div className="header-time">
-              {new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })} |{' '}
-              {new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })} | IN
-            </div>
-            <div className="search-box">
-              <Search size={20} />
-              <input type="text" placeholder="Search expenses, transaction, cards" />
-            </div>
-            <button className="notification-btn">
-              🔔
-              <span className="notification-badge">2</span>
-            </button>
+            <ThemeToggle />
             <UserMenu />
           </div>
         </header>
@@ -352,6 +345,17 @@ const Dashboard: React.FC = () => {
         .header-greeting h1 {
           font-size: var(--font-size-2xl);
           margin-bottom: var(--space-1);
+        }
+
+        .header-greeting h1 .gradient-text {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .header-greeting h1 .emoji {
+          display: inline-block;
         }
 
         .header-greeting p {
