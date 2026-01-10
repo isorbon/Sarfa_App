@@ -642,6 +642,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             support: 'Поддержка',
             settings: 'Настройки',
             profile: 'Профиль',
+            logout: 'Выйти',
         },
         bills: {
             totalMonthly: 'Счета за месяц',
@@ -2377,6 +2378,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             support: 'Підтримка',
             settings: 'Налаштування',
             profile: 'Профіль',
+            logout: 'Вийти',
         },
         bills: {
             totalMonthly: 'Рахунки за місяць',
