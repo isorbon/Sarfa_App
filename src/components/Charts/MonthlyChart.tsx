@@ -8,28 +8,26 @@ interface MonthlyChartProps {
 }
 
 const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
-    const { t, language } = useLanguage();
-
-    // Map our custom language codes to standard BCP 47 locale codes
-    const getLocaleCode = (langCode: string): string => {
-        const localeMap: Record<string, string> = {
-            'kg': 'ky-KG', // Kyrgyz
-            'kz': 'kk-KZ', // Kazakh
-            'tj': 'tg-TJ', // Tajik
-            'uz': 'uz-UZ', // Uzbek
-        };
-        return localeMap[langCode] || langCode;
-    };
+    const { t } = useLanguage();
 
     const formatMonth = (label: string) => {
-        try {
-            const date = new Date(`${label} 1, 2024`);
-            if (isNaN(date.getTime())) return label;
-            const locale = getLocaleCode(language);
-            return new Intl.DateTimeFormat(locale, { month: 'short' }).format(date);
-        } catch {
-            return label;
-        }
+        const monthMap: Record<string, keyof typeof t.months.short> = {
+            'January': 'jan',
+            'February': 'feb',
+            'March': 'mar',
+            'April': 'apr',
+            'May': 'may',
+            'June': 'jun',
+            'July': 'jul',
+            'August': 'aug',
+            'September': 'sep',
+            'October': 'oct',
+            'November': 'nov',
+            'December': 'dec',
+        };
+
+        const monthKey = monthMap[label];
+        return monthKey ? t.months.short[monthKey] : label;
     };
 
     return (

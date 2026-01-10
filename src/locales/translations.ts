@@ -170,6 +170,22 @@ const enUS: Translation = {
         miscellaneous: 'Miscellaneous',
         bills: 'Bill & Subscription',
     },
+    months: {
+        short: {
+            jan: 'Jan',
+            feb: 'Feb',
+            mar: 'Mar',
+            apr: 'Apr',
+            may: 'May',
+            jun: 'Jun',
+            jul: 'Jul',
+            aug: 'Aug',
+            sep: 'Sep',
+            oct: 'Oct',
+            nov: 'Nov',
+            dec: 'Dec',
+        },
+    },
 };
 
 const translationsMap: Record<LanguageCode, Translation> = {
@@ -2923,6 +2939,22 @@ const translationsMap: Record<LanguageCode, Translation> = {
             currencyUpdated: 'Валюта жаңыртылды!',
             currencyError: 'Жаңыртууда ката',
         },
+        months: {
+            short: {
+                jan: 'Янв',
+                feb: 'Фев',
+                mar: 'Мар',
+                apr: 'Апр',
+                may: 'Май',
+                jun: 'Июн',
+                jul: 'Июл',
+                aug: 'Авг',
+                sep: 'Сен',
+                oct: 'Окт',
+                nov: 'Ноя',
+                dec: 'Дек',
+            },
+        },
     },
 
     'kz': { // Kazakh
@@ -3057,6 +3089,22 @@ const translationsMap: Record<LanguageCode, Translation> = {
             nameError: 'Сақтауда қате',
             currencyUpdated: 'Валюта жаңартылды!',
             currencyError: 'Жаңартуда қате',
+        },
+        months: {
+            short: {
+                jan: 'Қаң',
+                feb: 'Ақп',
+                mar: 'Нау',
+                apr: 'Сәу',
+                may: 'Мам',
+                jun: 'Мау',
+                jul: 'Шіл',
+                aug: 'Там',
+                sep: 'Қыр',
+                oct: 'Қаз',
+                nov: 'Қар',
+                dec: 'Жел',
+            },
         },
     },
 
@@ -3193,6 +3241,22 @@ const translationsMap: Record<LanguageCode, Translation> = {
             currencyUpdated: 'Асъор навшуд!',
             currencyError: 'Хатогӣ дар навсозӣ',
         },
+        months: {
+            short: {
+                jan: 'Янв',
+                feb: 'Фев',
+                mar: 'Мар',
+                apr: 'Апр',
+                may: 'Май',
+                jun: 'Июн',
+                jul: 'Июл',
+                aug: 'Авг',
+                sep: 'Сен',
+                oct: 'Окт',
+                nov: 'Ноя',
+                dec: 'Дек',
+            },
+        },
     },
 
     'uz': { // Uzbek
@@ -3327,6 +3391,22 @@ const translationsMap: Record<LanguageCode, Translation> = {
             nameError: 'Saqlashda xato',
             currencyUpdated: 'Valyuta yangilandi!',
             currencyError: 'Yangilashda xato',
+        },
+        months: {
+            short: {
+                jan: 'Yan',
+                feb: 'Fev',
+                mar: 'Mar',
+                apr: 'Apr',
+                may: 'May',
+                jun: 'Iyun',
+                jul: 'Iyul',
+                aug: 'Avg',
+                sep: 'Sen',
+                oct: 'Okt',
+                nov: 'Noy',
+                dec: 'Dek',
+            },
         },
     },
 };
