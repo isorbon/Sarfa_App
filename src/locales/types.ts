@@ -9,14 +9,18 @@ export type LanguageCode =
     | 'id' // Bahasa Indonesia
     | 'it' // Italiano
     | 'ja' // 日本語
+    | 'kg' // Кыргызча
+    | 'kz' // Қазақша
     | 'nl' // Nederlands
     | 'pl' // Polski
     | 'pt-BR' // Português (Brasil)
     | 'ro' // Română
     | 'ru' // Русский
     | 'th' // ภาษาไทย
+    | 'tj' // Тоҷикӣ
     | 'tr' // Türkçe
     | 'uk' // Українська
+    | 'uz' // Oʻzbekcha
     | 'zh-CN' // 中文 (简体)
     | 'zh-TW'; // 中文 (繁體)
 
