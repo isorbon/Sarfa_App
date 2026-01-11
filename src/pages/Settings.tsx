@@ -5,8 +5,11 @@ import { authAPI } from '../services/api';
 import { useCurrency, CurrencyCode } from '../context/CurrencyContext';
 import { useLanguage } from '../context/LanguageContext';
 import { User, Lock } from 'lucide-react';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import ImageCropperModal from '../components/ImageCropperModal';
+import ThemeToggle from '../components/ThemeToggle';
+import UserMenu from '../components/UserMenu';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 
 const Settings: React.FC = () => {
     const { t } = useLanguage();
@@ -86,12 +89,20 @@ const Settings: React.FC = () => {
     };
 
     return (
-        <div className="settings-page">
-            <Sidebar />
+        <Layout>
             <main className="settings-main">
                 <header className="settings-header">
-                    <h1>{t.common.settings}</h1>
-                    <p>{t.settings.subtitle}</p>
+                    <div className="header-greeting">
+                        <h1>
+                            <span className="gradient-text">{t.common.settings}</span>
+                        </h1>
+                        <p>{t.settings.subtitle}</p>
+                    </div>
+                    <div className="header-actions">
+                        <LanguageSwitcher />
+                        <ThemeToggle />
+                        <UserMenu />
+                    </div>
                 </header>
 
                 <div className="settings-content">
@@ -285,15 +296,42 @@ const Settings: React.FC = () => {
                 .settings-main {
                     flex: 1;
                     margin-left: 260px;
-                    padding: var(--space-8);
+                    min-height: 100vh;
                 }
 
                 .settings-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: var(--space-6);
+                    background-color: var(--color-bg-secondary);
+                    border-bottom: 1px solid var(--color-border);
                     margin-bottom: var(--space-8);
                 }
 
                 .settings-header h1 {
+                    font-size: var(--font-size-2xl);
+                    margin-bottom: var(--space-1);
                     color: var(--color-text-primary);
+                }
+
+                .settings-header h1 .gradient-text {
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                }
+
+                .settings-header p {
+                    font-size: var(--font-size-sm);
+                    color: var(--color-text-secondary);
+                    margin: 0;
+                }
+
+                .header-actions {
+                    display: flex;
+                    align-items: center;
+                    gap: var(--space-4);
                 }
 
                 .settings-content {
@@ -301,6 +339,7 @@ const Settings: React.FC = () => {
                     display: flex;
                     flex-direction: column;
                     gap: var(--space-8);
+                    padding: var(--space-6);
                 }
 
                 .settings-section {
@@ -386,49 +425,7 @@ const Settings: React.FC = () => {
                     object-fit: cover;
                 }
 
-                .theme-toggle {
-                    display: flex;
-                    align-items: center;
-                    gap: var(--space-3);
-                    background: none;
-                    border: none;
-                    cursor: pointer;
-                    font-size: var(--font-size-base);
-                    color: var(--color-text-primary);
-                }
-
-                .toggle-track {
-                    width: 48px;
-                    height: 24px;
-                    background-color: var(--color-gray-200);
-                    border-radius: 12px;
-                    position: relative;
-                    transition: background-color 0.2s;
-                }
-
-                .theme-toggle.dark .toggle-track {
-                    background-color: var(--color-primary-600);
-                }
-
-                .toggle-thumb {
-                    width: 20px;
-                    height: 20px;
-                    background-color: white;
-                    border-radius: 50%;
-                    position: absolute;
-                    top: 2px;
-                    left: 2px;
-                    transition: transform 0.2s;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color: var(--color-gray-600);
-                }
-
-                .theme-toggle.dark .toggle-thumb {
-                    transform: translateX(24px);
-                    color: var(--color-primary-600);
-                }
+                /* Theme Toggle Styles removed (global) */
 
                 .currency-selector {
                     position: relative;
@@ -528,7 +525,7 @@ const Settings: React.FC = () => {
                     }
                 }
             `}</style>
-        </div>
+        </Layout>
     );
 };
 

@@ -111,6 +111,7 @@ const enUS: Translation = {
         statusOverdue: 'Overdue',
         statusDueSoon: 'Due Soon',
         statusActive: 'Active',
+        addFirstBill: 'Add your first bill or subscription to get started',
     },
     dashboard: {
         subtitle: 'Manage your credit and debit expenses',
@@ -253,6 +254,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Überfällig',
             statusDueSoon: 'Bald fällig',
             statusActive: 'Aktiv',
+            addFirstBill: 'Fügen Sie Ihre erste Rechnung oder Ihr erstes Abonnement hinzu, um zu beginnen',
         },
         expenses: {
             amount: 'Betrag',
@@ -345,7 +347,23 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Sonstiges',
             bills: 'Rechnungen',
             recent: 'Kürzlich',
-        }
+        },
+        months: {
+            short: {
+                jan: 'Jan',
+                feb: 'Feb',
+                mar: 'Mär',
+                apr: 'Apr',
+                may: 'Mai',
+                jun: 'Jun',
+                jul: 'Jul',
+                aug: 'Aug',
+                sep: 'Sep',
+                oct: 'Okt',
+                nov: 'Nov',
+                dec: 'Dez',
+            },
+        },
     },
     'es': {
         ...enUS,
@@ -401,6 +419,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Vencido',
             statusDueSoon: 'Vence pronto',
             statusActive: 'Activo',
+            addFirstBill: 'Añade tu primera factura o suscripción para empezar',
         },
         expenses: {
             amount: 'Monto',
@@ -493,7 +512,23 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Varios',
             bills: 'Facturas',
             recent: 'Reciente',
-        }
+        },
+        months: {
+            short: {
+                jan: 'Ene',
+                feb: 'Feb',
+                mar: 'Mar',
+                apr: 'Abr',
+                may: 'May',
+                jun: 'Jun',
+                jul: 'Jul',
+                aug: 'Ago',
+                sep: 'Sep',
+                oct: 'Oct',
+                nov: 'Nov',
+                dec: 'Dic',
+            },
+        },
     },
     'fr': {
         ...enUS,
@@ -549,6 +584,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'En retard',
             statusDueSoon: 'Bientôt',
             statusActive: 'Actif',
+            addFirstBill: 'Ajoutez votre première facture ou abonnement pour commencer',
         },
         expenses: {
             amount: 'Montant',
@@ -641,7 +677,23 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Divers',
             bills: 'Factures',
             recent: 'Récent',
-        }
+        },
+        months: {
+            short: {
+                jan: 'Jan',
+                feb: 'Fév',
+                mar: 'Mar',
+                apr: 'Avr',
+                may: 'Mai',
+                jun: 'Juin',
+                jul: 'Juil',
+                aug: 'Août',
+                sep: 'Sep',
+                oct: 'Oct',
+                nov: 'Nov',
+                dec: 'Déc',
+            },
+        },
     },
     'ru': {
         ...enUS,
@@ -693,6 +745,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Просрочено',
             statusDueSoon: 'Скоро оплата',
             statusActive: 'Активно',
+            addFirstBill: 'Добавьте свой первый счет или подписку, чтобы начать',
         },
         expenses: {
             ...enUS.expenses,
@@ -782,7 +835,23 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Разное',
             bills: 'Счета',
             recent: 'Недавние',
-        }
+        },
+        months: {
+            short: {
+                jan: 'Янв',
+                feb: 'Фев',
+                mar: 'Мар',
+                apr: 'Апр',
+                may: 'Май',
+                jun: 'Июн',
+                jul: 'Июл',
+                aug: 'Авг',
+                sep: 'Сен',
+                oct: 'Окт',
+                nov: 'Ноя',
+                dec: 'Дек',
+            },
+        },
     },
 
     'cs': { // Czech
@@ -839,6 +908,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Po splatnosti',
             statusDueSoon: 'Brzy splatné',
             statusActive: 'Aktivní',
+            addFirstBill: 'Přidejte svůj první účet nebo předplatné, abyste mohli začít',
         },
         expenses: {
             ...enUS.expenses,
@@ -932,7 +1002,23 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Různé',
             bills: 'Účty',
             recent: 'Nedávné',
-        }
+        },
+        months: {
+            short: {
+                jan: 'Led',
+                feb: 'Úno',
+                mar: 'Bře',
+                apr: 'Dub',
+                may: 'Kvě',
+                jun: 'Čvn',
+                jul: 'Čvc',
+                aug: 'Srp',
+                sep: 'Zář',
+                oct: 'Říj',
+                nov: 'Lis',
+                dec: 'Pro',
+            },
+        },
     },
     'hu': { // Hungarian
         ...enUS,
@@ -988,6 +1074,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Lejárt',
             statusDueSoon: 'Hamarosan',
             statusActive: 'Aktív',
+            addFirstBill: 'Adja hozzá első számláját vagy előfizetését a kezdéshez',
         },
         expenses: {
             ...enUS.expenses,
@@ -1081,7 +1168,23 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Egyéb',
             bills: 'Számlák',
             recent: 'Legutóbbi',
-        }
+        },
+        months: {
+            short: {
+                jan: 'Jan',
+                feb: 'Feb',
+                mar: 'Már',
+                apr: 'Ápr',
+                may: 'Máj',
+                jun: 'Jún',
+                jul: 'Júl',
+                aug: 'Aug',
+                sep: 'Szep',
+                oct: 'Okt',
+                nov: 'Nov',
+                dec: 'Dec',
+            },
+        },
     },
     'id': { // Indonesian
         ...enUS,
@@ -1137,6 +1240,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Terlambat',
             statusDueSoon: 'Segera',
             statusActive: 'Aktif',
+            addFirstBill: 'Tambahkan tagihan atau langganan pertama Anda untuk memulai',
         },
         expenses: {
             ...enUS.expenses,
@@ -1230,7 +1334,23 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Lainnya',
             bills: 'Tagihan',
             recent: 'Terkini',
-        }
+        },
+        months: {
+            short: {
+                jan: 'Jan',
+                feb: 'Feb',
+                mar: 'Mar',
+                apr: 'Apr',
+                may: 'Mei',
+                jun: 'Jun',
+                jul: 'Jul',
+                aug: 'Agu',
+                sep: 'Sep',
+                oct: 'Okt',
+                nov: 'Nov',
+                dec: 'Des',
+            },
+        },
     },
     'it': { // Italian
         ...enUS,
@@ -1286,6 +1406,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Scaduto',
             statusDueSoon: 'Scade Presto',
             statusActive: 'Attivo',
+            addFirstBill: 'Aggiungi la tua prima bolletta o abbonamento per iniziare',
         },
         expenses: {
             ...enUS.expenses,
@@ -1379,7 +1500,23 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Misto',
             bills: 'Bollette',
             recent: 'Recente',
-        }
+        },
+        months: {
+            short: {
+                jan: 'Gen',
+                feb: 'Feb',
+                mar: 'Mar',
+                apr: 'Apr',
+                may: 'Mag',
+                jun: 'Giu',
+                jul: 'Lug',
+                aug: 'Ago',
+                sep: 'Set',
+                oct: 'Ott',
+                nov: 'Nov',
+                dec: 'Dic',
+            },
+        },
     },
     'ja': { // Japanese
         ...enUS,
@@ -1435,6 +1572,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: '期限切れ',
             statusDueSoon: '期限間近',
             statusActive: '有効',
+            addFirstBill: '最初の請求書またはサブスクリプションを追加して始めましょう',
         },
         expenses: {
             ...enUS.expenses,
@@ -1528,7 +1666,23 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'その他',
             bills: '請求書',
             recent: '最近',
-        }
+        },
+        months: {
+            short: {
+                jan: '1月',
+                feb: '2月',
+                mar: '3月',
+                apr: '4月',
+                may: '5月',
+                jun: '6月',
+                jul: '7月',
+                aug: '8月',
+                sep: '9月',
+                oct: '10月',
+                nov: '11月',
+                dec: '12月',
+            },
+        },
     },
     'nl': { // Dutch
         ...enUS,
@@ -1584,6 +1738,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Achterstallig',
             statusDueSoon: 'Binnenkort',
             statusActive: 'Actief',
+            addFirstBill: 'Voeg uw eerste rekening of abonnement toe om te beginnen',
         },
         expenses: {
             ...enUS.expenses,
@@ -1677,7 +1832,23 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Diversen',
             bills: 'Rekeningen',
             recent: 'Recent',
-        }
+        },
+        months: {
+            short: {
+                jan: 'Jan',
+                feb: 'Feb',
+                mar: 'Mrt',
+                apr: 'Apr',
+                may: 'Mei',
+                jun: 'Jun',
+                jul: 'Jul',
+                aug: 'Aug',
+                sep: 'Sep',
+                oct: 'Okt',
+                nov: 'Nov',
+                dec: 'Dec',
+            },
+        },
     },
     'pl': { // Polish
         ...enUS,
@@ -1733,6 +1904,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Zaległe',
             statusDueSoon: 'Wkrótce',
             statusActive: 'Aktywne',
+            addFirstBill: 'Dodaj swój pierwszy rachunek lub subskrypcję, aby rozpocząć',
         },
         expenses: {
             ...enUS.expenses,
@@ -1826,7 +1998,23 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Różne',
             bills: 'Rachunki',
             recent: 'Ostatnie',
-        }
+        },
+        months: {
+            short: {
+                jan: 'Sty',
+                feb: 'Lut',
+                mar: 'Mar',
+                apr: 'Kwi',
+                may: 'Maj',
+                jun: 'Cze',
+                jul: 'Lip',
+                aug: 'Sie',
+                sep: 'Wrz',
+                oct: 'Paź',
+                nov: 'Lis',
+                dec: 'Gru',
+            },
+        },
     },
     'pt-BR': { // Portuguese Brazil
         ...enUS,
@@ -1882,6 +2070,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Vencido',
             statusDueSoon: 'Vence Logo',
             statusActive: 'Ativo',
+            addFirstBill: 'Adicione sua primeira conta ou assinatura para começar',
         },
         expenses: {
             ...enUS.expenses,
@@ -1975,7 +2164,23 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Diversos',
             bills: 'Contas',
             recent: 'Recente',
-        }
+        },
+        months: {
+            short: {
+                jan: 'Jan',
+                feb: 'Fev',
+                mar: 'Mar',
+                apr: 'Abr',
+                may: 'Mai',
+                jun: 'Jun',
+                jul: 'Jul',
+                aug: 'Ago',
+                sep: 'Set',
+                oct: 'Out',
+                nov: 'Nov',
+                dec: 'Dez',
+            },
+        },
     },
     'ro': { // Romanian
         ...enUS,
@@ -2031,6 +2236,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Restant',
             statusDueSoon: 'În curând',
             statusActive: 'Activ',
+            addFirstBill: 'Adăugați prima factură sau abonament pentru a începe',
         },
         expenses: {
             ...enUS.expenses,
@@ -2124,7 +2330,23 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Diverse',
             bills: 'Facturi',
             recent: 'Recent',
-        }
+        },
+        months: {
+            short: {
+                jan: 'Ian',
+                feb: 'Feb',
+                mar: 'Mar',
+                apr: 'Apr',
+                may: 'Mai',
+                jun: 'Iun',
+                jul: 'Iul',
+                aug: 'Aug',
+                sep: 'Sep',
+                oct: 'Oct',
+                nov: 'Nov',
+                dec: 'Dec',
+            },
+        },
     },
     'th': { // Thai
         ...enUS,
@@ -2180,6 +2402,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'เกินกำหนด',
             statusDueSoon: 'เร็วๆ นี้',
             statusActive: 'ใช้งานอยู่',
+            addFirstBill: 'เพิ่มบิลหรือการสมัครสมาชิกครั้งแรกของคุณเพื่อเริ่มต้น',
         },
         expenses: {
             ...enUS.expenses,
@@ -2273,7 +2496,23 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'เบ็ดเตล็ด',
             bills: 'บิล',
             recent: 'ล่าสุด',
-        }
+        },
+        months: {
+            short: {
+                jan: 'ม.ค.',
+                feb: 'ก.พ.',
+                mar: 'มี.ค.',
+                apr: 'เม.ย.',
+                may: 'พ.ค.',
+                jun: 'มิ.ย.',
+                jul: 'ก.ค.',
+                aug: 'ส.ค.',
+                sep: 'ก.ย.',
+                oct: 'ต.ค.',
+                nov: 'พ.ย.',
+                dec: 'ธ.ค.',
+            },
+        },
     },
     'tr': { // Turkish
         ...enUS,
@@ -2329,6 +2568,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Gecikmiş',
             statusDueSoon: 'Yakında',
             statusActive: 'Aktif',
+            addFirstBill: 'Başlamak için ilk faturanızı veya aboneliğinizi ekleyin',
         },
         expenses: {
             ...enUS.expenses,
@@ -2422,7 +2662,23 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Çeşitli',
             bills: 'Faturalar',
             recent: 'Son',
-        }
+        },
+        months: {
+            short: {
+                jan: 'Oca',
+                feb: 'Şub',
+                mar: 'Mar',
+                apr: 'Nis',
+                may: 'May',
+                jun: 'Haz',
+                jul: 'Tem',
+                aug: 'Ağu',
+                sep: 'Eyl',
+                oct: 'Eki',
+                nov: 'Kas',
+                dec: 'Ara',
+            },
+        },
     },
     'uk': { // Ukrainian
         ...enUS,
@@ -2474,6 +2730,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Прострочено',
             statusDueSoon: 'Скоро оплата',
             statusActive: 'Активно',
+            addFirstBill: 'Додайте свій перший рахунок або підписку, щоб почати',
         },
         expenses: {
             ...enUS.expenses,
@@ -2554,6 +2811,22 @@ const translationsMap: Record<LanguageCode, Translation> = {
             currencyUpdated: 'Валюта оновлена!',
             currencyError: 'Помилка оновлення валюти',
         },
+        months: {
+            short: {
+                jan: 'Січ',
+                feb: 'Лют',
+                mar: 'Бер',
+                apr: 'Кві',
+                may: 'Тра',
+                jun: 'Чер',
+                jul: 'Лип',
+                aug: 'Сер',
+                sep: 'Вер',
+                oct: 'Жов',
+                nov: 'Лис',
+                dec: 'Гру',
+            },
+        },
     },
     'zh-CN': { // Chinese Simplified
         ...enUS,
@@ -2609,6 +2882,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: '逾期',
             statusDueSoon: '即将到期',
             statusActive: '活跃',
+            addFirstBill: '添加您的第一张账单或订阅以开始',
         },
         expenses: {
             ...enUS.expenses,
@@ -2702,7 +2976,23 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: '杂项',
             bills: '账单',
             recent: '最近',
-        }
+        },
+        months: {
+            short: {
+                jan: '1月',
+                feb: '2月',
+                mar: '3月',
+                apr: '4月',
+                may: '5月',
+                jun: '6月',
+                jul: '7月',
+                aug: '8月',
+                sep: '9月',
+                oct: '10月',
+                nov: '11月',
+                dec: '12月',
+            },
+        },
     },
     'zh-TW': { // Chinese Traditional
         ...enUS,
@@ -2758,6 +3048,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: '逾期',
             statusDueSoon: '即將到期',
             statusActive: '活躍',
+            addFirstBill: '添加您的第一張帳單或訂閱以開始',
         },
         expenses: {
             ...enUS.expenses,
@@ -2851,7 +3142,23 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: '雜項',
             bills: '帳單',
             recent: '最近',
-        }
+        },
+        months: {
+            short: {
+                jan: '1月',
+                feb: '2月',
+                mar: '3月',
+                apr: '4月',
+                may: '5月',
+                jun: '6月',
+                jul: '7月',
+                aug: '8月',
+                sep: '9月',
+                oct: '10月',
+                nov: '11月',
+                dec: '12月',
+            },
+        },
     },
 
     'kg': { // Kyrgyz
@@ -2908,6 +3215,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Мөөнөтү өткөн',
             statusDueSoon: 'Жакында',
             statusActive: 'Активдүү',
+            addFirstBill: 'Баштоо үчүн биринчи эсепти же жазылууну кошуңуз',
         },
         expenses: {
             ...enUS.expenses,
@@ -3060,6 +3368,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Мерзімі өткен',
             statusDueSoon: 'Жақын арада',
             statusActive: 'Белсенді',
+            addFirstBill: 'Бастау үшін бірінші шотты немесе жазылымды қосыңыз',
         },
         expenses: {
             ...enUS.expenses,
@@ -3212,6 +3521,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Мӯҳлат гузашта',
             statusDueSoon: 'Наздик',
             statusActive: 'Фаъол',
+            addFirstBill: 'Барои оғоз аввалин ҳисоб ё обунаи худро илова кунед',
         },
         expenses: {
             ...enUS.expenses,
@@ -3364,6 +3674,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Muddati oʻtgan',
             statusDueSoon: 'Yaqin orada',
             statusActive: 'Faol',
+            addFirstBill: 'Boshlash uchun birinchi hisob yoki obunangizni qo\'shing',
         },
         expenses: {
             ...enUS.expenses,
@@ -3541,6 +3852,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Gecikmiş',
             statusDueSoon: 'Tezliklə',
             statusActive: 'Aktiv',
+            addFirstBill: 'Başlamaq üçün ilk hesabınızı və ya abunəliyinizi əlavə edin',
         },
         dashboard: {
             subtitle: 'Xərcləri idarə et',
@@ -3671,6 +3983,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             statusOverdue: 'Ժամկետանց',
             statusDueSoon: 'Շուտով',
             statusActive: 'Ակտիվ',
+            addFirstBill: 'Սկսելու համար ավելացրեք ձեր առաջին հաշիվը կամ բաժանորդագրությունը',
         },
         dashboard: {
             subtitle: 'Կառավարեք ծախսերը',

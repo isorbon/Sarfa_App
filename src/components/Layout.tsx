@@ -1,30 +1,28 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import MobileHeader from './MobileHeader';
-import MobileNav from './MobileNav';
+
 
 interface LayoutProps {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-    const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-    const closeSidebar = () => setIsSidebarOpen(false);
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+  const closeSidebar = () => setIsSidebarOpen(false);
 
-    return (
-        <>
-            <MobileHeader onMenuClick={toggleSidebar} />
-            <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
+  return (
+    <>
+      <MobileHeader onMenuClick={toggleSidebar} />
+      <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
 
-            <div className="app-layout">
-                {children}
-            </div>
+      <div className="app-layout">
+        {children}
+      </div>
 
-            <MobileNav />
-
-            <style>{`
+      <style>{`
         .app-layout {
           margin-left: 0;
           min-height: 100vh;
@@ -39,13 +37,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
         @media (max-width: 768px) {
           .app-layout {
-            padding-top: 56px;
-            padding-bottom: 72px;
+            padding-top: 48px; /* Match new mobile header height */
+            /* Removed bottom padding since bottom nav is gone */
           }
         }
       `}</style>
-        </>
-    );
+    </>
+  );
 };
 
 export default Layout;

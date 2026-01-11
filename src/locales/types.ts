@@ -108,6 +108,7 @@ export interface Translation {
         statusOverdue: string;
         statusDueSoon: string;
         statusActive: string;
+        addFirstBill: string;
     };
     dashboard: {
         subtitle: string;

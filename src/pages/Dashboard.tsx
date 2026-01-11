@@ -338,7 +338,7 @@ const Dashboard: React.FC = () => {
 
         .dashboard-main {
           flex: 1;
-          margin-left: 260px;
+          /* margin-left removed */
           min-height: 100vh;
         }
 
@@ -802,14 +802,51 @@ const Dashboard: React.FC = () => {
         }
 
         @media (max-width: 768px) {
+          .dashboard-content {
+            padding: var(--space-4);
+            width: 100%;
+            max-width: 100vw;
+            box-sizing: border-box;
+            overflow-x: hidden;
+          }
+
           .stats-grid {
             grid-template-columns: 1fr;
+            width: 100%;
           }
 
-          .header-time {
-            display: none;
+          .charts-grid, 
+          .bottom-grid {
+            grid-template-columns: 1fr;
+            width: 100%;
+            gap: var(--space-4);
+          }
+          
+          /* Crucial: layout constraints */
+          .dashboard-card {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            box-sizing: border-box;
+            margin: 0;
+            overflow: hidden; /* Contain children */
           }
 
+          .card-content {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+          }
+
+          /* Force table to scroll inside */
+          .recent-expenses-table {
+            min-width: 600px;
+            width: 100%;
+            display: table;
+          }
+
+          /* Hide elements */
+          .header-time,
           .desktop-header {
             display: none !important;
           }

@@ -781,11 +781,23 @@ a:hover {
   transform: scale(0.95);
 }
 
+/* Layout Margin Reset - Fixes Double Margin on Desktop */
+.dashboard-main,
+.expenses-main,
+.bills-main,
+.cards-main,
+.settings-main {
+  margin-left: 0 !important;
+  width: 100%;
+}
+
 /* Mobile Responsive Adjustments */
 @media (max-width: 768px) {
   .fab {
-    bottom: 88px; /* Above mobile nav bar */
-    right: 16px;
+    bottom: 32px;
+    /* Standard position */
+    right: 24px;
+
     width: 48px;
     height: 48px;
   }
@@ -798,5 +810,33 @@ a:hover {
   /* Add padding to containers for better mobile spacing */
   .dashboard-content {
     padding: var(--space-4);
+  }
+
+  /* Global mobile overflow protection */
+  #root,
+  .app-layout {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Bills & Expenses Mobile Fixes */
+  .bills-grid {
+    grid-template-columns: 1fr !important;
+    width: 100%;
+  }
+
+  .bills-main {
+    padding: var(--space-4) !important;
+    max-width: 100vw;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  /* Hide redundant header actions on pages */
+  .bills-header .header-actions,
+  .expenses-header .header-actions,
+  .cards-header .header-actions,
+  .settings-header .header-actions {
+    display: none !important;
   }
 }

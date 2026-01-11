@@ -11,6 +11,8 @@ import {
 } from 'lucide-react';
 
 import { useLanguage } from '../context/LanguageContext';
+import LanguageSwitcher from './LanguageSwitcher';
+import ThemeToggle from './ThemeToggle';
 
 interface SidebarProps {
   isOpen?: boolean;
@@ -26,8 +28,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
     { path: '/expenses', label: t.common.allExpenses, icon: Receipt, group: 'general' },
     { path: '/bills', label: t.common.billsSubscription, icon: CreditCard, group: 'general' },
     { path: '/cards', label: t.common.cards, icon: Wallet, group: 'general' },
-    { path: '/investment', label: t.common.investment, icon: TrendingUp, group: 'general' },
     { path: '/goals', label: t.common.goals, icon: Target, group: 'general' },
+    { path: '/investment', label: t.common.investment, icon: TrendingUp, group: 'general' },
   ];
 
   const toolItems = [
@@ -88,12 +90,15 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
 
         </nav>
 
+        <div className="sidebar-controls">
+          <LanguageSwitcher />
+          <ThemeToggle />
+        </div>
+
         <div className="sidebar-footer">
           <p className="app-version">v1.2.1</p>
           <p className="app-copyright">&copy; 2026 Sarfa. All rights reserved.</p>
         </div>
-
-
 
         <style>{`
         .sidebar-overlay {
@@ -248,6 +253,33 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
           border-top: 1px solid var(--color-gray-200);
           text-align: center;
           margin-top: auto;
+        }
+
+        .sidebar-controls {
+          display: none; /* Hidden by default on desktop */
+          align-items: center;
+          justify-content: center;
+          gap: var(--space-4);
+          padding: var(--space-4);
+          border-top: 1px solid var(--color-gray-200);
+          position: relative;
+        }
+
+        @media (max-width: 768px) {
+          .sidebar-controls {
+            display: flex; /* Show only on mobile */
+          }
+        }
+
+        /* Force language dropdown to open UPWARDS in sidebar */
+        .sidebar-controls .language-dropdown {
+          top: auto !important;
+          bottom: 100% !important;
+          left: 50% !important;
+          transform: translateX(-50%) !important;
+          margin-bottom: var(--space-2);
+          width: 200px !important;
+          max-height: 300px;
         }
 
         .app-version {
