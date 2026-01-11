@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, CreditCard } from 'lucide-react';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import ThemeToggle from '../components/ThemeToggle';
 import UserMenu from '../components/UserMenu';
 import ConfirmationModal from '../components/ConfirmationModal';
@@ -85,9 +85,7 @@ const Cards: React.FC = () => {
   };
 
   return (
-    <div className="cards-page">
-      <Sidebar />
-
+    <Layout>
       <main className="cards-main">
         <header className="cards-header">
           <div className="header-greeting">
@@ -112,7 +110,7 @@ const Cards: React.FC = () => {
               </div>
             ) : cards.length === 0 ? (
               <div className="empty-state">
-                <CreditCard size={48} />
+                <div className="empty-icon">💳</div>
                 <p>{t.cards.noCards}</p>
                 <p className="empty-subtitle">{t.cards.addFirstCard}</p>
               </div>
@@ -366,9 +364,9 @@ const Cards: React.FC = () => {
           color: var(--color-text-secondary);
         }
 
-        .empty-state svg {
-          margin: 0 auto var(--space-4);
-          color: var(--color-gray-400);
+        .empty-icon {
+          font-size: 80px;
+          margin-bottom: var(--space-4);
         }
 
         .empty-state p {
@@ -497,7 +495,7 @@ const Cards: React.FC = () => {
           }
         }
       `}</style>
-    </div>
+    </Layout>
   );
 };
 

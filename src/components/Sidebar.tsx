@@ -7,11 +7,19 @@ import {
   TrendingUp,
   Target,
   Wallet,
+  X,
 } from 'lucide-react';
 
 import { useLanguage } from '../context/LanguageContext';
+import LanguageSwitcher from './LanguageSwitcher';
+import ThemeToggle from './ThemeToggle';
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
   const location = useLocation();
   const { t } = useLanguage();
 
@@ -20,8 +28,8 @@ const Sidebar: React.FC = () => {
     { path: '/expenses', label: t.common.allExpenses, icon: Receipt, group: 'general' },
     { path: '/bills', label: t.common.billsSubscription, icon: CreditCard, group: 'general' },
     { path: '/cards', label: t.common.cards, icon: Wallet, group: 'general' },
-    { path: '/investment', label: t.common.investment, icon: TrendingUp, group: 'general' },
     { path: '/goals', label: t.common.goals, icon: Target, group: 'general' },
+    { path: '/investment', label: t.common.investment, icon: TrendingUp, group: 'general' },
   ];
 
   const toolItems = [
@@ -31,54 +39,112 @@ const Sidebar: React.FC = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <aside className="sidebar">
-      <div className="sidebar-header">
-        <div className="sidebar-logo">
-          <img src="/logo.png" alt="Sarfa" style={{ width: '40px', height: '40px' }} />
-          <span className="sidebar-logo-text">SARFA</span>
-        </div>
-        <p className="sidebar-tagline">{t.common.trackTagline}</p>
-      </div>
+    <>
+      {/* Mobile Overlay */}
+      {isOpen && (
+        <div className="sidebar-overlay" onClick={onClose} />
+      )}
 
-      <nav className="sidebar-nav">
-        <div className="sidebar-section">
-          <h3 className="sidebar-section-title">{t.common.general}</h3>
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`sidebar-link ${isActive(item.path) ? 'active' : ''}`}
-            >
-              <item.icon size={20} />
-              <span>{item.label}</span>
-            </Link>
-          ))}
+      <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
+        {/* Mobile Close Button */}
+        <button className="sidebar-close-btn" onClick={onClose} aria-label="Close menu">
+          <X size={24} />
+        </button>
+
+        <div className="sidebar-header">
+          <div className="sidebar-logo">
+            <img src="/logo.png" alt="Sarfa" style={{ width: '40px', height: '40px' }} />
+            <span className="sidebar-logo-text">SARFA</span>
+          </div>
+          <p className="sidebar-tagline">{t.common.trackTagline}</p>
         </div>
 
-        <div className="sidebar-section">
-          <h3 className="sidebar-section-title">{t.common.tools}</h3>
-          {toolItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`sidebar-link ${isActive(item.path) ? 'active' : ''}`}
-            >
-              <item.icon size={20} />
-              <span>{item.label}</span>
-            </Link>
-          ))}
+        <nav className="sidebar-nav">
+          <div className="sidebar-section">
+            <h3 className="sidebar-section-title">{t.common.general}</h3>
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`sidebar-link ${isActive(item.path) ? 'active' : ''}`}
+              >
+                <item.icon size={20} />
+                <span>{item.label}</span>
+              </Link>
+            ))}
+          </div>
+
+          <div className="sidebar-section">
+            <h3 className="sidebar-section-title">{t.common.tools}</h3>
+            {toolItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`sidebar-link ${isActive(item.path) ? 'active' : ''}`}
+              >
+                <item.icon size={20} />
+                <span>{item.label}</span>
+              </Link>
+            ))}
+          </div>
+
+        </nav>
+
+        <div className="sidebar-controls">
+          <LanguageSwitcher />
+          <ThemeToggle />
         </div>
 
-      </nav>
+        <div className="sidebar-footer">
+          <p className="app-version">v1.2.1</p>
+          <p className="app-copyright">&copy; 2026 Sarfa. All rights reserved.</p>
+        </div>
 
-      <div className="sidebar-footer">
-        <p className="app-version">v1.2.1</p>
-        <p className="app-copyright">&copy; 2026 Sarfa. All rights reserved.</p>
-      </div>
+        <style>{`
+        .sidebar-overlay {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 98;
+        }
 
+        @media (max-width: 768px) {
+          .sidebar-overlay {
+            display: block;
+          }
+        }
 
+        .sidebar-close-btn {
+          display: none;
+          position: absolute;
+          top: var(--space-4);
+          right: var(--space-4);
+          background: none;
+          border: none;
+          color: var(--color-gray-700);
+          cursor: pointer;
+          padding: var(--space-2);
+          border-radius: var(--radius-md);
+          transition: all var(--transition-fast);
+          z-index: 10;
+        }
 
-      <style>{`
+        @media (max-width: 768px) {
+          .sidebar-close-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .sidebar-close-btn:hover {
+            background-color: var(--color-gray-100);
+          }
+        }
+
         .sidebar {
           width: 260px;
           height: 100vh;
@@ -189,6 +255,33 @@ const Sidebar: React.FC = () => {
           margin-top: auto;
         }
 
+        .sidebar-controls {
+          display: none; /* Hidden by default on desktop */
+          align-items: center;
+          justify-content: center;
+          gap: var(--space-4);
+          padding: var(--space-4);
+          border-top: 1px solid var(--color-gray-200);
+          position: relative;
+        }
+
+        @media (max-width: 768px) {
+          .sidebar-controls {
+            display: flex; /* Show only on mobile */
+          }
+        }
+
+        /* Force language dropdown to open UPWARDS in sidebar */
+        .sidebar-controls .language-dropdown {
+          top: auto !important;
+          bottom: 100% !important;
+          left: 50% !important;
+          transform: translateX(-50%) !important;
+          margin-bottom: var(--space-2);
+          width: 200px !important;
+          max-height: 300px;
+        }
+
         .app-version {
           font-size: var(--font-size-xs);
           color: var(--color-gray-500);
@@ -204,19 +297,20 @@ const Sidebar: React.FC = () => {
 
 
 
-        @media (max-width: 1024px) {
+        @media (max-width: 768px) {
           .sidebar {
             transform: translateX(-100%);
             transition: transform var(--transition-base);
+            z-index: 99;
           }
 
           .sidebar.open {
             transform: translateX(0);
-            z-index: var(--z-modal);
           }
         }
       `}</style>
-    </aside>
+      </aside>
+    </>
   );
 };
 

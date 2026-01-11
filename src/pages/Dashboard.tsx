@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Plus, Filter, TrendingUp, TrendingDown, Wallet, BarChart3 } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import AddExpenseModal from '../components/AddExpenseModal';
 import MonthlyChart from '../components/Charts/MonthlyChart';
 import CategoryChart from '../components/Charts/CategoryChart';
@@ -60,11 +60,9 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <div className="dashboard">
-      <Sidebar />
-
+    <Layout>
       <main className="dashboard-main">
-        <header className="dashboard-header">
+        <header className="dashboard-header desktop-header">
           <div className="header-greeting">
             <h1>
               <span className="gradient-text">{t.common.welcomeBack}, {user?.name?.split(' ')[0] || 'User'}</span>{' '}
@@ -340,7 +338,7 @@ const Dashboard: React.FC = () => {
 
         .dashboard-main {
           flex: 1;
-          margin-left: 260px;
+          /* margin-left removed */
           min-height: 100vh;
         }
 
@@ -804,16 +802,57 @@ const Dashboard: React.FC = () => {
         }
 
         @media (max-width: 768px) {
-          .stats-grid {
-            grid-template-columns: 1fr;
+          .dashboard-content {
+            padding: var(--space-4);
+            width: 100%;
+            max-width: 100vw;
+            box-sizing: border-box;
+            overflow-x: hidden;
           }
 
-          .header-time {
-            display: none;
+          .stats-grid {
+            grid-template-columns: 1fr;
+            width: 100%;
+          }
+
+          .charts-grid, 
+          .bottom-grid {
+            grid-template-columns: 1fr;
+            width: 100%;
+            gap: var(--space-4);
+          }
+          
+          /* Crucial: layout constraints */
+          .dashboard-card {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            box-sizing: border-box;
+            margin: 0;
+            overflow: hidden; /* Contain children */
+          }
+
+          .card-content {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+          }
+
+          /* Force table to scroll inside */
+          .recent-expenses-table {
+            min-width: 600px;
+            width: 100%;
+            display: table;
+          }
+
+          /* Hide elements */
+          .header-time,
+          .desktop-header {
+            display: none !important;
           }
         }
       `}</style>
-    </div>
+    </Layout>
   );
 };
 

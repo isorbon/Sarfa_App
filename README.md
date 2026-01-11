@@ -21,11 +21,14 @@ A modern, full-stack expense tracking web application built with React + TypeScr
 ## 🆕 What's New in v1.2.1
 
 - **Localization Improvements**:
+  - Extensive language support added (25+ languages).
   - Enhanced Language Switcher with country flags and native/English names.
-  - Added "Recent" filter translation for all supported languages.
-  - Improved flag rendering on Windows.
-- **Dark Mode Polish**:
-  - Fixed chart tooltips visibility in Dark Mode for Monthly and Category charts.
+- **Mobile-Friendly Updates**:
+  - Implemented Avatar Cropping feature for profile images.
+  - Improved responsive layouts for better mobile experience.
+  - Fixed mobile navigation and header issues.
+- **UX Enhancements**:
+  - Consistent Design System applied to Settings, Cards, and Bills pages.
 
 ## 🆕 What's New in v1.2.0
 

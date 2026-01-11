@@ -149,8 +149,8 @@ const LanguageSwitcher: React.FC = () => {
         }
 
         .dark-mode .language-option.active {
-          background-color: var(--color-primary-900);
-          color: var(--color-primary-100);
+          background-color: var(--color-primary-600);
+          color: #ffffff;
         }
 
         .language-name {

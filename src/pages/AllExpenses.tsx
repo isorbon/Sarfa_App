@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Plus, Search, Edit, Trash2 } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import AddExpenseModal from '../components/AddExpenseModal';
 import ConfirmationModal from '../components/ConfirmationModal';
 import { useCurrency } from '../context/CurrencyContext';
@@ -110,8 +110,7 @@ const AllExpenses: React.FC = () => {
   const categories = ['All', ...Array.from(new Set(expenses.map(e => e.category)))];
 
   return (
-    <div className="all-expenses">
-      <Sidebar />
+    <Layout>
 
       <main className="expenses-main">
         <header className="expenses-header">
@@ -271,7 +270,7 @@ const AllExpenses: React.FC = () => {
 
         .expenses-main {
           flex: 1;
-          margin-left: 260px;
+          /* margin-left removed, handled by Layout */
           min-height: 100vh;
         }
 
@@ -502,24 +501,50 @@ const AllExpenses: React.FC = () => {
         }
 
         @media (max-width: 768px) {
+          .expenses-main {
+            padding: var(--space-4);
+            max-width: 100vw; /* Prevent main container from overflowing */
+            overflow-x: hidden;
+            box-sizing: border-box;
+          }
+
+          .header-actions {
+            display: none !important;
+          }
+
           .expenses-controls {
             flex-direction: column;
+            width: 100%;
+          }
+
+          .search-box {
+            width: 100%;
           }
 
           .category-filter {
             min-width: 100%;
+            overflow-x: auto;
+            padding-bottom: 4px; /* Space for scrollbar */
+          }
+
+          .expenses-content {
+            padding: var(--space-3); /* Reduced padding */
+            overflow: hidden; /* Prevent card overflow */
           }
 
           .expenses-table-container {
             overflow-x: auto;
+            margin: 0 -12px; /* Pull closer to edges */
+            padding: 0 12px;
+            width: calc(100% + 24px); /* Compensate for margin */
           }
 
           .expenses-table {
-            min-width: 800px;
+            min-width: 600px; /* Reduced to fit better */
           }
         }
       `}</style>
-    </div>
+    </Layout>
   );
 };
 

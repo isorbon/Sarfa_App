@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Plus, Search, Filter, Calendar, TrendingUp, AlertCircle, CheckCircle, Clock } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import AddExpenseModal from '../components/AddExpenseModal';
 import ConfirmationModal from '../components/ConfirmationModal';
 import { useCurrency } from '../context/CurrencyContext';
@@ -114,9 +114,7 @@ const BillsSubscription: React.FC = () => {
   }
 
   return (
-    <div className="bills-page">
-      <Sidebar />
-
+    <Layout>
       <main className="bills-main">
         <header className="bills-header">
           <div className="header-greeting">
@@ -224,7 +222,7 @@ const BillsSubscription: React.FC = () => {
               <div className="empty-state">
                 <div className="empty-icon">📋</div>
                 <h3>{t.expenses.noExpenses}</h3>
-                <p>Add your first bill or subscription to get started</p>
+                <p>{t.bills.addFirstBill}</p>
                 <button className="btn-primary" onClick={() => { setSelectedBill(null); setIsModalOpen(true); }}>
                   <Plus size={20} />
                   <span>{t.common.addExpense}</span>
@@ -846,7 +844,7 @@ const BillsSubscription: React.FC = () => {
           }
         }
       `}</style>
-    </div>
+    </Layout>
   );
 };
 
