@@ -16,7 +16,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({ onMenuClick }) => {
           </button>
 
           <div className="mobile-header-logo">
-            <img src="/logo.png" alt="Sarfa" style={{ width: '32px', height: '32px' }} />
+            <img src="/logo.svg" alt="Sarfa" style={{ width: '32px', height: '32px' }} />
             <span className="mobile-logo-text">SARFA</span>
           </div>
         </div>
