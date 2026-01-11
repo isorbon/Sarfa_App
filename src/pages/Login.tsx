@@ -31,7 +31,7 @@ const Login: React.FC = () => {
       <div className="login-card">
         <div className="login-header">
           <div className="logo-icon">
-            <img src="/logo.png" alt="Sarfa" style={{ width: '50px', height: '50px' }} />
+            <img src="/logo.svg" alt="Sarfa" style={{ width: '100%', height: '100%' }} />
           </div>
           <h1>Welcome Back</h1>
           <p>Sign in to continue to Sarfa</p>
@@ -130,13 +130,10 @@ const Login: React.FC = () => {
         .logo-icon {
           width: 80px;
           height: 80px;
-          background: linear-gradient(135deg, var(--color-primary-600), var(--color-blue-500));
-          border-radius: var(--radius-xl);
           display: flex;
           align-items: center;
           justify-content: center;
           margin: 0 auto var(--space-4);
-          color: white;
         }
 
         .login-header h1 {

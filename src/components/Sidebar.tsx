@@ -53,7 +53,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
 
         <div className="sidebar-header">
           <div className="sidebar-logo">
-            <img src="/logo.png" alt="Sarfa" style={{ width: '40px', height: '40px' }} />
+            <img src="/logo.svg" alt="Sarfa" style={{ width: '40px', height: '40px' }} />
             <span className="sidebar-logo-text">SARFA</span>
           </div>
           <p className="sidebar-tagline">{t.common.trackTagline}</p>
@@ -171,12 +171,15 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
         }
 
         .sidebar-logo-text {
-          font-size: var(--font-size-lg);
-          font-weight: var(--font-weight-bold);
+          font-size: var(--font-size-2xl);
+          font-weight: var(--font-weight-extrabold);
           background: linear-gradient(135deg, var(--color-primary-600), var(--color-blue-500));
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
+          letter-spacing: 1px;
+          padding-top: 8px;
+          line-height: 1;
         }
 
         .sidebar-tagline {

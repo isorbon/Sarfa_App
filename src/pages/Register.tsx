@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { UserPlus, Wallet } from 'lucide-react';
+import { UserPlus } from 'lucide-react';
 
 const Register: React.FC = () => {
   const [name, setName] = useState('');
@@ -44,7 +44,7 @@ const Register: React.FC = () => {
       <div className="register-card">
         <div className="register-header">
           <div className="logo-icon">
-            <Wallet size={40} />
+            <img src="/logo.svg" alt="Sarfa" style={{ width: '100%', height: '100%' }} />
           </div>
           <h1>Create Account</h1>
           <p>Join your family in tracking expenses</p>
@@ -172,13 +172,10 @@ const Register: React.FC = () => {
         .logo-icon {
           width: 80px;
           height: 80px;
-          background: linear-gradient(135deg, var(--color-primary-600), var(--color-blue-500));
-          border-radius: var(--radius-xl);
           display: flex;
           align-items: center;
           justify-content: center;
           margin: 0 auto var(--space-4);
-          color: white;
         }
 
         .register-header h1 {
