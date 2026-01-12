@@ -218,6 +218,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'de': {
         ...enUS,
+        goals: {
+            goalName: 'Zielname',
+            targetAmount: 'Zielbetrag',
+            currentAmount: 'Gespart',
+            deadline: 'Frist',
+            noGoals: 'Noch keine Ziele',
+            addFirstGoal: 'Setzen Sie Ihr erstes finanzielles Ziel',
+            deleteTitle: 'Ziel löschen',
+            deleteMessage: 'Möchten Sie dieses Ziel wirklich löschen?',
+            reached: 'Ziel erreicht!',
+            left: 'übrig',
+            daysLeft: 'Tage übrig',
+            namePlaceholder: 'z.B. Neues Auto',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Ausgaben-Tracker',
@@ -383,6 +397,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'es': {
         ...enUS,
+        goals: {
+            goalName: 'Nombre del objetivo',
+            targetAmount: 'Monto objetivo',
+            currentAmount: 'Monto ahorrado',
+            deadline: 'Fecha límite',
+            noGoals: 'Sin objetivos aún',
+            addFirstGoal: 'Establece tu primer objetivo financiero',
+            deleteTitle: 'Eliminar objetivo',
+            deleteMessage: '¿Estás seguro de que deseas eliminar este objetivo?',
+            reached: '¡Objetivo alcanzado!',
+            left: 'restantes',
+            daysLeft: 'días restantes',
+            namePlaceholder: 'ej. Coche nuevo',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Rastreador de Gastos',
@@ -548,6 +576,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'fr': {
         ...enUS,
+        goals: {
+            goalName: 'Nom de l\'objectif',
+            targetAmount: 'Montant cible',
+            currentAmount: 'Montant économisé',
+            deadline: 'Date limite',
+            noGoals: 'Aucun objectif défini',
+            addFirstGoal: 'Définissez votre premier objectif financier',
+            deleteTitle: 'Supprimer l\'objectif',
+            deleteMessage: 'Voulez-vous vraiment supprimer cet objectif ?',
+            reached: 'Objectif atteint !',
+            left: 'restant',
+            daysLeft: 'jours restants',
+            namePlaceholder: 'ex. Nouvelle voiture',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Suivi des Dépenses',
@@ -713,6 +755,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'ru': {
         ...enUS,
+        goals: {
+            goalName: 'Название цели',
+            targetAmount: 'Целевая сумма',
+            currentAmount: 'Накоплено',
+            deadline: 'Срок',
+            noGoals: 'Целей пока нет',
+            addFirstGoal: 'Установите свою первую финансовую цель',
+            deleteTitle: 'Удалить цель',
+            deleteMessage: 'Вы уверены, что хотите удалить эту цель?',
+            reached: 'Цель достигнута!',
+            left: 'осталось',
+            daysLeft: 'дней осталось',
+            namePlaceholder: 'Например, Новая машина',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Трекер Расходов',
@@ -872,6 +928,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
 
     'cs': { // Czech
         ...enUS,
+        goals: {
+            goalName: 'Název cíle',
+            targetAmount: 'Cílová částka',
+            currentAmount: 'Ušetřeno',
+            deadline: 'Termín',
+            noGoals: 'Zatím žádné cíle',
+            addFirstGoal: 'Nastavte si svůj první finanční cíl',
+            deleteTitle: 'Smazat cíl',
+            deleteMessage: 'Opravdu chcete smazat tento cíl?',
+            reached: 'Cíl dosažen!',
+            left: 'zbývá',
+            daysLeft: 'dní zbývá',
+            namePlaceholder: 'např. Nové auto',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Sledování výdajů',
@@ -1038,6 +1108,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'hu': { // Hungarian
         ...enUS,
+        goals: {
+            goalName: 'Cél neve',
+            targetAmount: 'Célösszeg',
+            currentAmount: 'Megtakarítva',
+            deadline: 'Határidő',
+            noGoals: 'Még nincsenek célok',
+            addFirstGoal: 'Állítsa be első pénzügyi célját',
+            deleteTitle: 'Cél törlése',
+            deleteMessage: 'Biztosan törölni szeretné ezt a célt?',
+            reached: 'Cél elérve!',
+            left: 'hátra',
+            daysLeft: 'nap van hátra',
+            namePlaceholder: 'pl. Új autó',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Kiadáskövető',
@@ -1204,6 +1288,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'id': { // Indonesian
         ...enUS,
+        goals: {
+            goalName: 'Nama Tujuan',
+            targetAmount: 'Jumlah Target',
+            currentAmount: 'Terkumpul',
+            deadline: 'Tenggat Waktu',
+            noGoals: 'Belum ada tujuan',
+            addFirstGoal: 'Tetapkan tujuan keuangan pertama Anda',
+            deleteTitle: 'Hapus Tujuan',
+            deleteMessage: 'Anda yakin ingin menghapus tujuan ini?',
+            reached: 'Tujuan Tercapai!',
+            left: 'tersisa',
+            daysLeft: 'hari tersisa',
+            namePlaceholder: 'misal Mobil Baru',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Pelacak Pengeluaran',
@@ -1370,6 +1468,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'it': { // Italian
         ...enUS,
+        goals: {
+            goalName: 'Nome Obiettivo',
+            targetAmount: 'Importo Obiettivo',
+            currentAmount: 'Risparmiato',
+            deadline: 'Scadenza',
+            noGoals: 'Nessun obiettivo',
+            addFirstGoal: 'Imposta il tuo primo obiettivo finanziario',
+            deleteTitle: 'Elimina Obiettivo',
+            deleteMessage: 'Sei sicuro di voler eliminare questo obiettivo?',
+            reached: 'Obiettivo Raggiunto!',
+            left: 'rimanenti',
+            daysLeft: 'giorni rimanenti',
+            namePlaceholder: 'es. Nuova Auto',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Monitoraggio Spese',
@@ -1536,6 +1648,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'ja': { // Japanese
         ...enUS,
+        goals: {
+            goalName: '目標名',
+            targetAmount: '目標金額',
+            currentAmount: '貯蓄額',
+            deadline: '期限',
+            noGoals: '目標はまだありません',
+            addFirstGoal: '最初の財務目標を設定しましょう',
+            deleteTitle: '目標を削除',
+            deleteMessage: 'この目標を削除してもよろしいですか？',
+            reached: '目標達成！',
+            left: '残り',
+            daysLeft: '日',
+            namePlaceholder: '例：新車',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - 経費トラッカー',

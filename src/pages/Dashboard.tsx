@@ -25,15 +25,18 @@ const Dashboard: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [recentExpenses, setRecentExpenses] = useState<Expense[]>([]);
   const [currentGoalIndex, setCurrentGoalIndex] = useState(0);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
 
   const nextGoal = () => {
     if (stats?.goals && stats.goals.length > 0) {
+      setSlideDirection('right');
       setCurrentGoalIndex((prev) => (prev + 1) % stats.goals.length);
     }
   };
 
   const prevGoal = () => {
     if (stats?.goals && stats.goals.length > 0) {
+      setSlideDirection('left');
       setCurrentGoalIndex((prev) => (prev - 1 + stats.goals.length) % stats.goals.length);
     }
   };
@@ -186,7 +189,11 @@ const Dashboard: React.FC = () => {
               </div>
               <div className="goal-content">
                 {stats?.goals && stats.goals.length > 0 ? (
-                  <>
+                  <div
+                    key={currentGoalIndex}
+                    className={`goal-animated-wrapper ${slideDirection === 'right' ? 'slide-in-right' : 'slide-in-left'}`}
+                    style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', width: '100%' }}
+                  >
                     <div className="goal-circle">
                       <svg viewBox="0 0 100 100">
                         <circle cx="50" cy="50" r="40" fill="none" stroke="#e5e7eb" strokeWidth="8" />
@@ -214,7 +221,7 @@ const Dashboard: React.FC = () => {
                       <div className="goal-required">{t.dashboard.required} {formatPrice(stats.goals[currentGoalIndex].required || 0)}</div>
                       <div className="goal-collected">{t.dashboard.collected} {formatPrice(stats.goals[currentGoalIndex].collected || 0)}</div>
                     </div>
-                  </>
+                  </div>
                 ) : (
                   <div className="goal-info">
                     <div className="goal-name">{t.goals?.noGoals || 'No Goal Set'}</div>
@@ -604,6 +611,42 @@ const Dashboard: React.FC = () => {
         .goal-arrow-btn:hover {
             border-color: var(--color-primary-600);
             color: var(--color-primary-600);
+        }
+
+        .goal-animated-wrapper {
+            animation-duration: 0.3s;
+            animation-fill-mode: both;
+            animation-timing-function: ease-out;
+        }
+
+        .slide-in-right {
+            animation-name: slideInRight;
+        }
+
+        .slide-in-left {
+            animation-name: slideInLeft;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .charts-grid {
