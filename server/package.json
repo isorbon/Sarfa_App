@@ -1,6 +1,6 @@
 {
   "name": "expense-tracker-server",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Backend server for expense tracking application",
   "main": "server.js",
   "type": "module",

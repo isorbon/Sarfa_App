@@ -96,7 +96,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
         </div>
 
         <div className="sidebar-footer">
-          <p className="app-version">v1.2.1</p>
+          <p className="app-version">v1.2.2</p>
           <p className="app-copyright">&copy; 2026 Sarfa. All rights reserved.</p>
         </div>
 

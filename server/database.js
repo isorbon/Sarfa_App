@@ -99,6 +99,14 @@ function initializeDatabase() {
       )
     `);
 
+    // Add card_type column to cards table if it doesn't exist
+    db.run(`ALTER TABLE cards ADD COLUMN card_type TEXT DEFAULT 'generic'`, (err) => {
+      // Ignore error if column already exists
+      if (err && !err.message.includes('duplicate column name')) {
+        console.error('Error adding card_type column:', err);
+      }
+    });
+
     // Add card_id column to expenses table if it doesn't exist
     db.run(`ALTER TABLE expenses ADD COLUMN card_id INTEGER REFERENCES cards(id)`, (err) => {
       // Ignore error if column already exists

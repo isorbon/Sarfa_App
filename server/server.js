@@ -575,15 +575,15 @@ app.get('/api/cards', authenticateToken, (req, res) => {
 
 // Create new card
 app.post('/api/cards', authenticateToken, (req, res) => {
-    const { name, bank } = req.body;
+    const { name, bank, card_type } = req.body;
 
     if (!name || !bank) {
         return res.status(400).json({ error: 'Card name and bank are required' });
     }
 
     db.run(
-        'INSERT INTO cards (user_id, name, bank) VALUES (?, ?, ?)',
-        [req.user.id, name, bank],
+        'INSERT INTO cards (user_id, name, bank, card_type) VALUES (?, ?, ?, ?)',
+        [req.user.id, name, bank, card_type || 'generic'],
         function (err) {
             if (err) {
                 console.error('Error creating card:', err);
@@ -593,7 +593,8 @@ app.post('/api/cards', authenticateToken, (req, res) => {
                 id: this.lastID,
                 user_id: req.user.id,
                 name,
-                bank
+                bank,
+                card_type: card_type || 'generic'
             });
         }
     );
@@ -602,15 +603,15 @@ app.post('/api/cards', authenticateToken, (req, res) => {
 // Update card
 app.put('/api/cards/:id', authenticateToken, (req, res) => {
     const { id } = req.params;
-    const { name, bank } = req.body;
+    const { name, bank, card_type } = req.body;
 
     if (!name || !bank) {
         return res.status(400).json({ error: 'Card name and bank are required' });
     }
 
     db.run(
-        'UPDATE cards SET name = ?, bank = ? WHERE id = ? AND user_id = ?',
-        [name, bank, id, req.user.id],
+        'UPDATE cards SET name = ?, bank = ?, card_type = ? WHERE id = ? AND user_id = ?',
+        [name, bank, card_type || 'generic', id, req.user.id],
         function (err) {
             if (err) {
                 console.error('Error updating card:', err);
@@ -619,7 +620,7 @@ app.put('/api/cards/:id', authenticateToken, (req, res) => {
             if (this.changes === 0) {
                 return res.status(404).json({ error: 'Card not found' });
             }
-            res.json({ id: parseInt(id), name, bank });
+            res.json({ id: parseInt(id), name, bank, card_type: card_type || 'generic' });
         }
     );
 });
