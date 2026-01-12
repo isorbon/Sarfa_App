@@ -32,11 +32,11 @@ export interface DashboardStats {
     monthlyExpenses: number;
     totalInvestment: number;
     accountBalance: number;
-    goal: {
+    goals: Array<{
         name: string;
         required: number;
         collected: number;
-    };
+    }>;
     categoryBreakdown: Array<{
         category: string;
         total: number;

@@ -472,9 +472,9 @@ app.get('/api/dashboard/stats', authenticateToken, async (req, res) => {
             [userId, 'Investment']
         );
 
-        // Get primary goal
-        const goalResult = await dbGet(
-            'SELECT name, target_amount, current_amount FROM goals WHERE user_id = ? ORDER BY created_at DESC LIMIT 1',
+        // Get active goals (up to 5)
+        const goalResults = await dbAll(
+            'SELECT name, target_amount, current_amount FROM goals WHERE user_id = ? ORDER BY created_at DESC LIMIT 5',
             [userId]
         );
 
@@ -491,11 +491,13 @@ app.get('/api/dashboard/stats', authenticateToken, async (req, res) => {
             monthlyExpenses: monthlyResult?.total || 0,
             totalInvestment: investmentResult?.total || 0,
             accountBalance: 898450,
-            goal: goalResult ? {
-                name: goalResult.name,
-                required: goalResult.target_amount,
-                collected: goalResult.current_amount
-            } : { name: 'No Goal Set', required: 0, collected: 0 },
+            totalInvestment: investmentResult?.total || 0,
+            accountBalance: 898450,
+            goals: goalResults.length > 0 ? goalResults.map(g => ({
+                name: g.name,
+                required: g.target_amount,
+                collected: g.current_amount
+            })) : [{ name: 'No Goal Set', required: 0, collected: 0 }],
             categoryBreakdown,
             monthlyTrend,
             subscriptions

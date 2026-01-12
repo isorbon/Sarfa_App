@@ -24,6 +24,19 @@ const Dashboard: React.FC = () => {
   const [categoryPeriod, setCategoryPeriod] = useState<'3months' | '6months' | 'year' | 'month' | 'lastYear'>('3months');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [recentExpenses, setRecentExpenses] = useState<Expense[]>([]);
+  const [currentGoalIndex, setCurrentGoalIndex] = useState(0);
+
+  const nextGoal = () => {
+    if (stats?.goals && stats.goals.length > 0) {
+      setCurrentGoalIndex((prev) => (prev + 1) % stats.goals.length);
+    }
+  };
+
+  const prevGoal = () => {
+    if (stats?.goals && stats.goals.length > 0) {
+      setCurrentGoalIndex((prev) => (prev - 1 + stats.goals.length) % stats.goals.length);
+    }
+  };
 
   const loadData = async () => {
     try {
@@ -155,38 +168,58 @@ const Dashboard: React.FC = () => {
             </div>
 
             <div className="stat-card">
-              <div className="stat-header">
-                <span className="stat-icon">🎯</span>
-                <span className="stat-label">{t.common.goals}</span>
+              <div className="stat-header" style={{ justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                  <span className="stat-icon">🎯</span>
+                  <span className="stat-label">{t.common.goals}</span>
+                </div>
+                {stats?.goals && stats.goals.length > 1 && (
+                  <div className="goal-controls">
+                    <button onClick={prevGoal} className="goal-arrow-btn">
+                      <LucideIcons.ChevronLeft size={16} />
+                    </button>
+                    <button onClick={nextGoal} className="goal-arrow-btn">
+                      <LucideIcons.ChevronRight size={16} />
+                    </button>
+                  </div>
+                )}
               </div>
               <div className="goal-content">
-                <div className="goal-circle">
-                  <svg viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="40" fill="none" stroke="#e5e7eb" strokeWidth="8" />
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="40"
-                      fill="none"
-                      stroke="url(#goalGradient)"
-                      strokeWidth="8"
-                      strokeDasharray={`${(stats?.goal.collected || 0) / (stats?.goal.required || 1) * 251.2} 251.2`}
-                      strokeLinecap="round"
-                      transform="rotate(-90 50 50)"
-                    />
-                    <defs>
-                      <linearGradient id="goalGradient">
-                        <stop offset="0%" stopColor="#f59e0b" />
-                        <stop offset="100%" stopColor="#f97316" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                </div>
-                <div className="goal-info">
-                  <div className="goal-name">{stats?.goal.name}</div>
-                  <div className="goal-required">{t.dashboard.required} {formatPrice(stats?.goal.required || 0)}</div>
-                  <div className="goal-collected">{t.dashboard.collected} {formatPrice(stats?.goal.collected || 0)}</div>
-                </div>
+                {stats?.goals && stats.goals.length > 0 ? (
+                  <>
+                    <div className="goal-circle">
+                      <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="40" fill="none" stroke="#e5e7eb" strokeWidth="8" />
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="40"
+                          fill="none"
+                          stroke="url(#goalGradient)"
+                          strokeWidth="8"
+                          strokeDasharray={`${(stats.goals[currentGoalIndex].collected || 0) / (stats.goals[currentGoalIndex].required || 1) * 251.2} 251.2`}
+                          strokeLinecap="round"
+                          transform="rotate(-90 50 50)"
+                        />
+                        <defs>
+                          <linearGradient id="goalGradient">
+                            <stop offset="0%" stopColor="#f59e0b" />
+                            <stop offset="100%" stopColor="#f97316" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    </div>
+                    <div className="goal-info">
+                      <div className="goal-name">{stats.goals[currentGoalIndex].name}</div>
+                      <div className="goal-required">{t.dashboard.required} {formatPrice(stats.goals[currentGoalIndex].required || 0)}</div>
+                      <div className="goal-collected">{t.dashboard.collected} {formatPrice(stats.goals[currentGoalIndex].collected || 0)}</div>
+                    </div>
+                  </>
+                ) : (
+                  <div className="goal-info">
+                    <div className="goal-name">{t.goals?.noGoals || 'No Goal Set'}</div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -547,6 +580,30 @@ const Dashboard: React.FC = () => {
         .goal-collected {
           font-size: var(--font-size-xs);
           color: var(--color-success);
+        }
+
+        .goal-controls {
+            display: flex;
+            gap: 4px;
+        }
+
+        .goal-arrow-btn {
+            background: var(--color-bg-primary); 
+            border: 1px solid var(--color-border);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--color-text-secondary);
+            padding: 0;
+        }
+        
+        .goal-arrow-btn:hover {
+            border-color: var(--color-primary-600);
+            color: var(--color-primary-600);
         }
 
         .charts-grid {

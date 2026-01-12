@@ -322,7 +322,7 @@ const Goals: React.FC = () => {
         }
 
         .goals-header h1 .gradient-text {
-          background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
