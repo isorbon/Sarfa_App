@@ -1828,6 +1828,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'nl': { // Dutch
         ...enUS,
+        goals: {
+            goalName: 'Doelnaam',
+            targetAmount: 'Doelbedrag',
+            currentAmount: 'Gespaard',
+            deadline: 'Deadline',
+            noGoals: 'Nog geen doelen',
+            addFirstGoal: 'Stel je eerste financiële doel in',
+            deleteTitle: 'Doel verwijderen',
+            deleteMessage: 'Weet je zeker dat je dit doel wilt verwijderen?',
+            reached: 'Doel bereikt!',
+            left: 'over',
+            daysLeft: 'dagen over',
+            namePlaceholder: 'bijv. Nieuwe Auto',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Uitgaventracker',
@@ -1994,6 +2008,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'pl': { // Polish
         ...enUS,
+        goals: {
+            goalName: 'Nazwa celu',
+            targetAmount: 'Kwota docelowa',
+            currentAmount: 'Zaoszczędzono',
+            deadline: 'Termin',
+            noGoals: 'Brak celów',
+            addFirstGoal: 'Ustaw swój pierwszy cel finansowy',
+            deleteTitle: 'Usuń cel',
+            deleteMessage: 'Czy na pewno chcesz usunąć ten cel?',
+            reached: 'Cel osiągnięty!',
+            left: 'zostało',
+            daysLeft: 'dni zostało',
+            namePlaceholder: 'np. Nowy samochód',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Monitor Wydatków',
@@ -2160,6 +2188,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'pt-BR': { // Portuguese Brazil
         ...enUS,
+        goals: {
+            goalName: 'Nome da Meta',
+            targetAmount: 'Valor Alvo',
+            currentAmount: 'Economizado',
+            deadline: 'Prazo',
+            noGoals: 'Nenhuma meta ainda',
+            addFirstGoal: 'Defina sua primeira meta financeira',
+            deleteTitle: 'Excluir Meta',
+            deleteMessage: 'Tem certeza que deseja excluir esta meta?',
+            reached: 'Meta Alcançada!',
+            left: 'restante',
+            daysLeft: 'dias restantes',
+            namePlaceholder: 'ex. Carro Novo',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Controle de Despesas',
@@ -2326,6 +2368,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'ro': { // Romanian
         ...enUS,
+        goals: {
+            goalName: 'Nume Obiectiv',
+            targetAmount: 'Suma Țintă',
+            currentAmount: 'Economisit',
+            deadline: 'Termen Limită',
+            noGoals: 'Niciun obiectiv încă',
+            addFirstGoal: 'Setează primul tău obiectiv financiar',
+            deleteTitle: 'Șterge Obiectiv',
+            deleteMessage: 'Sigur dorești să ștergi acest obiectiv?',
+            reached: 'Obiectiv Atins!',
+            left: 'rămas',
+            daysLeft: 'zile rămase',
+            namePlaceholder: 'ex. Mașină Nouă',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Urmărire Cheltuieli',
@@ -2492,6 +2548,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'th': { // Thai
         ...enUS,
+        goals: {
+            goalName: 'ชื่อเป้าหมาย',
+            targetAmount: 'จำนวนเป้าหมาย',
+            currentAmount: 'เก็บได้',
+            deadline: 'วันครบกำหนด',
+            noGoals: 'ยังไม่มีเป้าหมาย',
+            addFirstGoal: 'ตั้งเป้าหมายทางการเงินแรกของคุณ',
+            deleteTitle: 'ลบเป้าหมาย',
+            deleteMessage: 'คุณแน่ใจหรือไม่ว่าต้องการลบเป้าหมายนี้?',
+            reached: 'บรรลุเป้าหมายแล้ว!',
+            left: 'เหลือ',
+            daysLeft: 'วันเหลือ',
+            namePlaceholder: 'เช่น รถใหม่',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - ตัวติดตามค่าใช้จ่าย',
@@ -2658,6 +2728,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'tr': { // Turkish
         ...enUS,
+        goals: {
+            goalName: 'Hedef Adı',
+            targetAmount: 'Hedef Tutar',
+            currentAmount: 'Biriken',
+            deadline: 'Bitiş Tarihi',
+            noGoals: 'Henüz hedef yok',
+            addFirstGoal: 'İlk finansal hedefinizi belirleyin',
+            deleteTitle: 'Hedefi Sil',
+            deleteMessage: 'Bu hedefi silmek istediğinize emin misiniz?',
+            reached: 'Hedefe Ulaşıldı!',
+            left: 'kaldı',
+            daysLeft: 'gün kaldı',
+            namePlaceholder: 'ör. Yeni Araba',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Gider Takibi',
@@ -2824,6 +2908,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'uk': { // Ukrainian
         ...enUS,
+        goals: {
+            goalName: 'Назва цілі',
+            targetAmount: 'Цільова сума',
+            currentAmount: 'Накопичено',
+            deadline: 'Термін',
+            noGoals: 'Цілей поки немає',
+            addFirstGoal: 'Встановіть свою першу фінансову ціль',
+            deleteTitle: 'Видалити ціль',
+            deleteMessage: 'Ви впевнені, що хочете видалити цю ціль?',
+            reached: 'Ціль досягнуто!',
+            left: 'залишилось',
+            daysLeft: 'днів лишилось',
+            namePlaceholder: 'напр. Нова машина',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Трекер Витрат',
@@ -2972,6 +3070,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'zh-CN': { // Chinese Simplified
         ...enUS,
+        goals: {
+            goalName: '目标名称',
+            targetAmount: '目标金额',
+            currentAmount: '已存金额',
+            deadline: '截止日期',
+            noGoals: '暂无目标',
+            addFirstGoal: '设定您的第一个财务目标',
+            deleteTitle: '删除目标',
+            deleteMessage: '您确定要删除此目标吗？',
+            reached: '目标达成！',
+            left: '剩余',
+            daysLeft: '天剩余',
+            namePlaceholder: '例如：新车',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - 支出追踪',
@@ -3138,6 +3250,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'zh-TW': { // Chinese Traditional
         ...enUS,
+        goals: {
+            goalName: '目標名稱',
+            targetAmount: '目標金額',
+            currentAmount: '已存金額',
+            deadline: '截止日期',
+            noGoals: '暫無目標',
+            addFirstGoal: '設定您的第一個財務目標',
+            deleteTitle: '刪除目標',
+            deleteMessage: '您確定要刪除此目標嗎？',
+            reached: '目標達成！',
+            left: '剩餘',
+            daysLeft: '天剩餘',
+            namePlaceholder: '例如：新車',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - 支出追蹤',
@@ -3305,6 +3431,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
 
     'kg': { // Kyrgyz
         ...enUS,
+        goals: {
+            goalName: 'Максаттын аты',
+            targetAmount: 'Максаттуу сумма',
+            currentAmount: 'Чогултулган',
+            deadline: 'Мөөнөтү',
+            noGoals: 'Азырынча максаттар жок',
+            addFirstGoal: 'Биринчи финансылык максатыңызды коюңуз',
+            deleteTitle: 'Максатты өчүрүү',
+            deleteMessage: 'Бул максатты чын эле өчүрүүнү каалайсызбы?',
+            reached: 'Максат аткарылды!',
+            left: 'калды',
+            daysLeft: 'күн калды',
+            namePlaceholder: 'мис. Жаңы унаа',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Чыгымдарды көзөмөлдөө',
@@ -3458,6 +3598,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
 
     'kz': { // Kazakh
         ...enUS,
+        goals: {
+            goalName: 'Мақсат атауы',
+            targetAmount: 'Мақсатты сома',
+            currentAmount: 'Жиналды',
+            deadline: 'Мерзімі',
+            noGoals: 'Әзірге мақсаттар жоқ',
+            addFirstGoal: 'Алғашқы қаржылық мақсатыңызды қойыңыз',
+            deleteTitle: 'Мақсатты жою',
+            deleteMessage: 'Бұл мақсатты жоюға сенімдісіз бе?',
+            reached: 'Мақсат орындалды!',
+            left: 'қалды',
+            daysLeft: 'күн қалды',
+            namePlaceholder: 'мыс. Жаңа көлік',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Шығындарды қадағалау',
@@ -3611,6 +3765,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
 
     'tj': { // Tajik
         ...enUS,
+        goals: {
+            goalName: 'Номи мақсад',
+            targetAmount: 'Маблағи зарурӣ',
+            currentAmount: 'Ҷамъшуда',
+            deadline: 'Мӯҳлат',
+            noGoals: 'Ҳоло мақсадҳо нест',
+            addFirstGoal: 'Аввалин мақсади молиявии худро гузоред',
+            deleteTitle: 'Ҳафзи мақсад',
+            deleteMessage: 'Шумо мутмаинед, ки ин мақсадро ҳазф кардан мехоҳед?',
+            reached: 'Мақсад иҷро шуд!',
+            left: 'боқимонда',
+            daysLeft: 'рӯз монд',
+            namePlaceholder: 'мас. Мошини нав',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Назорати хароҷот',
@@ -3764,6 +3932,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
 
     'uz': { // Uzbek
         ...enUS,
+        goals: {
+            goalName: 'Maqsad nomi',
+            targetAmount: 'Maqsad qiymati',
+            currentAmount: 'Yig‘ilgan',
+            deadline: 'Muddat',
+            noGoals: 'Hozircha maqsadlar yo‘q',
+            addFirstGoal: 'Birinchi moliyaviy maqsadingizni belgilang',
+            deleteTitle: 'Maqsadni o‘chirish',
+            deleteMessage: 'Ushbu maqsadni o‘chirmoqchimisiz?',
+            reached: 'Maqsadga erishildi!',
+            left: 'qoldi',
+            daysLeft: 'kun qoldi',
+            namePlaceholder: 'mas. Yangi mashina',
+        },
         common: {
             ...enUS.common,
             appTitle: 'Sarfa - Xarajatlarni kuzatish',
@@ -3916,6 +4098,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'az': {
         ...enUS,
+        goals: {
+            goalName: 'Hədəf adı',
+            targetAmount: 'Hədəf məbləğ',
+            currentAmount: 'Yığılan',
+            deadline: 'Son tarix',
+            noGoals: 'Hələ hədəf yoxdur',
+            addFirstGoal: 'İlk maliyyə hədəfinizi təyin edin',
+            deleteTitle: 'Hədəfi sil',
+            deleteMessage: 'Bu hədəfi silmək istədiyinizə əminsiniz?',
+            reached: 'Hədəfə çatdı!',
+            left: 'qaldı',
+            daysLeft: 'gün qaldı',
+            namePlaceholder: 'məs. Yeni Maşın',
+        },
         common: {
             ...enUS.common,
             dashboard: 'İdarə Paneli',
@@ -4047,6 +4243,20 @@ const translationsMap: Record<LanguageCode, Translation> = {
     },
     'hy': {
         ...enUS,
+        goals: {
+            goalName: 'Նպատակի անվանում',
+            targetAmount: 'Թիրախային գումար',
+            currentAmount: 'Հավաքված',
+            deadline: 'Վերջնաժամկետ',
+            noGoals: 'Դեռ նպատակներ չկան',
+            addFirstGoal: 'Սահմանեք ձեր առաջին ֆինանսական նպատակը',
+            deleteTitle: 'Ջնջել նպատակը',
+            deleteMessage: 'Վստա՞հ եք, որ ցանկանում եք ջնջել այս նպատակը:',
+            reached: 'Նպատակը իրագործված է!',
+            left: 'մնացել է',
+            daysLeft: 'օր մնաց',
+            namePlaceholder: 'օր. Նոր մեքենա',
+        },
         common: {
             ...enUS.common,
             dashboard: 'Վահանակ',

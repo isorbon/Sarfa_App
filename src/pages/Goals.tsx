@@ -303,7 +303,7 @@ const Goals: React.FC = () => {
             <style>{`
         .goals-main {
           flex: 1;
-          margin-left: 260px;
+          /* margin-left removed, handled by Layout */
           min-height: 100vh;
         }
 

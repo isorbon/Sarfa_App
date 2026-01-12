@@ -172,10 +172,10 @@ const Dashboard: React.FC = () => {
 
             <div className="stat-card">
               <div className="stat-header" style={{ justifyContent: 'space-between' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                <div className="stat-icon-wrapper icon-wrapper-orange">
                   <span className="stat-icon">🎯</span>
-                  <span className="stat-label">{t.common.goals}</span>
                 </div>
+                <h3 className="stat-title">{t.common.goals}</h3>
                 {stats?.goals && stats.goals.length > 1 && (
                   <div className="goal-controls">
                     <button onClick={prevGoal} className="goal-arrow-btn">
@@ -196,14 +196,14 @@ const Dashboard: React.FC = () => {
                   >
                     <div className="goal-circle">
                       <svg viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="40" fill="none" stroke="#e5e7eb" strokeWidth="8" />
+                        <circle cx="50" cy="50" r="40" fill="none" stroke="#e5e7eb" strokeWidth="6" />
                         <circle
                           cx="50"
                           cy="50"
                           r="40"
                           fill="none"
                           stroke="url(#goalGradient)"
-                          strokeWidth="8"
+                          strokeWidth="6"
                           strokeDasharray={`${(stats.goals[currentGoalIndex].collected || 0) / (stats.goals[currentGoalIndex].required || 1) * 251.2} 251.2`}
                           strokeLinecap="round"
                           transform="rotate(-90 50 50)"
@@ -564,8 +564,8 @@ const Dashboard: React.FC = () => {
         }
 
         .goal-circle {
-          width: 80px;
-          height: 80px;
+          width: 90px;
+          height: 90px;
           flex-shrink: 0;
         }
 
@@ -576,16 +576,17 @@ const Dashboard: React.FC = () => {
         .goal-name {
           font-weight: var(--font-weight-semibold);
           color: var(--color-gray-900);
-          margin-bottom: var(--space-1);
+          margin-bottom: var(--space-2);
+          font-size: var(--font-size-xl);
         }
 
         .goal-required {
-          font-size: var(--font-size-xs);
+          font-size: var(--font-size-sm);
           color: var(--color-gray-500);
         }
 
         .goal-collected {
-          font-size: var(--font-size-xs);
+          font-size: var(--font-size-sm);
           color: var(--color-success);
         }
 
