@@ -94,6 +94,20 @@ export interface Translation {
         namePlaceholder: string;
         bankPlaceholder: string;
     };
+    goals: {
+        goalName: string;
+        targetAmount: string;
+        currentAmount: string;
+        deadline: string;
+        noGoals: string;
+        addFirstGoal: string;
+        deleteTitle: string;
+        deleteMessage: string;
+        reached: string;
+        left: string;
+        daysLeft: string;
+        namePlaceholder: string;
+    };
     bills: {
         totalMonthly: string;
         upcoming: string;
@@ -134,6 +148,8 @@ export interface Translation {
         editExpenseTitle: string;
         addCardTitle: string;
         editCardTitle: string;
+        addGoalTitle?: string;
+        editGoalTitle?: string;
         saving: string;
     };
     settings: {

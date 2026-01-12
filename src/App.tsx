@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard';
 import AllExpenses from './pages/AllExpenses';
 import BillsSubscription from './pages/BillsSubscription';
 import Cards from './pages/Cards';
+import Goals from './pages/Goals';
 import Settings from './pages/Settings';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -88,6 +89,14 @@ const App: React.FC = () => {
                             element={
                                 <ProtectedRoute>
                                     <Cards />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/goals"
+                            element={
+                                <ProtectedRoute>
+                                    <Goals />
                                 </ProtectedRoute>
                             }
                         />

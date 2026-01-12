@@ -115,4 +115,23 @@ export const cardsAPI = {
     },
 };
 
+// Goals API
+export const goalsAPI = {
+    getAll: async (): Promise<any[]> => {
+        const response = await api.get('/goals');
+        return response.data;
+    },
+    create: async (data: any): Promise<any> => {
+        const response = await api.post('/goals', data);
+        return response.data;
+    },
+    update: async (id: number, data: any): Promise<any> => {
+        const response = await api.put(`/goals/${id}`, data);
+        return response.data;
+    },
+    delete: async (id: number): Promise<void> => {
+        await api.delete(`/goals/${id}`);
+    },
+};
+
 export default api;

@@ -99,6 +99,22 @@ function initializeDatabase() {
       )
     `);
 
+    // Create goals table
+    db.run(`
+      CREATE TABLE IF NOT EXISTS goals (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        name TEXT NOT NULL,
+        target_amount REAL NOT NULL,
+        current_amount REAL DEFAULT 0,
+        deadline DATE,
+        color TEXT DEFAULT '#3B82F6',
+        icon TEXT DEFAULT 'Target',
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users (id)
+      )
+    `);
+
     // Add card_type column to cards table if it doesn't exist
     db.run(`ALTER TABLE cards ADD COLUMN card_type TEXT DEFAULT 'generic'`, (err) => {
       // Ignore error if column already exists

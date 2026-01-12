@@ -427,6 +427,13 @@ const AllExpenses: React.FC = () => {
           font-weight: var(--font-weight-medium);
         }
 
+        .dark-mode .category-badge {
+          color: var(--color-white);
+          background-color: var(--color-primary-600); /* Also darken bg slightly for better contrast if needed, or keep primary-100? */
+          /* primary-100 in dark mode is #312e81 (dark indigo). White text on #312e81 is good contrast (12:1). */
+          /* If I keep bg primary-100, it's fine. */
+        }
+
         .mode-badge {
           padding: var(--space-1) var(--space-3);
           background-color: var(--color-gray-100);
