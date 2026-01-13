@@ -20,18 +20,16 @@ A modern, full-stack expense tracking web application built with React + TypeScr
 
 ## 🆕 What's New in v1.2.2
 
-- **Dashboard Refinements**:
-  - Aligned stat block content with Goals block for better visual harmony.
-  - Removed background colors from dashboard stat icons for a cleaner look.
-  - Adjusted font sizes for headers to improve responsiveness on laptop screens.
 - **Goals Feature Enhancements**:
   - Integrated image cropping for Goal uploads (max 512x512px).
   - Fixed backend payload handling for goal creation/editing.
   - Improved goal images display logic.
+  - Added goal progress tracking with percentage indicators.
+  - Added synchronization between dashboard and goals page.
+  - Added translation of Goals content in all languages.
 - **UX/UI Polish**:
-  - Enhanced empty states for "All Expenses" page with consistent styling.
-  - Made application logo clickable, linking to the dashboard on both desktop and mobile.
-  - Standardized styling of "SARFA" text in mobile header to match desktop brand identity.
+  - Scrollable list of Goals on Dashboard.
+  - Other minor UI/UX improvements.
 
 ## 🆕 What's New in v1.2.1
 
