@@ -177,6 +177,35 @@ app.put('/api/auth/profile', authenticateToken, async (req, res) => {
     }
 });
 
+app.put('/api/auth/password', authenticateToken, async (req, res) => {
+    try {
+        const { password } = req.body;
+        const userId = req.user.id;
+        const userEmail = req.user.email;
+
+        // Security check for demo user
+        if (userEmail === 'demo@expenses.com') {
+            // Silently fail or return error. User requested "not save". 
+            // Returning error is honest and better for UI feedback unless user explicitly wanted to "fake" it.
+            // "it should not save the new password" -> implies the result is what matters.
+            return res.status(403).json({ error: 'Password change is disabled for demo user.' });
+        }
+
+        if (!password || password.length < 6) {
+            return res.status(400).json({ error: 'Password must be at least 6 characters' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await run('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, userId]);
+
+        res.json({ message: 'Password updated successfully' });
+    } catch (error) {
+        console.error('Password update error:', error);
+        res.status(500).json({ error: 'Server error during password update' });
+    }
+});
+
 // Avatar Upload (Note: This is brittle on Serverless without S3/Supabase Storage)
 app.post('/api/auth/upload-avatar', authenticateToken, upload.single('avatar'), async (req, res) => {
     try {

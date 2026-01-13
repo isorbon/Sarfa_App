@@ -295,7 +295,7 @@ const Settings: React.FC = () => {
 
                 .settings-main {
                     flex: 1;
-                    margin-left: 260px;
+                    /* margin-left removed, handled by Layout */
                     min-height: 100vh;
                 }
 
@@ -306,7 +306,7 @@ const Settings: React.FC = () => {
                     padding: var(--space-6);
                     background-color: var(--color-bg-secondary);
                     border-bottom: 1px solid var(--color-border);
-                    margin-bottom: var(--space-8);
+                    /* margin-bottom removed to match Goals page */
                 }
 
                 .settings-header h1 {
@@ -521,7 +521,7 @@ const Settings: React.FC = () => {
                 @media (max-width: 768px) {
                     .settings-main {
                         margin-left: 0;
-                        padding: var(--space-4);
+                        /* padding: var(--space-4); REMOVED */
                     }
                 }
             `}</style>
