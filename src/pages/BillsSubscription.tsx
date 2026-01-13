@@ -832,11 +832,16 @@ const BillsSubscription: React.FC = () => {
 
         @media (max-width: 768px) {
           .bills-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-3);
           }
 
           .header-time {
             display: none;
+          }
+
+          .header-actions {
+             display: none;
           }
         }
       `}</style>
