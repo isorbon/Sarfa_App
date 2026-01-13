@@ -580,7 +580,7 @@ const AllExpenses: React.FC = () => {
 
         @media (max-width: 768px) {
           .expenses-main {
-            padding: var(--space-4);
+            padding: 0;
             max-width: 100vw;
             overflow-x: hidden;
             box-sizing: border-box;
