@@ -6,9 +6,14 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const db = new sqlite3.Database(join(__dirname, 'expenses.db'), (err) => {
+// Use DB_PATH from environment or default to local file
+const dbPath = process.env.DB_PATH || join(__dirname, 'expenses.db');
+
+console.log(`Using database at: ${dbPath}`);
+
+const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
-    console.error('Error opening database:', err);
+    console.error(`Error opening database at ${dbPath}:`, err);
   } else {
     console.log('Connected to SQLite database');
     initializeDatabase();

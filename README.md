@@ -30,6 +30,9 @@ A modern, full-stack expense tracking web application built with React + TypeScr
 - **UX/UI Polish**:
   - Scrollable list of Goals on Dashboard.
   - Other minor UI/UX improvements.
+- **Architecture & Deployment**:
+  - Added full support for PostgreSQL (Supabase) for production data persistence.
+  - Optimized backend for Serverless deployment (Vercel) with dynamic DB switching.
 
 ## 🆕 What's New in v1.2.1
 
@@ -204,35 +207,30 @@ expenses/
 - Input validation on both frontend and backend
 - CORS configuration for production
 
-## 🌐 Deployment
+### Backend Deployment (Serverless)
 
-### Backend Deployment
+We recommend deploying the backend to **Vercel** with a **Supabase** database (Free Tier).
 
-The application can be deployed to:
-- Heroku
-- DigitalOcean
-- AWS (EC2, Elastic Beanstalk)
-- Azure App Service
+1.  **Database (Supabase)**:
+    *   Create a free project at [supabase.com](https://supabase.com).
+    *   Get your connection string (Transaction Pooler, port 6543).
+    *   Example: `postgresql://postgres:[PASSWORD]@...:6543/postgres?pgbouncer=true`
 
-**Production Checklist:**
-- [ ] Set secure `JWT_SECRET` environment variable
-- [ ] Consider migrating from SQLite to PostgreSQL/MySQL
-- [ ] Enable HTTPS
-- [ ] Configure CORS for your domain
-- [ ] Set up database backups
+2.  **Backend (Vercel)**:
+    *   Create a new Vercel project.
+    *   Set **Root Directory** to `server`.
+    *   Add Environment Variable: `DATABASE_URL` = (Your Supabase connection string).
+    *   Add Environment Variable: `JWT_SECRET` = (Any random secret string).
+    *   Deploy! (Get your new Backend URL, e.g., `https://my-backend.vercel.app`).
 
 ### Frontend Deployment
 
-Compatible with:
-- Vercel
-- Netlify
-- AWS S3 + CloudFront
-- GitHub Pages
+1.  **Frontend (Vercel)**:
+    *   Create a separate Vercel project (or use the main one with Root Directory `.`).
+    *   Add Environment Variable: `VITE_API_BASE_URL` = `https://<YOUR-BACKEND-URL>/api`
+    *   Deploy!
+    *   **Build command:** `npm run build`
 
-**Build for production:**
-```bash
-npm run build
-```
 
 ## 📊 API Documentation
 
