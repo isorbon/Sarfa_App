@@ -333,7 +333,7 @@ const AllExpenses: React.FC = () => {
           justify-content: space-between;
           padding: var(--space-6);
           background-color: var(--color-bg-secondary);
-          border-bottom: 1px solid var(--color-gray-200);
+          border-bottom: 1px solid var(--color-border);
         }
 
         .header-actions {
