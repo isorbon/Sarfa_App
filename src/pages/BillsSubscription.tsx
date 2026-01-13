@@ -850,6 +850,27 @@ const BillsSubscription: React.FC = () => {
             gap: var(--space-3);
           }
 
+          .stat-card {
+            padding: var(--space-4);
+            gap: var(--space-3);
+          }
+
+          .stat-icon-wrapper {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-lg);
+          }
+
+          .stat-icon-wrapper svg {
+            width: 22px;
+            height: 22px;
+          }
+
+          .stat-amount {
+            font-size: var(--font-size-2xl) !important;
+            margin-bottom: var(--space-1);
+          }
+
           .bills-grid {
             grid-template-columns: repeat(2, 1fr);
             gap: var(--space-3);
