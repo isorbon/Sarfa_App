@@ -472,6 +472,8 @@ const AllExpenses: React.FC = () => {
         }
 
         .category-badge {
+          display: inline-block;
+          text-align: center;
           padding: var(--space-2) var(--space-3);
           background-color: var(--color-primary-100);
           color: var(--color-primary-700);
