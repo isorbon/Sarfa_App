@@ -194,7 +194,6 @@ const Dashboard: React.FC = () => {
                   <div
                     key={currentGoalIndex}
                     className={`goal-animated-wrapper ${slideDirection === 'right' ? 'slide-in-right' : 'slide-in-left'}`}
-                    style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', width: '100%' }}
                   >
                     <div className="goal-circle">
                       <svg viewBox="0 0 120 120">
@@ -571,6 +570,13 @@ const Dashboard: React.FC = () => {
           align-items: center;
           gap: var(--space-4);
           margin-top: var(--space-8);
+        }
+
+        .goal-animated-wrapper {
+          display: flex;
+          align-items: center;
+          gap: var(--space-4);
+          width: 100%;
         }
 
         .goal-circle {
@@ -950,7 +956,7 @@ const Dashboard: React.FC = () => {
             min-width: 0 !important;
             box-sizing: border-box;
             margin: 0;
-            overflow: hidden; /* Contain children */
+            overflow: hidden;
           }
 
           .card-content {
@@ -967,7 +973,6 @@ const Dashboard: React.FC = () => {
           }
 
           /* Hide elements */
-          /* Hide elements */
           .header-time,
           .desktop-header {
             display: none !important;
@@ -980,23 +985,38 @@ const Dashboard: React.FC = () => {
           }
 
           .goal-content {
-            flex-direction: row;
-            gap: var(--space-2);
             margin-top: var(--space-4);
           }
 
+          .goal-animated-wrapper {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            gap: var(--space-3);
+            width: 100%;
+          }
+
           .goal-circle {
-            width: 50px;
-            height: 50px;
+            width: 100px !important;
+            height: 100px !important;
+            margin-bottom: var(--space-2);
+          }
+
+          .goal-info {
+            width: 100%;
+            text-align: center;
           }
 
           .goal-name {
             font-size: var(--font-size-sm) !important;
-            margin-bottom: 0 !important;
+            margin-bottom: var(--space-1) !important;
           }
 
           .goal-required, .goal-collected {
-             font-size: 10px !important;
+             font-size: var(--font-size-xs) !important;
+             display: block;
           }
         }
       `}</style>
