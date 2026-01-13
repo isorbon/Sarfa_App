@@ -689,6 +689,10 @@ const Dashboard: React.FC = () => {
           color: var(--color-gray-900);
         }
 
+        .card-title span:not(.card-icon) {
+            margin-top: 3px;
+        }
+
         .card-icon {
           font-size: 20px;
         }
