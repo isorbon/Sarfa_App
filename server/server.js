@@ -20,11 +20,9 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 // Multer Storage Configuration
 // For Vercel (Serverless), we might need to adjust this to memory storage or external storage (like AWS S3 / Supabase Storage)
 // But for now, let's keep it locally for dev, or use /tmp directory in lambda
-const storage = multer.diskStorage({
+const storage = process.env.VERCEL ? multer.memoryStorage() : multer.diskStorage({
     destination: (req, file, cb) => {
-        // Use /tmp for serverless environments (Vercel)
-        const uploadPath = process.env.VERCEL ? '/tmp' : 'uploads/';
-        cb(null, uploadPath);
+        cb(null, 'uploads/');
     },
     filename: (req, file, cb) => {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
@@ -187,10 +185,19 @@ app.post('/api/auth/upload-avatar', authenticateToken, upload.single('avatar'), 
         }
 
         const userId = req.user.id;
-        // Construct full URL (this might need adjustment for Vercel)
-        const host = req.headers.host;
-        const protocol = req.headers['x-forwarded-proto'] || 'http';
-        const avatarUrl = `${protocol}://${host}/uploads/${req.file.filename}`;
+        let avatarUrl;
+
+        if (process.env.VERCEL) {
+            // Serverless: Convert buffer to Base64 and store in DB
+            const b64 = req.file.buffer.toString('base64');
+            const mime = req.file.mimetype;
+            avatarUrl = `data:${mime};base64,${b64}`;
+        } else {
+            // Local: Use file path
+            const host = req.headers.host;
+            const protocol = req.headers['x-forwarded-proto'] || 'http';
+            avatarUrl = `${protocol}://${host}/uploads/${req.file.filename}`;
+        }
 
         await run('UPDATE users SET avatar_url = ? WHERE id = ?', [avatarUrl, userId]);
 
