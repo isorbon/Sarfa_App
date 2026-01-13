@@ -437,6 +437,62 @@ app.get('/api/dashboard/stats', authenticateToken, async (req, res) => {
     }
 });
 
+// Bills API
+app.get('/api/bills', authenticateToken, async (req, res) => {
+    try {
+        const { search, startDate, endDate } = req.query;
+        let queryText = "SELECT * FROM expenses WHERE user_id = ? AND category = 'Bill & Subscription'";
+        const params = [req.user.id];
+
+        if (startDate && endDate) {
+            queryText += " AND date BETWEEN ? AND ?";
+            params.push(startDate, endDate);
+        }
+        if (search) {
+            queryText += " AND (description LIKE ? OR sub_category LIKE ?)";
+            params.push(`%${search}%`, `%${search}%`);
+        }
+
+        queryText += " ORDER BY date DESC";
+        const bills = await all(queryText, params);
+
+        // Stats calculation
+        const now = new Date();
+        const mStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
+        const mEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
+
+        const currentMonthBills = await all(
+            "SELECT amount FROM expenses WHERE user_id = ? AND category = 'Bill & Subscription' AND date BETWEEN ? AND ?",
+            [req.user.id, mStart, mEnd]
+        );
+        const totalMonthly = currentMonthBills.reduce((acc, b) => acc + b.amount, 0);
+
+        const allStatsBills = await all("SELECT date FROM expenses WHERE user_id = ? AND category = 'Bill & Subscription'", [req.user.id]);
+
+        let upcomingCount = 0;
+        let overdueCount = 0;
+        const todayStr = new Date().toISOString().split('T')[0];
+
+        allStatsBills.forEach(b => {
+            if (b.date >= todayStr) upcomingCount++;
+            else overdueCount++;
+        });
+
+        res.json({
+            bills,
+            stats: {
+                totalMonthly,
+                upcomingCount,
+                overdueCount,
+                totalBills: bills.length
+            }
+        });
+    } catch (err) {
+        console.error('Error fetching bills:', err);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
 // Cards, Bills, Goals APIs - converted to use get/all/run
 app.get('/api/cards', authenticateToken, async (req, res) => {
     try {
