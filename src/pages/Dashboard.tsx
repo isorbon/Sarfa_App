@@ -995,7 +995,7 @@ const Dashboard: React.FC = () => {
             border-radius: var(--radius-xl);
             padding: var(--space-4) !important;
             box-shadow: var(--shadow-sm);
-            width: 100% !important;
+            width: 64% !important;
             max-width: 100% !important;
             box-sizing: border-box !important;
             margin: 0 !important;
