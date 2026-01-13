@@ -29,6 +29,7 @@ A modern, full-stack expense tracking web application built with React + TypeScr
   - Added translation of Goals content in all languages.
 - **UX/UI Polish**:
   - Scrollable list of Goals on Dashboard.
+  - Enhanced mobile responsiveness.
   - Other minor UI/UX improvements.
 - **Architecture & Deployment**:
   - Added full support for PostgreSQL (Supabase) for production data persistence.

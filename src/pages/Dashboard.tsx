@@ -194,7 +194,6 @@ const Dashboard: React.FC = () => {
                   <div
                     key={currentGoalIndex}
                     className={`goal-animated-wrapper ${slideDirection === 'right' ? 'slide-in-right' : 'slide-in-left'}`}
-                    style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', width: '100%' }}
                   >
                     <div className="goal-circle">
                       <svg viewBox="0 0 120 120">
@@ -235,7 +234,7 @@ const Dashboard: React.FC = () => {
 
           {/* Charts Section */}
           <div className="charts-grid">
-            <div className="chart-card">
+            <div className="chart-card subscription-card">
               <div className="card-header">
                 <div className="card-title">
                   <span className="card-icon">📊</span>
@@ -298,33 +297,32 @@ const Dashboard: React.FC = () => {
               </div>
 
               <div className="expenses-table">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>{t.expenses.amount}</th>
-                      <th>{t.expenses.category}</th>
-                      <th>{t.expenses.subCategory}</th>
-                      <th>{t.expenses.date}</th>
-                      <th>{t.expenses.mode}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {recentExpenses.map((expense, index) => {
-
-                      return (
-                        <tr key={expense.id}>
-                          <td>{index + 1}.</td>
-                          <td className="amount">{formatPrice(expense.amount)}</td>
-                          <td>{expense.category}</td>
-                          <td>{expense.sub_category || '-'}</td>
-                          <td>{new Date(expense.date).toLocaleDateString('en-GB')}</td>
-                          <td><span className="mode-badge">{expense.mode}</span></td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                <div className="card-content">
+                  <div className="expenses-list-grid">
+                    <div className="grid-header">
+                      <div className="grid-cell">#</div>
+                      <div className="grid-cell">{t.expenses.amount}</div>
+                      <div className="grid-cell">{t.expenses.category}</div>
+                      <div className="grid-cell">{t.expenses.subCategory}</div>
+                      <div className="grid-cell">{t.expenses.date}</div>
+                      <div className="grid-cell">{t.expenses.mode}</div>
+                    </div>
+                    <div className="grid-body">
+                      {recentExpenses.map((expense, index) => (
+                        <div className="grid-row" key={expense.id}>
+                          <div className="grid-cell">{index + 1}.</div>
+                          <div className="grid-cell font-semibold">{formatPrice(expense.amount)}</div>
+                          <div className="grid-cell">{expense.category}</div>
+                          <div className="grid-cell">{expense.sub_category || '-'}</div>
+                          <div className="grid-cell">{new Date(expense.date).toLocaleDateString('en-GB')}</div>
+                          <div className="grid-cell">
+                            <span className="mode-badge">{expense.mode}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -573,6 +571,13 @@ const Dashboard: React.FC = () => {
           margin-top: var(--space-8);
         }
 
+        .goal-animated-wrapper {
+          display: flex;
+          align-items: center;
+          gap: var(--space-4);
+          width: 100%;
+        }
+
         .goal-circle {
           width: 120px;
           height: 120px;
@@ -628,6 +633,45 @@ const Dashboard: React.FC = () => {
             animation-duration: 0.3s;
             animation-fill-mode: both;
             animation-timing-function: ease-out;
+        }
+
+        .expenses-list-grid {
+          width: 100%;
+          min-width: 600px;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .grid-header, .grid-row {
+          display: grid;
+          grid-template-columns: 0.5fr 1fr 1.5fr 1.5fr 1fr 1fr;
+          gap: var(--space-4);
+          padding: var(--space-3);
+          align-items: center;
+        }
+
+        .grid-header {
+           border-bottom: 1px solid var(--color-border);
+           font-size: var(--font-size-xs);
+           font-weight: var(--font-weight-medium);
+           color: var(--color-gray-500);
+           text-transform: uppercase;
+           letter-spacing: 0.05em;
+        }
+
+        .grid-row {
+           border-bottom: 1px solid var(--color-gray-100);
+           font-size: var(--font-size-sm);
+           color: var(--color-gray-900);
+           transition: background-color var(--transition-fast);
+        }
+        
+        .grid-row:last-child {
+           border-bottom: none;
+        }
+
+        .grid-row:hover {
+           background-color: var(--color-bg-primary);
         }
 
         .slide-in-right {
@@ -694,7 +738,8 @@ const Dashboard: React.FC = () => {
         }
 
         .card-header .btn-text {
-            margin-top: 4px;
+            margin-top: 0;
+            padding: 0;
         }
 
         .card-icon {
@@ -712,6 +757,7 @@ const Dashboard: React.FC = () => {
           border-radius: var(--radius-full);
           font-size: var(--font-size-xs);
           font-weight: var(--font-weight-medium);
+          text-align: center;
         }
 
         .trend-badge.positive {
@@ -930,25 +976,74 @@ const Dashboard: React.FC = () => {
           }
 
           .stats-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(2, 1fr);
             width: 100%;
+            gap: var(--space-3);
           }
 
           .charts-grid, 
           .bottom-grid {
+            display: grid;
             grid-template-columns: 1fr;
             width: 100%;
             gap: var(--space-4);
           }
           
+          .expenses-card, 
+          .subscription-card {
+            background-color: var(--color-bg-secondary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-4) !important;
+            box-shadow: var(--shadow-sm);
+            width: 64% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+            margin: 0 !important;
+          }
+          
+          .card-header,
+          .stat-header {
+            flex-wrap: nowrap !important;
+            gap: var(--space-2);
+            overflow: hidden; /* Prevent breaking layout if too wide, maybe ellipse */
+          }
+          
+          .card-title {
+            font-size: var(--font-size-sm);
+            white-space: nowrap;
+          }
+          
+          .card-actions {
+             gap: var(--space-1) !important;
+          }
+
+          .trend-badge {
+             padding: 2px 6px !important;
+             font-size: 10px !important;
+             white-space: nowrap;
+          }
+          
+          .period-select {
+             padding: 2px 4px !important;
+             font-size: 10px !important;
+             height: 24px;
+          }
+          
+          .card-actions {
+            margin-left: auto;
+            justify-content: flex-end;
+          }
+          
           /* Crucial: layout constraints */
-          .dashboard-card {
+          .dashboard-card,
+          .recent-expenses,
+          .chart-card {
             width: 100% !important;
             max-width: 100% !important;
             min-width: 0 !important;
             box-sizing: border-box;
             margin: 0;
-            overflow: hidden; /* Contain children */
+            overflow: hidden;
           }
 
           .card-content {
@@ -968,6 +1063,47 @@ const Dashboard: React.FC = () => {
           .header-time,
           .desktop-header {
             display: none !important;
+          }
+
+          .stat-badge {
+            top: 8px !important;
+            right: 8px !important;
+            padding: 2px 6px !important;
+          }
+
+          .goal-content {
+            margin-top: var(--space-4);
+          }
+
+          .goal-animated-wrapper {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            gap: var(--space-3);
+            width: 100%;
+          }
+
+          .goal-circle {
+            width: 100px !important;
+            height: 100px !important;
+            margin-bottom: var(--space-2);
+          }
+
+          .goal-info {
+            width: 100%;
+            text-align: center;
+          }
+
+          .goal-name {
+            font-size: var(--font-size-lg) !important;
+            margin-bottom: var(--space-1) !important;
+          }
+
+          .goal-required, .goal-collected {
+             font-size: var(--font-size-xs) !important;
+             display: block;
           }
         }
       `}</style>

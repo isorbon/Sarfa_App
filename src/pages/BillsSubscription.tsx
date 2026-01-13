@@ -321,8 +321,7 @@ const BillsSubscription: React.FC = () => {
           justify-content: space-between;
           padding: var(--space-6);
           background-color: var(--color-bg-secondary);
-          border-bottom: 1px solid var(--color-gray-200);
-          box-shadow: var(--shadow-sm);
+          border-bottom: 1px solid var(--color-border);
         }
 
         .header-greeting h1 {
@@ -831,12 +830,58 @@ const BillsSubscription: React.FC = () => {
         }
 
         @media (max-width: 768px) {
+          .bills-main {
+            padding: 0 !important;
+            margin: 0 !important;
+            max-width: 100vw;
+            overflow-x: hidden;
+            box-sizing: border-box;
+          }
+
+          .bills-header {
+            margin: 0 !important;
+            width: 100% !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+          }
+
+          .stats-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: var(--space-3);
+          }
+
+          .stat-card {
+            padding: var(--space-4);
+            gap: var(--space-3);
+          }
+
+          .stat-icon-wrapper {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-lg);
+          }
+
+          .stat-icon-wrapper svg {
+            width: 22px;
+            height: 22px;
+          }
+
+          .stat-amount {
+            font-size: var(--font-size-2xl) !important;
+            margin-bottom: var(--space-1);
+          }
+
           .bills-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-3);
           }
 
           .header-time {
             display: none;
+          }
+
+          .header-actions {
+             display: none;
           }
         }
       `}</style>

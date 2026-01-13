@@ -69,8 +69,8 @@ const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
                         border: `1px solid ${isDark ? '#374151' : '#e5e7eb'}`,
                         borderRadius: '8px',
                         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                        color: isDark ? '#f9fafb' : '#111827',
                     }}
+                    itemStyle={{ color: isDark ? '#f9fafb' : '#111827' }}
                     formatter={(value: number) => [`€${value.toFixed(2)}`, t.expenses.amount]}
                     labelFormatter={(label) => formatMonth(label)}
                     labelStyle={{ color: isDark ? '#f9fafb' : '#111827', fontWeight: 600 }}

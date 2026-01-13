@@ -746,6 +746,9 @@ const Goals: React.FC = () => {
            .form-row {
               grid-template-columns: 1fr;
             }
+           .header-actions {
+              display: none;
+           }
          }
 
          .empty-state {

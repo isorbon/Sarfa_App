@@ -333,7 +333,7 @@ const AllExpenses: React.FC = () => {
           justify-content: space-between;
           padding: var(--space-6);
           background-color: var(--color-bg-secondary);
-          border-bottom: 1px solid var(--color-gray-200);
+          border-bottom: 1px solid var(--color-border);
         }
 
         .header-actions {
@@ -472,6 +472,8 @@ const AllExpenses: React.FC = () => {
         }
 
         .category-badge {
+          display: inline-block;
+          text-align: center;
           padding: var(--space-2) var(--space-3);
           background-color: var(--color-primary-100);
           color: var(--color-primary-700);
@@ -580,14 +582,19 @@ const AllExpenses: React.FC = () => {
 
         @media (max-width: 768px) {
           .expenses-main {
-            padding: var(--space-4);
-            max-width: 100vw; /* Prevent main container from overflowing */
+            padding: 0;
+            max-width: 100vw;
             overflow-x: hidden;
             box-sizing: border-box;
           }
 
           .header-actions {
             display: none !important;
+          }
+
+          .stats-grid {
+             grid-template-columns: repeat(2, 1fr) !important;
+             gap: var(--space-4);
           }
 
           .expenses-controls {
@@ -606,15 +613,16 @@ const AllExpenses: React.FC = () => {
           }
 
           .expenses-content {
-            padding: var(--space-3); /* Reduced padding */
-            overflow: hidden; /* Prevent card overflow */
+            padding: var(--space-4);
+            overflow: hidden;
+            border-radius: var(--radius-2xl); /* Ensure border radius matches cards */
           }
 
           .expenses-table-container {
+            width: 100%;
             overflow-x: auto;
-            margin: 0 -12px; /* Pull closer to edges */
-            padding: 0 12px;
-            width: calc(100% + 24px); /* Compensate for margin */
+            -webkit-overflow-scrolling: touch;
+            margin-top: var(--space-4);
           }
 
           .expenses-table {
