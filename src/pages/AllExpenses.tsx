@@ -150,14 +150,65 @@ const AllExpenses: React.FC = () => {
             </select>
           </div>
 
-          <div className="expenses-summary">
-            <div className="summary-item">
-              <span className="summary-label">{t.common.totalExpenses}:</span>
-              <span className="summary-value">{formatPrice(totalAmount)}</span>
+          <div className="stats-grid">
+            <div className="stat-card">
+              <div className="stat-header">
+                <div className="stat-icon-wrapper icon-wrapper-purple">
+                  <LucideIcons.Wallet size={24} />
+                </div>
+                <h3 className="stat-title">{t.common.totalExpenses}</h3>
+              </div>
+              <div className="stat-amount">{formatPrice(totalAmount)}</div>
             </div>
-            <div className="summary-item">
-              <span className="summary-label">{t.common.count}:</span>
-              <span className="summary-value">{filteredExpenses.length}</span>
+
+            <div className="stat-card">
+              <div className="stat-header">
+                <div className="stat-icon-wrapper icon-wrapper-blue">
+                  <LucideIcons.FileText size={24} />
+                </div>
+                <h3 className="stat-title">{t.common.count}</h3>
+              </div>
+              <div className="stat-amount">{filteredExpenses.length}</div>
+            </div>
+
+            <div className="stat-card">
+              <div className="stat-header">
+                <div className="stat-icon-wrapper icon-wrapper-orange">
+                  <LucideIcons.PieChart size={24} />
+                </div>
+                <h3 className="stat-title">{t.dashboard.topCategory}</h3>
+              </div>
+              {filteredExpenses.length > 0 ? (
+                <>
+                  <div className="stat-amount" style={{ fontSize: '1.5rem' }}>
+                    {Object.entries(filteredExpenses.reduce((acc, curr) => {
+                      acc[curr.category] = (acc[curr.category] || 0) + curr.amount;
+                      return acc;
+                    }, {} as Record<string, number>)).sort((a, b) => b[1] - a[1])[0]?.[0] || '-'}
+                  </div>
+                  <div className="stat-label">
+                    {formatPrice(Object.entries(filteredExpenses.reduce((acc, curr) => {
+                      acc[curr.category] = (acc[curr.category] || 0) + curr.amount;
+                      return acc;
+                    }, {} as Record<string, number>)).sort((a, b) => b[1] - a[1])[0]?.[1] || 0)}
+                  </div>
+                </>
+              ) : (
+                <div className="stat-amount">-</div>
+              )}
+            </div>
+
+            <div className="stat-card">
+              <div className="stat-header">
+                <div className="stat-icon-wrapper icon-wrapper-green">
+                  <LucideIcons.Calculator size={24} />
+                </div>
+                <h3 className="stat-title">Average</h3>
+              </div>
+              <div className="stat-amount">
+                {formatPrice(filteredExpenses.length > 0 ? totalAmount / filteredExpenses.length : 0)}
+              </div>
+              <div className="stat-label">Per transaction</div>
             </div>
           </div>
 
