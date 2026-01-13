@@ -370,8 +370,34 @@ app.get('/api/dashboard/stats', authenticateToken, async (req, res) => {
         );
 
         // Calculate trends (Simplified for brevity, similar iteration)
-        const monthlyTrend = []; // To implement full logic, just copy loop from old file but use 'await get()'
-        // ... (Skipping verbose loop recreation to fit context, assume similar logic using 'get')
+        // Calculate trends
+        const monthlyTrend = [];
+        let monthsToProcess = [];
+
+        if (monthlyPeriod === 'year') {
+            for (let i = 0; i < 12; i++) monthsToProcess.push(new Date(now.getFullYear(), i, 1));
+        } else if (monthlyPeriod === 'lastYear') {
+            for (let i = 0; i < 12; i++) monthsToProcess.push(new Date(now.getFullYear() - 1, i, 1));
+        } else if (monthlyPeriod === '3months') {
+            for (let i = 2; i >= 0; i--) monthsToProcess.push(new Date(now.getFullYear(), now.getMonth() - i, 1));
+        } else if (monthlyPeriod === '6months') {
+            for (let i = 5; i >= 0; i--) monthsToProcess.push(new Date(now.getFullYear(), now.getMonth() - i, 1));
+        } else {
+            // Month view - showing daily breakdown might be better but for consistency/simplicity showing current month total
+            monthsToProcess.push(new Date(now.getFullYear(), now.getMonth(), 1));
+        }
+
+        for (const startDateObj of monthsToProcess) {
+            const mStart = formatDate(startDateObj);
+            const mEnd = formatDate(new Date(startDateObj.getFullYear(), startDateObj.getMonth() + 1, 0));
+            const monthName = startDateObj.toLocaleString('default', { month: 'short' });
+
+            const r = await get(
+                'SELECT SUM(amount) as total FROM expenses WHERE user_id = ? AND date BETWEEN ? AND ?',
+                [userId, mStart, mEnd]
+            );
+            monthlyTrend.push({ label: monthName, total: r?.total || 0 });
+        }
 
         // Investment & Goals
         const investmentResult = await get(
@@ -402,7 +428,7 @@ app.get('/api/dashboard/stats', authenticateToken, async (req, res) => {
                 collected: g.current_amount
             })) : [{ name: 'No Goal Set', required: 0, collected: 0 }],
             categoryBreakdown,
-            monthlyTrend: [], // Placeholder to avoid massive file write. Real app should implement the loop.
+            monthlyTrend,
             subscriptions
         });
     } catch (error) {
