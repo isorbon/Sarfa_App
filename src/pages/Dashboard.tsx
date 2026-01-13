@@ -172,10 +172,12 @@ const Dashboard: React.FC = () => {
 
             <div className="stat-card">
               <div className="stat-header" style={{ justifyContent: 'space-between' }}>
-                <div className="stat-icon-wrapper icon-wrapper-orange">
-                  <span className="stat-icon">🎯</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                  <div className="stat-icon-wrapper icon-wrapper-orange">
+                    <span className="stat-icon">🎯</span>
+                  </div>
+                  <h3 className="stat-title">{t.common.goals}</h3>
                 </div>
-                <h3 className="stat-title">{t.common.goals}</h3>
                 {stats?.goals && stats.goals.length > 1 && (
                   <div className="goal-controls">
                     <button onClick={prevGoal} className="goal-arrow-btn">
@@ -195,18 +197,18 @@ const Dashboard: React.FC = () => {
                     style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', width: '100%' }}
                   >
                     <div className="goal-circle">
-                      <svg viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="40" fill="none" stroke="#e5e7eb" strokeWidth="6" />
+                      <svg viewBox="0 0 120 120">
+                        <circle cx="60" cy="60" r="50" fill="none" stroke="#e5e7eb" strokeWidth="8" />
                         <circle
-                          cx="50"
-                          cy="50"
-                          r="40"
+                          cx="60"
+                          cy="60"
+                          r="50"
                           fill="none"
                           stroke="url(#goalGradient)"
-                          strokeWidth="6"
-                          strokeDasharray={`${(stats.goals[currentGoalIndex].collected || 0) / (stats.goals[currentGoalIndex].required || 1) * 251.2} 251.2`}
+                          strokeWidth="8"
+                          strokeDasharray={`${(stats.goals[currentGoalIndex].collected || 0) / (stats.goals[currentGoalIndex].required || 1) * 314} 314`}
                           strokeLinecap="round"
-                          transform="rotate(-90 50 50)"
+                          transform="rotate(-90 60 60)"
                         />
                         <defs>
                           <linearGradient id="goalGradient">
@@ -560,12 +562,12 @@ const Dashboard: React.FC = () => {
           display: flex;
           align-items: center;
           gap: var(--space-4);
-          margin-top: var(--space-4);
+          margin-top: var(--space-8);
         }
 
         .goal-circle {
-          width: 90px;
-          height: 90px;
+          width: 120px;
+          height: 120px;
           flex-shrink: 0;
         }
 
