@@ -63,6 +63,7 @@ export interface Translation {
         trackTagline: string;
         helpCenter: string;
         support: string;
+        optional?: string;
     };
     expenses: {
         amount: string;
@@ -107,6 +108,8 @@ export interface Translation {
         left: string;
         daysLeft: string;
         namePlaceholder: string;
+        goalImage?: string;
+        uploadImage?: string;
     };
     bills: {
         totalMonthly: string;

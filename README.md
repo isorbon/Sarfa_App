@@ -3,7 +3,7 @@
 A modern, full-stack expense tracking web application built with React + TypeScript and Node.js + SQLite.
 
 ![Expensify Dashboard](https://img.shields.io/badge/Status-Production%20Ready-success)
-![Version](https://img.shields.io/badge/Version-1.2.1-blue)
+![Version](https://img.shields.io/badge/Version-1.2.2-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ## 🌟 Features
@@ -17,6 +17,21 @@ A modern, full-stack expense tracking web application built with React + TypeScr
 - 📱 **Fully Responsive** - Works seamlessly on desktop, tablet, and mobile
 - 👨‍👩‍👧‍👦 **Family Support** - Multiple user accounts for family members
 - ☁️ **Remote Hosting Ready** - Easy deployment to any cloud platform
+
+## 🆕 What's New in v1.2.2
+
+- **Dashboard Refinements**:
+  - Aligned stat block content with Goals block for better visual harmony.
+  - Removed background colors from dashboard stat icons for a cleaner look.
+  - Adjusted font sizes for headers to improve responsiveness on laptop screens.
+- **Goals Feature Enhancements**:
+  - Integrated image cropping for Goal uploads (max 512x512px).
+  - Fixed backend payload handling for goal creation/editing.
+  - Improved goal images display logic.
+- **UX/UI Polish**:
+  - Enhanced empty states for "All Expenses" page with consistent styling.
+  - Made application logo clickable, linking to the dashboard on both desktop and mobile.
+  - Standardized styling of "SARFA" text in mobile header to match desktop brand identity.
 
 ## 🆕 What's New in v1.2.1
 

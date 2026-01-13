@@ -223,10 +223,6 @@ const BillsSubscription: React.FC = () => {
                 <div className="empty-icon">📋</div>
                 <h3>{t.expenses.noExpenses}</h3>
                 <p>{t.bills.addFirstBill}</p>
-                <button className="btn-primary" onClick={() => { setSelectedBill(null); setIsModalOpen(true); }}>
-                  <Plus size={20} />
-                  <span>{t.common.addExpense}</span>
-                </button>
               </div>
             ) : (
               bills.map((bill) => {

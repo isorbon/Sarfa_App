@@ -122,8 +122,8 @@ const Cards: React.FC = () => {
             ) : cards.length === 0 ? (
               <div className="empty-state">
                 <div className="empty-icon">💳</div>
-                <p>{t.cards.noCards}</p>
-                <p className="empty-subtitle">{t.cards.addFirstCard}</p>
+                <h3>{t.cards.noCards}</h3>
+                <p>{t.cards.addFirstCard}</p>
               </div>
             ) : (
               cards.map((card) => (
@@ -424,8 +424,10 @@ const Cards: React.FC = () => {
         .empty-state {
           grid-column: 1 / -1;
           text-align: center;
-          padding: var(--space-12);
-          color: var(--color-text-secondary);
+          padding: var(--space-16);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
 
         .empty-icon {
@@ -433,15 +435,17 @@ const Cards: React.FC = () => {
           margin-bottom: var(--space-4);
         }
 
-        .empty-state p {
-          font-size: var(--font-size-lg);
-          font-weight: var(--font-weight-medium);
+        .empty-state h3 {
+          font-size: var(--font-size-xl);
+          color: var(--color-text-primary);
           margin-bottom: var(--space-2);
+          font-weight: var(--font-weight-bold);
         }
 
-        .empty-subtitle {
-          font-size: var(--font-size-sm) !important;
-          color: var(--color-text-secondary) !important;
+        .empty-state p {
+          font-size: var(--font-size-base);
+          color: var(--color-text-secondary);
+          margin-bottom: var(--space-6);
         }
 
         .loading-state {

@@ -502,6 +502,13 @@ const Dashboard: React.FC = () => {
           margin-bottom: var(--space-4);
         }
 
+        .stat-title {
+          font-size: var(--font-size-md);
+          font-weight: var(--font-weight-medium);
+          color: var(--color-gray-700);
+          margin: 0;
+        }
+
         .stat-icon {
           font-size: 24px;
         }
@@ -516,6 +523,7 @@ const Dashboard: React.FC = () => {
           font-weight: var(--font-weight-bold);
           color: var(--color-gray-900);
           margin-bottom: var(--space-2);
+          margin-top: var(--space-12);
         }
 
         .stat-trend {

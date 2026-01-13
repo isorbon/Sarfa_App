@@ -658,32 +658,32 @@ a:hover {
 
 /* Icon Wrappers for Dashboard */
 .icon-wrapper-orange {
-  background-color: #fff7ed;
+  background-color: transparent;
   color: #ea580c;
 }
 
 .dark-mode .icon-wrapper-orange {
-  background-color: rgba(234, 88, 12, 0.2);
+  background-color: transparent;
   color: #fb923c;
 }
 
 .icon-wrapper-blue {
-  background-color: #eff6ff;
+  background-color: transparent;
   color: #2563eb;
 }
 
 .dark-mode .icon-wrapper-blue {
-  background-color: rgba(37, 99, 235, 0.2);
+  background-color: transparent;
   color: #60a5fa;
 }
 
 .icon-wrapper-purple {
-  background-color: #f5f3ff;
+  background-color: transparent;
   color: #7c3aed;
 }
 
 .dark-mode .icon-wrapper-purple {
-  background-color: rgba(124, 58, 237, 0.2);
+  background-color: transparent;
   color: #a78bfa;
 }
 

@@ -66,6 +66,7 @@ const enUS: Translation = {
         trackTagline: 'Track your all expenses and transactions',
         helpCenter: 'Help Center',
         support: 'Support',
+        optional: 'Optional',
     },
     expenses: {
         amount: 'Amount',
@@ -110,6 +111,8 @@ const enUS: Translation = {
         left: 'left',
         daysLeft: 'days left',
         namePlaceholder: 'e.g., New Car',
+        goalImage: 'Goal Image',
+        uploadImage: 'Click to upload or drag and drop',
     },
     bills: {
         totalMonthly: 'Total Monthly Bills',
@@ -231,6 +234,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'übrig',
             daysLeft: 'Tage übrig',
             namePlaceholder: 'z.B. Neues Auto',
+            goalImage: 'Zielbild',
+            uploadImage: 'Zum Hochladen klicken oder ziehen und ablegen',
         },
         common: {
             ...enUS.common,
@@ -267,6 +272,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             general: 'ALLGEMEIN',
             tools: 'WERKZEUGE',
             trackTagline: 'Verfolgen Sie alle Ihre Ausgaben',
+            optional: 'Optional',
             helpCenter: 'Hilfezentrum',
             support: 'Support',
         },
@@ -341,6 +347,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: 'Neue Karte',
             editCardTitle: 'Karte bearbeiten',
             saving: 'Speichern...',
+            addGoalTitle: 'Neues Ziel hinzufügen',
+            editGoalTitle: 'Ziel bearbeiten',
         },
         settings: {
             subtitle: 'Verwalten Sie Ihre Kontoeinstellungen',
@@ -410,6 +418,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'restantes',
             daysLeft: 'días restantes',
             namePlaceholder: 'ej. Coche nuevo',
+            goalImage: 'Imagen del objetivo',
+            uploadImage: 'Haga clic para cargar o arrastre y suelte',
         },
         common: {
             ...enUS.common,
@@ -448,6 +458,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             trackTagline: 'Rastrea todos tus gastos',
             helpCenter: 'Centro de ayuda',
             support: 'Soporte',
+            optional: 'Opcional',
         },
         bills: {
             totalMonthly: 'Facturas Mensuales',
@@ -520,6 +531,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: 'Nueva Tarjeta',
             editCardTitle: 'Editar Tarjeta',
             saving: 'Guardando...',
+            addGoalTitle: 'Añadir nuevo objetivo',
+            editGoalTitle: 'Editar objetivo',
         },
         settings: {
             subtitle: 'Administra tus preferencias de cuenta',
@@ -589,6 +602,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'restant',
             daysLeft: 'jours restants',
             namePlaceholder: 'ex. Nouvelle voiture',
+            goalImage: 'Image de l\'objectif',
+            uploadImage: 'Cliquez pour télécharger ou glissez-déposez',
         },
         common: {
             ...enUS.common,
@@ -625,6 +640,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             general: 'GÉNÉRAL',
             tools: 'OUTILS',
             trackTagline: 'Suivez toutes vos dépenses',
+            optional: 'Facultatif',
             helpCenter: "Centre d'aide",
             support: 'Support',
         },
@@ -699,6 +715,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: 'Nouvelle carte',
             editCardTitle: 'Modifier carte',
             saving: 'Enregistrement...',
+            addGoalTitle: 'Ajouter un objectif',
+            editGoalTitle: 'Modifier l\'objectif',
         },
         settings: {
             subtitle: 'Gérez vos préférences de compte',
@@ -768,6 +786,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'осталось',
             daysLeft: 'дней осталось',
             namePlaceholder: 'Например, Новая машина',
+            goalImage: 'Изображение цели',
+            uploadImage: 'Нажмите для загрузки или перетащите',
         },
         common: {
             ...enUS.common,
@@ -800,6 +820,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             helpCenter: 'Справочный центр',
             support: 'Поддержка',
             settings: 'Настройки',
+            optional: 'Необязательно',
             profile: 'Профиль',
             logout: 'Выйти',
         },
@@ -871,7 +892,16 @@ const translationsMap: Record<LanguageCode, Translation> = {
             },
         },
 
-        modals: { ...enUS.modals, addExpenseTitle: 'Новый расход', editExpenseTitle: 'Редактировать', saving: 'Сохранение...', addCardTitle: 'Новая карта', editCardTitle: 'Редактировать карту' },
+        modals: {
+            ...enUS.modals,
+            addExpenseTitle: 'Новый расход',
+            editExpenseTitle: 'Редактировать',
+            saving: 'Сохранение...',
+            addCardTitle: 'Новая карта',
+            editCardTitle: 'Редактировать карту',
+            addGoalTitle: 'Добавить цель',
+            editGoalTitle: 'Редактировать цель',
+        },
         settings: {
             subtitle: 'Управление настройками аккаунта',
             avatar: 'Аватар',
@@ -941,6 +971,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'zbývá',
             daysLeft: 'dní zbývá',
             namePlaceholder: 'např. Nové auto',
+            goalImage: 'Obrázek cíle',
+            uploadImage: 'Kliknutím nahrajte nebo přetáhněte',
         },
         common: {
             ...enUS.common,
@@ -979,6 +1011,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             general: 'OBECNÉ',
             tools: 'NÁSTROJE',
             trackTagline: 'Sledujte všechny své výdaje',
+            optional: 'Volitelné',
         },
         bills: {
             totalMonthly: 'Měsíční účty',
@@ -1052,6 +1085,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: 'Nová karta',
             editCardTitle: 'Upravit kartu',
             saving: 'Ukládání...',
+            addGoalTitle: 'Přidat nový cíl',
+            editGoalTitle: 'Upravit cíl',
         },
         settings: {
             subtitle: 'Spravujte nastavení účtu',
@@ -1121,6 +1156,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'hátra',
             daysLeft: 'nap van hátra',
             namePlaceholder: 'pl. Új autó',
+            goalImage: 'Cél képe',
+            uploadImage: 'Kattintson a feltöltéshez vagy húzza ide',
         },
         common: {
             ...enUS.common,
@@ -1159,6 +1196,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             general: 'ÁLTALÁNOS',
             tools: 'ESZKÖZÖK',
             trackTagline: 'Kövesse nyomon kiadásait',
+            optional: 'Opcionális',
         },
         bills: {
             totalMonthly: 'Havi számlák',
@@ -1232,6 +1270,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: 'Új kártya',
             editCardTitle: 'Kártya szerkesztése',
             saving: 'Mentés...',
+            addGoalTitle: 'Új cél hozzáadása',
+            editGoalTitle: 'Cél szerkesztése',
         },
         settings: {
             subtitle: 'Fiókbeállítások kezelése',
@@ -1301,6 +1341,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'tersisa',
             daysLeft: 'hari tersisa',
             namePlaceholder: 'misal Mobil Baru',
+            goalImage: 'Gambar Tujuan',
+            uploadImage: 'Klik untuk mengunggah atau seret dan lepas',
         },
         common: {
             ...enUS.common,
@@ -1339,6 +1381,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             general: 'UMUM',
             tools: 'ALAT',
             trackTagline: 'Lacak semua pengeluaran Anda',
+            optional: 'Opsional',
         },
         bills: {
             totalMonthly: 'Tagihan Bulanan',
@@ -1412,6 +1455,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: 'Kartu Baru',
             editCardTitle: 'Edit Kartu',
             saving: 'Menyimpan...',
+            addGoalTitle: 'Tambah Tujuan Baru',
+            editGoalTitle: 'Edit Tujuan',
         },
         settings: {
             subtitle: 'Kelola pengaturan akun',
@@ -1481,6 +1526,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'rimanenti',
             daysLeft: 'giorni rimanenti',
             namePlaceholder: 'es. Nuova Auto',
+            goalImage: 'Immagine Obiettivo',
+            uploadImage: 'Clicca per caricare o trascina e rilascia',
         },
         common: {
             ...enUS.common,
@@ -1503,6 +1550,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             profile: 'Profilo',
             helpCenter: 'Centro Assistenza',
             support: 'Supporto',
+            optional: 'Opzionale',
             logout: 'Esci',
             addExpense: 'Aggiungi Spesa',
             addCard: 'Aggiungi Carta',
@@ -1592,6 +1640,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: 'Nuova Carta',
             editCardTitle: 'Modifica Carta',
             saving: 'Salvataggio...',
+            addGoalTitle: 'Aggiungi Obiettivo',
+            editGoalTitle: 'Modifica Obiettivo',
         },
         settings: {
             subtitle: 'Gestisci impostazioni account',
@@ -1661,6 +1711,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: '残り',
             daysLeft: '日',
             namePlaceholder: '例：新車',
+            goalImage: '目標画像',
+            uploadImage: 'クリックしてアップロードまたはドラッグ＆ドロップ',
         },
         common: {
             ...enUS.common,
@@ -1683,6 +1735,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             profile: 'プロフィール',
             helpCenter: 'ヘルプセンター',
             support: 'サポート',
+            optional: '任意',
             logout: 'ログアウト',
             addExpense: '経費を追加',
             addCard: 'カードを追加',
@@ -1772,6 +1825,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: '新しいカード',
             editCardTitle: 'カードを編集',
             saving: '保存中...',
+            addGoalTitle: '新しい目標を追加',
+            editGoalTitle: '目標を編集',
         },
         settings: {
             subtitle: 'アカウント設定を管理',
@@ -1841,6 +1896,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'over',
             daysLeft: 'dagen over',
             namePlaceholder: 'bijv. Nieuwe Auto',
+            goalImage: 'Doelafbeelding',
+            uploadImage: 'Klik om te uploaden of sleep en zet neer',
         },
         common: {
             ...enUS.common,
@@ -1879,6 +1936,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             general: 'ALGEMEEN',
             tools: 'TOOLS',
             trackTagline: 'Volg al je uitgaven',
+            optional: 'Optioneel',
         },
         bills: {
             totalMonthly: 'Maandelijkse Rekeningen',
@@ -1952,6 +2010,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: 'Nieuwe Kaart',
             editCardTitle: 'Bewerk Kaart',
             saving: 'Opslaan...',
+            addGoalTitle: 'Nieuw doel toevoegen',
+            editGoalTitle: 'Doel bewerken',
         },
         settings: {
             subtitle: 'Beheer accountinstellingen',
@@ -2021,6 +2081,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'zostało',
             daysLeft: 'dni zostało',
             namePlaceholder: 'np. Nowy samochód',
+            goalImage: 'Obraz celu',
+            uploadImage: 'Kliknij, aby przesłać lub przeciągnij i upuść',
         },
         common: {
             ...enUS.common,
@@ -2059,6 +2121,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             general: 'OGÓLNE',
             tools: 'NARZĘDZIA',
             trackTagline: 'Śledź wszystkie swoje wydatki',
+            optional: 'Opcjonalne',
         },
         bills: {
             totalMonthly: 'Miesięczne rachunki',
@@ -2132,6 +2195,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: 'Nowa karta',
             editCardTitle: 'Edytuj kartę',
             saving: 'Zapisywanie...',
+            addGoalTitle: 'Dodaj nowy cel',
+            editGoalTitle: 'Edytuj cel',
         },
         settings: {
             subtitle: 'Zarządzaj ustawieniami konta',
@@ -2201,6 +2266,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'restante',
             daysLeft: 'dias restantes',
             namePlaceholder: 'ex. Carro Novo',
+            goalImage: 'Imagem da Meta',
+            uploadImage: 'Clique para enviar ou arraste e solte',
         },
         common: {
             ...enUS.common,
@@ -2223,6 +2290,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             profile: 'Perfil',
             helpCenter: 'Central de Ajuda',
             support: 'Suporte',
+            optional: 'Opcional',
             logout: 'Sair',
             addExpense: 'Add Despesa',
             addCard: 'Add Cartão',
@@ -2312,6 +2380,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: 'Novo Cartão',
             editCardTitle: 'Editar Cartão',
             saving: 'Salvando...',
+            addGoalTitle: 'Adicionar Nova Meta',
+            editGoalTitle: 'Editar Meta',
         },
         settings: {
             subtitle: 'Gerencie sua conta',
@@ -2381,6 +2451,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'rămas',
             daysLeft: 'zile rămase',
             namePlaceholder: 'ex. Mașină Nouă',
+            goalImage: 'Imagine Obiectiv',
+            uploadImage: 'Faceți clic pentru a încărca sau trageți și plasați',
         },
         common: {
             ...enUS.common,
@@ -2419,6 +2491,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             general: 'GENERAL',
             tools: 'INSTRUMENTE',
             trackTagline: 'Urmărește toate cheltuielile tale',
+            optional: 'Opțional',
         },
         bills: {
             totalMonthly: 'Facturi Lunare',
@@ -2492,6 +2565,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: 'Card nou',
             editCardTitle: 'Editează card',
             saving: 'Se salvează...',
+            addGoalTitle: 'Adaugă Obiectiv Nou',
+            editGoalTitle: 'Editează Obiectiv',
         },
         settings: {
             subtitle: 'Gestionează setările contului',
@@ -2561,6 +2636,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'เหลือ',
             daysLeft: 'วันเหลือ',
             namePlaceholder: 'เช่น รถใหม่',
+            goalImage: 'รูปเป้าหมาย',
+            uploadImage: 'คลิกเพื่ออัปโหลดหรือลากและวาง',
         },
         common: {
             ...enUS.common,
@@ -2599,6 +2676,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             general: 'ทั่วไป',
             tools: 'เครื่องมือ',
             trackTagline: 'ติดตามค่าใช้จ่ายทั้งหมดของคุณ',
+            optional: 'ไม่บังคับ',
         },
         bills: {
             totalMonthly: 'บิลรายเดือน',
@@ -2672,6 +2750,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: 'บัตรใหม่',
             editCardTitle: 'แก้ไขบัตร',
             saving: 'กำลังบันทึก...',
+            addGoalTitle: 'เพิ่มเป้าหมายใหม่',
+            editGoalTitle: 'แก้ไขเป้าหมาย',
         },
         settings: {
             subtitle: 'จัดการการตั้งค่าบัญชี',
@@ -2741,6 +2821,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'kaldı',
             daysLeft: 'gün kaldı',
             namePlaceholder: 'ör. Yeni Araba',
+            goalImage: 'Hedef Resmi',
+            uploadImage: 'Yüklemek için tıklayın veya sürükleyip bırakın',
         },
         common: {
             ...enUS.common,
@@ -2763,6 +2845,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             profile: 'Profil',
             helpCenter: 'Yardım Merkezi',
             support: 'Destek',
+            optional: 'İsteğe bağlı',
             logout: 'Çıkış',
             addExpense: 'Harcama Ekle',
             addCard: 'Kart Ekle',
@@ -2852,6 +2935,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: 'Yeni Kart',
             editCardTitle: 'Kartı Düzenle',
             saving: 'Kaydediliyor...',
+            addGoalTitle: 'Yeni Hedef Ekle',
+            editGoalTitle: 'Hedefi Düzenle',
         },
         settings: {
             subtitle: 'Hesap ayarlarını yönet',
@@ -2921,6 +3006,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'залишилось',
             daysLeft: 'днів лишилось',
             namePlaceholder: 'напр. Нова машина',
+            goalImage: 'Зображення цілі',
+            uploadImage: 'Натисніть, щоб завантажити, або перетягніть',
         },
         common: {
             ...enUS.common,
@@ -2952,6 +3039,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             delete: 'Видалити',
             helpCenter: 'Довідковий центр',
             support: 'Підтримка',
+            optional: 'Необов\'язково',
             settings: 'Налаштування',
             profile: 'Профіль',
             logout: 'Вийти',
@@ -3024,7 +3112,16 @@ const translationsMap: Record<LanguageCode, Translation> = {
             },
         },
         filters: { ...enUS.filters, all: 'Всі', foodGrocery: 'Продукти', investment: 'Інвестиції', shopping: 'Покупки', travelling: 'Подорожі', miscellaneous: 'Різне', bills: 'Рахунки', recent: 'Недавні' },
-        modals: { ...enUS.modals, addExpenseTitle: 'Нова витрата', editExpenseTitle: 'Редагувати', saving: 'Збереження...', addCardTitle: 'Нова картка', editCardTitle: 'Редагувати картку' },
+        modals: {
+            ...enUS.modals,
+            addExpenseTitle: 'Нова витрата',
+            editExpenseTitle: 'Редагувати',
+            saving: 'Збереження...',
+            addCardTitle: 'Нова картка',
+            editCardTitle: 'Редагувати картку',
+            addGoalTitle: 'Додати нову ціль',
+            editGoalTitle: 'Редагувати ціль',
+        },
         settings: {
             subtitle: 'Управління налаштуваннями акаунту',
             avatar: 'Аватар',
@@ -3083,6 +3180,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: '剩余',
             daysLeft: '天剩余',
             namePlaceholder: '例如：新车',
+            goalImage: '目标图片',
+            uploadImage: '点击上传或拖放',
         },
         common: {
             ...enUS.common,
@@ -3105,6 +3204,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             profile: '个人资料',
             helpCenter: '帮助中心',
             support: '支持',
+            optional: '可选',
             logout: '退出',
             addExpense: '添加支出',
             addCard: '添加卡片',
@@ -3194,6 +3294,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: '新卡片',
             editCardTitle: '编辑卡片',
             saving: '保存中...',
+            addGoalTitle: '添加新目标',
+            editGoalTitle: '编辑目标',
         },
         settings: {
             subtitle: '管理账户设置',
@@ -3263,6 +3365,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: '剩餘',
             daysLeft: '天剩餘',
             namePlaceholder: '例如：新車',
+            goalImage: '目標圖片',
+            uploadImage: '點擊上傳或拖放',
         },
         common: {
             ...enUS.common,
@@ -3301,6 +3405,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             general: '一般',
             tools: '工具',
             trackTagline: '追蹤您的所有支出',
+            optional: '可選',
         },
         bills: {
             totalMonthly: '每月帳單',
@@ -3374,6 +3479,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: '新卡片',
             editCardTitle: '編輯卡片',
             saving: '儲存中...',
+            addGoalTitle: '新增目標',
+            editGoalTitle: '編輯目標',
         },
         settings: {
             subtitle: '管理帳戶設定',
@@ -3444,6 +3551,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'калды',
             daysLeft: 'күн калды',
             namePlaceholder: 'мис. Жаңы унаа',
+            goalImage: 'Максаттын сүрөтү',
+            uploadImage: 'Жүктөө үчүн басыңыз же сүйрөп таштаңыз',
         },
         common: {
             ...enUS.common,
@@ -3482,6 +3591,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             general: 'ЖАЛПЫ',
             tools: 'КУРАЛДАР',
             trackTagline: 'Чыгымдарды көзөмөлдөө',
+            optional: 'Милдеттүү эмес',
         },
         bills: {
             totalMonthly: 'Айлык эсептер',
@@ -3551,7 +3661,16 @@ const translationsMap: Record<LanguageCode, Translation> = {
             },
         },
         filters: { ...enUS.filters, all: 'Баары', foodGrocery: 'Азык-түлүк', investment: 'Инвестициялар', shopping: 'Соода', travelling: 'Саякат', miscellaneous: 'Башкалар', bills: 'Эсептер', recent: 'Акыркы' },
-        modals: { ...enUS.modals, addExpenseTitle: 'Жаңы чыгым', editExpenseTitle: 'Өзгөртүү', saving: 'Сакталууда...', addCardTitle: 'Жаңы карта', editCardTitle: 'Картаны өзгөртүү' },
+        modals: {
+            ...enUS.modals,
+            addExpenseTitle: 'Жаңы чыгым',
+            editExpenseTitle: 'Өзгөртүү',
+            saving: 'Сакталууда...',
+            addCardTitle: 'Жаңы карта',
+            editCardTitle: 'Картаны өзгөртүү',
+            addGoalTitle: 'Жаңы максат кошуу',
+            editGoalTitle: 'Максатты өзгөртүү',
+        },
         settings: {
             subtitle: 'Аккаунт жөндөөлөрү',
             avatar: 'Аватар',
@@ -3611,6 +3730,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'қалды',
             daysLeft: 'күн қалды',
             namePlaceholder: 'мыс. Жаңа көлік',
+            goalImage: 'Мақсат суреті',
+            uploadImage: 'Жүктеу үшін басыңыз немесе сүйреп апарыңыз',
         },
         common: {
             ...enUS.common,
@@ -3649,6 +3770,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             general: 'ЖАЛПЫ',
             tools: 'ҚҰРАЛДАР',
             trackTagline: 'Шығындарды қадағалау',
+            optional: 'Міндетті емес',
         },
         bills: {
             totalMonthly: 'Айлық есеп-шоттар',
@@ -3718,7 +3840,16 @@ const translationsMap: Record<LanguageCode, Translation> = {
             },
         },
         filters: { ...enUS.filters, all: 'Барлығы', foodGrocery: 'Азық-түлік', investment: 'Инвестициялар', shopping: 'Сауда', travelling: 'Саяхат', miscellaneous: 'Басқалар', bills: 'Есеп-шоттар', recent: 'Соңғы' },
-        modals: { ...enUS.modals, addExpenseTitle: 'Жаңа шығын', editExpenseTitle: 'Өңдеу', saving: 'Сақталуда...', addCardTitle: 'Жаңа карта', editCardTitle: 'Картаны өңдеу' },
+        modals: {
+            ...enUS.modals,
+            addExpenseTitle: 'Жаңа шығын',
+            editExpenseTitle: 'Өңдеу',
+            saving: 'Сақталуда...',
+            addCardTitle: 'Жаңа карта',
+            editCardTitle: 'Картаны өңдеу',
+            addGoalTitle: 'Жаңа максат қосу',
+            editGoalTitle: 'Мақсатты өңдеу',
+        },
         settings: {
             subtitle: 'Аккаунт параметрлері',
             avatar: 'Аватар',
@@ -3778,6 +3909,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'боқимонда',
             daysLeft: 'рӯз монд',
             namePlaceholder: 'мас. Мошини нав',
+            goalImage: 'Тасвири мақсад',
+            uploadImage: 'Барои боргузорӣ клик кунед ё кашед ва партоед',
         },
         common: {
             ...enUS.common,
@@ -3816,6 +3949,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             general: 'УМУМӢ',
             tools: 'АБЗОРҲО',
             trackTagline: 'Назорати хароҷот',
+            optional: 'Ихтиёрӣ',
         },
         bills: {
             totalMonthly: 'Ҳисобҳои моҳона',
@@ -3885,7 +4019,16 @@ const translationsMap: Record<LanguageCode, Translation> = {
             },
         },
         filters: { ...enUS.filters, all: 'Ҳама', foodGrocery: 'Хӯрок', investment: 'Сармоягузорӣ', shopping: 'Харид', travelling: 'Сафар', miscellaneous: 'Дигарҳо', bills: 'Ҳисобҳо', recent: 'Охирин' },
-        modals: { ...enUS.modals, addExpenseTitle: 'Хароҷоти нав', editExpenseTitle: 'Таҳрир', saving: 'Нигоҳдорӣ...', addCardTitle: 'Корти нав', editCardTitle: 'Таҳрири корт' },
+        modals: {
+            ...enUS.modals,
+            addExpenseTitle: 'Хароҷоти нав',
+            editExpenseTitle: 'Таҳрир',
+            saving: 'Нигоҳдорӣ...',
+            addCardTitle: 'Корти нав',
+            editCardTitle: 'Таҳрири корт',
+            addGoalTitle: 'Иловаи мақсади нав',
+            editGoalTitle: 'Таҳрири мақсад',
+        },
         settings: {
             subtitle: 'Танзимоти ҳисоб',
             avatar: 'Аватар',
@@ -3945,6 +4088,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'qoldi',
             daysLeft: 'kun qoldi',
             namePlaceholder: 'mas. Yangi mashina',
+            goalImage: 'Maqsad rasmi',
+            uploadImage: 'Yuklash uchun bosing yoki sudrab tashlang',
         },
         common: {
             ...enUS.common,
@@ -3983,6 +4128,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             general: 'UMUMIY',
             tools: 'ASBOBLAR',
             trackTagline: 'Xarajatlarni kuzatish',
+            optional: 'Ixtiyoriy',
         },
         bills: {
             totalMonthly: 'Oylik hisob-kitoblar',
@@ -4052,7 +4198,16 @@ const translationsMap: Record<LanguageCode, Translation> = {
             },
         },
         filters: { ...enUS.filters, all: 'Hammasi', foodGrocery: 'Oziq-ovqat', investment: 'Investitsiyalar', shopping: 'Xarid', travelling: 'Sayohat', miscellaneous: 'Boshqalar', bills: 'Hisob-kitoblar', recent: 'So\'nggi' },
-        modals: { ...enUS.modals, addExpenseTitle: 'Yangi xarajat', editExpenseTitle: 'Tahrirlash', saving: 'Saqlanmoqda...', addCardTitle: 'Yangi karta', editCardTitle: 'Kartani tahrirlash' },
+        modals: {
+            ...enUS.modals,
+            addExpenseTitle: 'Yangi xarajat',
+            editExpenseTitle: 'Tahrirlash',
+            saving: 'Saqlanmoqda...',
+            addCardTitle: 'Yangi karta',
+            editCardTitle: 'Kartani tahrirlash',
+            addGoalTitle: 'Yangi maqsad qo‘shish',
+            editGoalTitle: 'Maqsadni tahrirlash',
+        },
         settings: {
             subtitle: 'Hisob sozlamalari',
             avatar: 'Avatar',
@@ -4111,6 +4266,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'qaldı',
             daysLeft: 'gün qaldı',
             namePlaceholder: 'məs. Yeni Maşın',
+            goalImage: 'Hədəf Şəkli',
+            uploadImage: 'Yükləmək üçün klikləyin və ya sürükləyib buraxın',
         },
         common: {
             ...enUS.common,
@@ -4145,6 +4302,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             tools: 'ALƏTLƏR',
             helpCenter: 'Kömək Mərkəzi',
             support: 'Dəstək',
+            optional: 'Seçimli',
         },
         expenses: {
             amount: 'Məbləğ',
@@ -4211,6 +4369,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: 'Yeni Kart',
             editCardTitle: 'Redaktə',
             saving: 'Saxlanılır...',
+            addGoalTitle: 'Yeni Hədəf Əlavə Et',
+            editGoalTitle: 'Hədəfi Düzəlt',
         },
         settings: {
             subtitle: 'Hesab tənzimləmələri',
@@ -4256,6 +4416,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             left: 'մնացել է',
             daysLeft: 'օր մնաց',
             namePlaceholder: 'օր. Նոր մեքենա',
+            goalImage: 'Նպատակի նկար',
+            uploadImage: 'Սեղմեք ներբեռնելու համար կամ քաշեք և գցեք',
         },
         common: {
             ...enUS.common,
@@ -4290,6 +4452,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             tools: 'ԳՈՐԾԻՔՆԵՐ',
             helpCenter: 'Օգնության կենտրոն',
             support: 'Աջակցություն',
+            optional: 'Ընտրովի',
         },
         expenses: {
             amount: 'Գումար',
@@ -4356,6 +4519,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             addCardTitle: 'Նոր քարտ',
             editCardTitle: 'Խմբագրել',
             saving: 'Պահպանվում է...',
+            addGoalTitle: 'Ավելացնել նոր նպատակ',
+            editGoalTitle: 'Խմբագրել նպատակը',
         },
         settings: {
             subtitle: 'Հաշվի կարգավորումներ',

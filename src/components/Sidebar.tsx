@@ -6,7 +6,7 @@ import {
   CreditCard,
   TrendingUp,
   Target,
-  Wallet,
+  FileText,
   X,
 } from 'lucide-react';
 
@@ -26,8 +26,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
   const navItems = [
     { path: '/', label: t.common.dashboard, icon: LayoutDashboard, group: 'general' },
     { path: '/expenses', label: t.common.allExpenses, icon: Receipt, group: 'general' },
-    { path: '/bills', label: t.common.billsSubscription, icon: CreditCard, group: 'general' },
-    { path: '/cards', label: t.common.cards, icon: Wallet, group: 'general' },
+    { path: '/bills', label: t.common.billsSubscription, icon: FileText, group: 'general' },
+    { path: '/cards', label: t.common.cards, icon: CreditCard, group: 'general' },
     { path: '/goals', label: t.common.goals, icon: Target, group: 'general' },
     { path: '/investment', label: t.common.investment, icon: TrendingUp, group: 'general' },
   ];
@@ -53,8 +53,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
 
         <div className="sidebar-header">
           <div className="sidebar-logo">
-            <img src="/logo.svg" alt="Sarfa" style={{ width: '40px', height: '40px' }} />
-            <span className="sidebar-logo-text">SARFA</span>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', textDecoration: 'none' }}>
+              <img src="/logo.svg" alt="Sarfa" style={{ width: '40px', height: '40px' }} />
+              <span className="sidebar-logo-text">SARFA</span>
+            </Link>
           </div>
           <p className="sidebar-tagline">{t.common.trackTagline}</p>
         </div>

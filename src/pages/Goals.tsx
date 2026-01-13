@@ -7,6 +7,7 @@ import ConfirmationModal from '../components/ConfirmationModal';
 import { goalsAPI } from '../services/api';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { useLanguage } from '../context/LanguageContext';
+import ImageCropperModal from '../components/ImageCropperModal';
 
 interface Goal {
     id: number;
@@ -17,6 +18,8 @@ interface Goal {
     deadline?: string;
     color?: string;
     icon?: string;
+    imageUrl?: string;
+    image_url?: string; // Backend field
 }
 
 const Goals: React.FC = () => {
@@ -31,10 +34,15 @@ const Goals: React.FC = () => {
         current_amount: '',
         deadline: '',
         color: '#3B82F6',
-        icon: 'Target'
+        icon: 'Target',
+        imageUrl: ''
     });
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [goalToDelete, setGoalToDelete] = useState<number | null>(null);
+    const [isCropperOpen, setIsCropperOpen] = useState(false);
+    const [tempImage, setTempImage] = useState<string | null>(null);
+    const [isSaving, setIsSaving] = useState(false);
+    const [saveError, setSaveError] = useState<string | null>(null);
 
     const loadGoals = async () => {
         try {
@@ -52,25 +60,61 @@ const Goals: React.FC = () => {
         loadGoals();
     }, []);
 
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setTempImage(reader.result as string);
+                setIsCropperOpen(true);
+            };
+            reader.readAsDataURL(file);
+        }
+        // Reset input value so same file can be selected again if needed
+        e.target.value = '';
+    };
+
+    const handleCropComplete = (croppedBlob: Blob) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setFormData(prev => ({ ...prev, imageUrl: reader.result as string }));
+            setIsCropperOpen(false);
+            setTempImage(null);
+        };
+        reader.readAsDataURL(croppedBlob);
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setIsSaving(true);
+        setSaveError(null);
         try {
             const payload = {
                 ...formData,
                 target_amount: parseFloat(formData.target_amount),
-                current_amount: parseFloat(formData.current_amount) || 0
+                current_amount: parseFloat(formData.current_amount) || 0,
+                // Backend expects image data in 'icon' field if it's an image goal
+                icon: formData.imageUrl ? formData.imageUrl : formData.icon
             };
 
+            // Remove helper fields not needed by backend
+            const { imageUrl, ...finalPayload } = payload;
+
+            console.log('Sending payload:', finalPayload);
+
             if (editingGoal) {
-                await goalsAPI.update(editingGoal.id, payload);
+                await goalsAPI.update(editingGoal.id, finalPayload);
             } else {
-                await goalsAPI.create(payload);
+                await goalsAPI.create(finalPayload);
             }
             setIsModalOpen(false);
             resetForm();
             loadGoals();
         } catch (error) {
             console.error('Error saving goal:', error);
+            setSaveError("Failed to save goal. Please check input and try again.");
+        } finally {
+            setIsSaving(false);
         }
     };
 
@@ -81,9 +125,11 @@ const Goals: React.FC = () => {
             current_amount: '',
             deadline: '',
             color: '#3B82F6',
-            icon: 'Target'
+            icon: 'Target',
+            imageUrl: ''
         });
         setEditingGoal(null);
+        setSaveError(null);
     };
 
     const handleEdit = (goal: Goal) => {
@@ -94,7 +140,8 @@ const Goals: React.FC = () => {
             current_amount: goal.current_amount.toString(),
             deadline: goal.deadline || '',
             color: goal.color || '#3B82F6',
-            icon: goal.icon || 'Target'
+            icon: goal.icon || 'Target',
+            imageUrl: goal.icon && goal.icon.startsWith('data:') ? goal.icon : '' // If icon is actually data URI, treat as Image
         });
         setIsModalOpen(true);
     };
@@ -155,26 +202,31 @@ const Goals: React.FC = () => {
                         ) : goals.length === 0 ? (
                             <div className="empty-state">
                                 <div className="empty-icon">🎯</div>
-                                <p>{t.goals.noGoals}</p>
-                                <p className="empty-subtitle">{t.goals.addFirstGoal}</p>
+                                <h3>{t.goals.noGoals}</h3>
+                                <p>{t.goals.addFirstGoal}</p>
                             </div>
                         ) : (
                             goals.map((goal) => {
                                 const progress = calculateProgress(goal.current_amount, goal.target_amount);
                                 return (
                                     <div key={goal.id} className="goal-card">
-                                        <div className="goal-header">
-                                            <div className="goal-icon" style={{ background: goal.color || '#3B82F6' }}>
-                                                <Target size={24} color="white" />
-                                            </div>
-                                            <div className="goal-actions">
-                                                <button className="btn-icon" onClick={() => handleEdit(goal)}>
-                                                    <Edit size={16} />
-                                                </button>
-                                                <button className="btn-icon danger" onClick={() => handleDelete(goal.id)}>
-                                                    <Trash2 size={16} />
-                                                </button>
-                                            </div>
+                                        <div className="goal-actions-absolute">
+                                            <button className="btn-icon" onClick={() => handleEdit(goal)}>
+                                                <Edit size={16} />
+                                            </button>
+                                            <button className="btn-icon danger" onClick={() => handleDelete(goal.id)}>
+                                                <Trash2 size={16} />
+                                            </button>
+                                        </div>
+
+                                        <div className="goal-image-container" style={{ background: (!(goal.imageUrl || goal.image_url || (goal.icon && goal.icon.startsWith('data:'))) && goal.color) ? goal.color : 'transparent' }}>
+                                            {(goal.imageUrl || goal.image_url || (goal.icon && goal.icon.startsWith('data:'))) ? (
+                                                <img src={goal.imageUrl || goal.image_url || goal.icon} alt={goal.name} className="goal-image" />
+                                            ) : (
+                                                <div className="goal-icon-large" style={{ background: goal.color || '#3B82F6' }}>
+                                                    <Target size={40} color="white" />
+                                                </div>
+                                            )}
                                         </div>
 
                                         <h3>{goal.name}</h3>
@@ -227,6 +279,11 @@ const Goals: React.FC = () => {
                         </div>
 
                         <form onSubmit={handleSubmit} className="modal-form">
+                            {saveError && (
+                                <div className="error-message" style={{ color: 'var(--color-error)', marginBottom: '1rem', padding: '0.5rem', background: '#fee2e2', borderRadius: '4px' }}>
+                                    {saveError}
+                                </div>
+                            )}
                             <div className="form-group">
                                 <label className="form-label">{t.goals.goalName}</label>
                                 <input
@@ -264,7 +321,10 @@ const Goals: React.FC = () => {
                             </div>
 
                             <div className="form-group">
-                                <label className="form-label">{t.goals.deadline}</label>
+                                <label className="form-label">
+                                    {t.goals.deadline}
+                                    <span style={{ opacity: 0.5, fontSize: '0.85em', fontWeight: 'normal', marginLeft: '6px' }}>({t.common.optional || 'Optional'})</span>
+                                </label>
                                 <input
                                     type="date"
                                     className="form-input"
@@ -273,16 +333,45 @@ const Goals: React.FC = () => {
                                 />
                             </div>
 
+                            <div className="form-group">
+                                <label className="form-label">
+                                    {t.goals.goalImage || 'Goal Image'}
+                                    <span style={{ opacity: 0.5, fontSize: '0.85em', fontWeight: 'normal', marginLeft: '6px' }}>({t.common.optional || 'Optional'})</span>
+                                </label>
+                                <div className="image-upload-wrapper">
+                                    {formData.imageUrl && (
+                                        <div className="image-preview-box">
+                                            <img src={formData.imageUrl} alt="Preview" />
+                                            <button type="button" className="remove-image" onClick={() => setFormData({ ...formData, imageUrl: '' })}>×</button>
+                                        </div>
+                                    )}
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        className="form-input file-input"
+                                        onChange={handleImageUpload}
+                                    />
+                                </div>
+                            </div>
+
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" onClick={() => setIsModalOpen(false)}>
+                                <button type="button" className="btn btn-secondary" onClick={() => setIsModalOpen(false)} disabled={isSaving}>
                                     {t.common.cancel}
                                 </button>
-                                <button type="submit" className="btn btn-primary">
-                                    {editingGoal ? t.common.save : t.common.addExpense.replace('Expense', 'Goal')} {/* Fallback */}
+                                <button type="submit" className="btn btn-primary" disabled={isSaving}>
+                                    {isSaving ? (t.modals.saving || 'Saving...') : (editingGoal ? t.common.save : t.common.addExpense.replace('Expense', 'Goal'))}
                                 </button>
                             </div>
                         </form>
                     </div>
+                    <ImageCropperModal
+                        isOpen={isCropperOpen}
+                        imageSrc={tempImage}
+                        onClose={() => setIsCropperOpen(false)}
+                        onCropComplete={handleCropComplete}
+                        title={t.goals.goalImage || "Crop Goal Image"}
+                        cropShape="rect"
+                    />
                 </>
             )}
 
@@ -351,8 +440,11 @@ const Goals: React.FC = () => {
           padding: var(--space-6);
           display: flex;
           flex-direction: column;
+          align-items: center; /* Center everything */
+          text-align: center; /* Center text */
           gap: var(--space-4);
           transition: transform 0.2s, box-shadow 0.2s;
+          position: relative;
         }
 
         .goal-card:hover {
@@ -360,37 +452,54 @@ const Goals: React.FC = () => {
           transform: translateY(-4px);
         }
 
-        .goal-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-        }
-
-        .goal-icon {
-          width: 48px;
-          height: 48px;
-          border-radius: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .goal-actions {
+        .goal-actions-absolute {
+           position: absolute;
+           top: var(--space-4);
+           right: var(--space-4);
            display: flex;
            gap: var(--space-2);
         }
 
+        .goal-image-container {
+            width: 80px;
+            height: 80px;
+            margin-top: var(--space-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+        }
+
+        .goal-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .goal-icon-large {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* border-radius inherited from container or set here */
+        }
+
         .btn-icon {
            padding: var(--space-2);
-           background: transparent;
+           background: rgba(255, 255, 255, 0.1);
            border: none;
            cursor: pointer;
            color: var(--color-text-secondary);
            border-radius: var(--radius-md);
         }
+        
+        .goal-card:hover .btn-icon {
+            background: var(--color-bg-tertiary);
+        }
 
         .btn-icon:hover {
-            background: var(--color-bg-tertiary);
             color: var(--color-text-primary);
         }
         
@@ -401,17 +510,19 @@ const Goals: React.FC = () => {
 
         .goal-card h3 {
            margin: 0;
-           font-size: var(--font-size-lg);
+           font-size: var(--font-size-xl);
            color: var(--color-text-primary);
+           font-weight: bold;
         }
 
         .goal-amounts {
            display: flex;
            align-items: baseline;
+           justify-content: center;
         }
 
         .goal-amounts .current {
-           font-size: var(--font-size-xl);
+           font-size: var(--font-size-lg);
            font-weight: bold;
            color: var(--color-text-primary);
         }
@@ -423,6 +534,7 @@ const Goals: React.FC = () => {
         }
 
         .progress-container {
+           width: 100%;
            display: flex;
            align-items: center;
            gap: var(--space-2);
@@ -457,6 +569,47 @@ const Goals: React.FC = () => {
            font-size: var(--font-size-xs);
            color: var(--color-text-tertiary);
            margin-top: auto;
+        }
+        
+        /* Modal - Image Upload */
+        .image-upload-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+        
+        .image-preview-box {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+        }
+        
+        .image-preview-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .remove-image {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .file-input {
+            padding: var(--space-2);
         }
 
         /* Modal Styles Reuse */
@@ -499,6 +652,8 @@ const Goals: React.FC = () => {
         
         .modal-form {
            padding: var(--space-6);
+           max-height: 80vh;
+           overflow-y: auto;
         }
 
         .form-group {
@@ -584,8 +739,41 @@ const Goals: React.FC = () => {
            }
            .form-row {
               grid-template-columns: 1fr;
-           }
-        }
+            }
+         }
+
+         .empty-state {
+           grid-column: 1 / -1;
+           text-align: center;
+           padding: var(--space-16);
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+         }
+
+         .empty-icon {
+           font-size: 80px;
+           margin-bottom: var(--space-4);
+         }
+
+         .empty-state h3 {
+           font-size: var(--font-size-xl);
+           color: var(--color-text-primary);
+           margin-bottom: var(--space-2);
+           font-weight: var(--font-weight-bold);
+         }
+
+         .empty-state p {
+           font-size: var(--font-size-base);
+           color: var(--color-text-secondary);
+           margin-bottom: var(--space-6);
+         }
+         
+         .empty-state .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+         }
       `}</style>
         </Layout>
     );
