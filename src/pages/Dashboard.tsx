@@ -1003,8 +1003,35 @@ const Dashboard: React.FC = () => {
           
           .card-header,
           .stat-header {
-            flex-wrap: wrap;
+            flex-wrap: nowrap !important;
             gap: var(--space-2);
+            overflow: hidden; /* Prevent breaking layout if too wide, maybe ellipse */
+          }
+          
+          .card-title {
+            font-size: var(--font-size-sm);
+            white-space: nowrap;
+          }
+          
+          .card-actions {
+             gap: var(--space-1) !important;
+          }
+
+          .trend-badge {
+             padding: 2px 6px !important;
+             font-size: 10px !important;
+             white-space: nowrap;
+          }
+          
+          .period-select {
+             padding: 2px 4px !important;
+             font-size: 10px !important;
+             height: 24px;
+          }
+          
+          .card-actions {
+            margin-left: auto;
+            justify-content: flex-end;
           }
           
           /* Crucial: layout constraints */
