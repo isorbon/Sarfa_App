@@ -1010,7 +1010,7 @@ const Dashboard: React.FC = () => {
           }
 
           .goal-name {
-            font-size: var(--font-size-sm) !important;
+            font-size: var(--font-size-lg) !important;
             margin-bottom: var(--space-1) !important;
           }
 
