@@ -690,7 +690,11 @@ const Dashboard: React.FC = () => {
         }
 
         .card-title span:not(.card-icon) {
-            margin-top: 3px;
+            margin-top: 5px;
+        }
+
+        .card-header .btn-text {
+            margin-top: 4px;
         }
 
         .card-icon {
