@@ -840,3 +840,40 @@ a:hover {
     display: none !important;
   }
 }
+
+/* Universal Loading Spinner */
+.dashboard-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: var(--space-4);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-secondary);
+}
+
+html[data-theme='dark'] .dashboard-loading {
+  background-color: var(--color-bg-dark);
+  color: var(--color-gray-400);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-gray-200);
+  border-top-color: var(--color-primary-600);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+html[data-theme='dark'] .spinner {
+  border-color: var(--color-gray-700);
+  border-top-color: var(--color-primary-500);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
