@@ -611,15 +611,16 @@ const AllExpenses: React.FC = () => {
           }
 
           .expenses-content {
-            padding: var(--space-3); /* Reduced padding */
-            overflow: hidden; /* Prevent card overflow */
+            padding: var(--space-4);
+            overflow: hidden;
+            border-radius: var(--radius-2xl); /* Ensure border radius matches cards */
           }
 
           .expenses-table-container {
+            width: 100%;
             overflow-x: auto;
-            margin: 0 -12px; /* Pull closer to edges */
-            padding: 0 12px;
-            width: calc(100% + 24px); /* Compensate for margin */
+            -webkit-overflow-scrolling: touch;
+            margin-top: var(--space-4);
           }
 
           .expenses-table {
