@@ -694,7 +694,8 @@ const Dashboard: React.FC = () => {
         }
 
         .card-header .btn-text {
-            margin-top: 4px;
+            margin-top: 0;
+            padding: 0;
         }
 
         .card-icon {
