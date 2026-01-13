@@ -63,6 +63,7 @@ export interface Translation {
         trackTagline: string;
         helpCenter: string;
         support: string;
+        optional?: string;
     };
     expenses: {
         amount: string;
@@ -93,6 +94,22 @@ export interface Translation {
         noCardsAvailable: string;
         namePlaceholder: string;
         bankPlaceholder: string;
+    };
+    goals: {
+        goalName: string;
+        targetAmount: string;
+        currentAmount: string;
+        deadline: string;
+        noGoals: string;
+        addFirstGoal: string;
+        deleteTitle: string;
+        deleteMessage: string;
+        reached: string;
+        left: string;
+        daysLeft: string;
+        namePlaceholder: string;
+        goalImage?: string;
+        uploadImage?: string;
     };
     bills: {
         totalMonthly: string;
@@ -134,6 +151,8 @@ export interface Translation {
         editExpenseTitle: string;
         addCardTitle: string;
         editCardTitle: string;
+        addGoalTitle?: string;
+        editGoalTitle?: string;
         saving: string;
     };
     settings: {

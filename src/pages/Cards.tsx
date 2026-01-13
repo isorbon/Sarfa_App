@@ -11,7 +11,18 @@ interface Card {
   name: string;
   bank: string;
   user_id: number;
+  card_type?: string;
 }
+
+
+
+const cardTypes = [
+  { id: 'visa', name: 'Visa', image: '/icons/visa.png' },
+  { id: 'mastercard', name: 'Mastercard', image: '/icons/mastercard.png' },
+  { id: 'amex', name: 'Amex', image: '/icons/amex.png' },
+  { id: 'maestro', name: 'Maestro', image: '/icons/maestro.png' },
+  { id: 'generic', name: 'Other', Component: CreditCard, gradient: 'linear-gradient(135deg, #7C3AED 0%, #3B82F6 100%)' },
+];
 
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { useLanguage } from '../context/LanguageContext';
@@ -22,7 +33,7 @@ const Cards: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingCard, setEditingCard] = useState<Card | null>(null);
-  const [formData, setFormData] = useState({ name: '', bank: '' });
+  const [formData, setFormData] = useState({ name: '', bank: '', card_type: 'generic' });
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [cardToDelete, setCardToDelete] = useState<number | null>(null);
 
@@ -51,7 +62,7 @@ const Cards: React.FC = () => {
         await cardsAPI.create(formData);
       }
       setIsModalOpen(false);
-      setFormData({ name: '', bank: '' });
+      setFormData({ name: '', bank: '', card_type: 'generic' });
       setEditingCard(null);
       loadCards();
     } catch (error) {
@@ -61,7 +72,7 @@ const Cards: React.FC = () => {
 
   const handleEdit = (card: Card) => {
     setEditingCard(card);
-    setFormData({ name: card.name, bank: card.bank });
+    setFormData({ name: card.name, bank: card.bank, card_type: card.card_type || 'generic' });
     setIsModalOpen(true);
   };
 
@@ -111,14 +122,28 @@ const Cards: React.FC = () => {
             ) : cards.length === 0 ? (
               <div className="empty-state">
                 <div className="empty-icon">💳</div>
-                <p>{t.cards.noCards}</p>
-                <p className="empty-subtitle">{t.cards.addFirstCard}</p>
+                <h3>{t.cards.noCards}</h3>
+                <p>{t.cards.addFirstCard}</p>
               </div>
             ) : (
               cards.map((card) => (
                 <div key={card.id} className="card-item">
-                  <div className="card-icon">
-                    <CreditCard size={32} />
+                  <div
+                    className="card-icon"
+                    style={{
+                      background: (card.card_type === 'generic' || !card.card_type) ? 'linear-gradient(135deg, #7C3AED 0%, #3B82F6 100%)' : 'white',
+                      border: (card.card_type === 'generic' || !card.card_type) ? 'none' : '1px solid var(--color-gray-200)',
+                      padding: (card.card_type === 'generic' || !card.card_type) ? '0' : '8px'
+                    }}
+                  >
+                    {(() => {
+                      const type = cardTypes.find(t => t.id === (card.card_type || 'generic')) || cardTypes[4];
+                      if (type.image) {
+                        return <img src={type.image} alt={type.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />;
+                      }
+                      const Icon = type.Component || CreditCard;
+                      return <Icon size={48} color="white" />;
+                    })()}
                   </div>
                   <div className="card-details">
                     <h3>{card.name}</h3>
@@ -152,7 +177,7 @@ const Cards: React.FC = () => {
         className="fab"
         onClick={() => {
           setEditingCard(null);
-          setFormData({ name: '', bank: '' });
+          setFormData({ name: '', bank: '', card_type: 'generic' });
           setIsModalOpen(true);
         }}
         title={t.common.addCard}
@@ -201,6 +226,33 @@ const Cards: React.FC = () => {
                   onChange={(e) => setFormData({ ...formData, bank: e.target.value })}
                   required
                 />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Card Type</label>
+                <div className="card-type-grid">
+                  {cardTypes.map((type) => (
+                    <button
+                      key={type.id}
+                      type="button"
+                      className={`card-type-option ${formData.card_type === type.id ? 'selected' : ''}`}
+                      onClick={() => setFormData({ ...formData, card_type: type.id })}
+                      title={type.name}
+                      style={{
+                        background: type.gradient || 'white',
+                        border: type.image ? '1px solid var(--color-gray-200)' : 'none'
+                      }}
+                    >
+                      {type.image ? (
+                        <img src={type.image} alt={type.name} style={{ width: '70%', height: '70%', objectFit: 'contain' }} />
+                      ) : (
+                        type.Component && <type.Component size={24} color="white" />
+                      )}
+
+                      {formData.card_type === type.id && <div className="selected-indicator">✓</div>}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className="modal-footer">
@@ -289,79 +341,93 @@ const Cards: React.FC = () => {
         .card-item {
           background-color: var(--color-bg-secondary);
           border: 1px solid var(--color-border);
-          border-radius: var(--radius-xl);
-          padding: var(--space-6);
+          border-radius: var(--radius-2xl);
+          padding: var(--space-8);
           display: flex;
+          flex-direction: column;
           align-items: center;
-          gap: var(--space-4);
+          text-align: center;
+          gap: var(--space-6);
           transition: all 0.2s;
+          min-height: 280px;
+          justify-content: center;
         }
 
         .card-item:hover {
-          box-shadow: var(--shadow-md);
-          transform: translateY(-2px);
+          box-shadow: var(--shadow-lg);
+          transform: translateY(-4px);
         }
 
         .card-icon {
-          width: 48px;
-          height: 48px;
-          border-radius: var(--radius-lg);
-          background: linear-gradient(135deg, var(--color-primary-600), var(--color-blue-500));
+          width: 80px;
+          height: 80px;
+          border-radius: var(--radius-xl);
+          background: white;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: white;
+          color: var(--color-gray-900);
           flex-shrink: 0;
+          box-shadow: var(--shadow-sm);
+          margin-top: var(--space-2);
+          overflow: hidden;
+          padding: var(--space-2);
         }
 
         .card-details {
-          flex: 1;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-1);
         }
 
         .card-details h3 {
-          font-size: var(--font-size-lg);
-          font-weight: var(--font-weight-semibold);
+          font-size: var(--font-size-2xl);
+          font-weight: var(--font-weight-bold);
           color: var(--color-text-primary);
-          margin-bottom: var(--space-1);
+          margin: 0;
         }
 
         .card-details p {
-          font-size: var(--font-size-sm);
+          font-size: var(--font-size-base);
           color: var(--color-text-secondary);
           margin: 0;
         }
 
         .card-actions {
           display: flex;
-          gap: var(--space-2);
+          gap: var(--space-3);
+          margin-top: auto;
         }
 
         .btn-icon {
-          padding: var(--space-2);
-          background: none;
-          border: 1px solid var(--color-border);
-          border-radius: var(--radius-md);
+          padding: var(--space-3);
+          background-color: var(--color-bg-tertiary);
+          border: 1px solid transparent;
+          border-radius: var(--radius-lg);
           cursor: pointer;
           color: var(--color-text-secondary);
           transition: all 0.2s;
         }
 
         .btn-icon:hover {
-          background-color: var(--color-bg-tertiary);
+          background-color: var(--color-gray-200);
           color: var(--color-text-primary);
+          transform: translateY(-2px);
         }
 
         .btn-icon.danger:hover {
-          background-color: rgba(239, 68, 68, 0.1);
-          border-color: var(--color-error);
+          background-color: #fee2e2;
           color: var(--color-error);
         }
 
         .empty-state {
           grid-column: 1 / -1;
           text-align: center;
-          padding: var(--space-12);
-          color: var(--color-text-secondary);
+          padding: var(--space-16);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
 
         .empty-icon {
@@ -369,15 +435,17 @@ const Cards: React.FC = () => {
           margin-bottom: var(--space-4);
         }
 
-        .empty-state p {
-          font-size: var(--font-size-lg);
-          font-weight: var(--font-weight-medium);
+        .empty-state h3 {
+          font-size: var(--font-size-xl);
+          color: var(--color-text-primary);
           margin-bottom: var(--space-2);
+          font-weight: var(--font-weight-bold);
         }
 
-        .empty-subtitle {
-          font-size: var(--font-size-sm) !important;
-          color: var(--color-text-secondary) !important;
+        .empty-state p {
+          font-size: var(--font-size-base);
+          color: var(--color-text-secondary);
+          margin-bottom: var(--space-6);
         }
 
         .loading-state {
@@ -479,6 +547,49 @@ const Cards: React.FC = () => {
             transform: translate(-50%, -50%);
             opacity: 1;
           }
+        }
+
+
+        .card-type-grid {
+          display: flex;
+          gap: var(--space-3);
+          margin-top: var(--space-2);
+        }
+
+        .card-type-option {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          border: 2px solid transparent;
+          cursor: pointer;
+          position: relative;
+          transition: transform 0.2s;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .card-type-option:hover {
+          transform: scale(1.1);
+        }
+
+        .card-type-option.selected {
+          border-color: var(--color-text-primary);
+          transform: scale(1.1);
+          box-shadow: 0 0 0 2px var(--color-bg-secondary), 0 0 0 4px var(--color-primary-600);
+        }
+
+        .selected-indicator {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--color-primary-600);
+          font-weight: bold;
+          font-size: 24px;
+          background: rgba(255, 255, 255, 0.7);
+          border-radius: 50%;
         }
 
         @media (max-width: 768px) {

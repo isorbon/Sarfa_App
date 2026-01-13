@@ -18,13 +18,17 @@ interface ImageCropperModalProps {
     imageSrc: string | null;
     onClose: () => void;
     onCropComplete: (croppedImageBlob: Blob) => void;
+    title?: string;
+    cropShape?: 'rect' | 'round';
 }
 
 const ImageCropperModal: React.FC<ImageCropperModalProps> = ({
     isOpen,
     imageSrc,
     onClose,
-    onCropComplete
+    onCropComplete,
+    title = 'Crop Image',
+    cropShape = 'round'
 }) => {
     const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
@@ -63,8 +67,11 @@ const ImageCropperModal: React.FC<ImageCropperModalProps> = ({
             throw new Error('No 2d context');
         }
 
-        canvas.width = pixelCrop.width;
-        canvas.height = pixelCrop.height;
+        const maxSize = 512;
+        const scale = Math.min(1, maxSize / Math.max(pixelCrop.width, pixelCrop.height));
+
+        canvas.width = pixelCrop.width * scale;
+        canvas.height = pixelCrop.height * scale;
 
         ctx.drawImage(
             image,
@@ -74,8 +81,8 @@ const ImageCropperModal: React.FC<ImageCropperModalProps> = ({
             pixelCrop.height,
             0,
             0,
-            pixelCrop.width,
-            pixelCrop.height
+            canvas.width,
+            canvas.height
         );
 
         return new Promise((resolve, reject) => {
@@ -106,7 +113,7 @@ const ImageCropperModal: React.FC<ImageCropperModalProps> = ({
         <div className="cropper-modal-overlay">
             <div className="cropper-modal-content">
                 <div className="cropper-header">
-                    <h3>Crop Avatar</h3>
+                    <h3>{title}</h3>
                     <button onClick={onClose} className="close-btn">
                         <X size={24} />
                     </button>
@@ -121,7 +128,7 @@ const ImageCropperModal: React.FC<ImageCropperModalProps> = ({
                         onCropChange={onCropChange}
                         onCropComplete={onCropCompleteHandler}
                         onZoomChange={onZoomChange}
-                        cropShape="round"
+                        cropShape={cropShape}
                         showGrid={false}
                     />
                 </div>

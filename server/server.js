@@ -472,6 +472,12 @@ app.get('/api/dashboard/stats', authenticateToken, async (req, res) => {
             [userId, 'Investment']
         );
 
+        // Get active goals (up to 5)
+        const goalResults = await dbAll(
+            'SELECT name, target_amount, current_amount FROM goals WHERE user_id = ? ORDER BY created_at DESC LIMIT 5',
+            [userId]
+        );
+
         // Get Bill & Subscription items
         const subscriptions = await dbAll(
             `SELECT * FROM expenses 
@@ -485,7 +491,13 @@ app.get('/api/dashboard/stats', authenticateToken, async (req, res) => {
             monthlyExpenses: monthlyResult?.total || 0,
             totalInvestment: investmentResult?.total || 0,
             accountBalance: 898450,
-            goal: { name: 'Apple iPhone 17 Pro', required: 145000, collected: 75000 },
+            totalInvestment: investmentResult?.total || 0,
+            accountBalance: 898450,
+            goals: goalResults.length > 0 ? goalResults.map(g => ({
+                name: g.name,
+                required: g.target_amount,
+                collected: g.current_amount
+            })) : [{ name: 'No Goal Set', required: 0, collected: 0 }],
             categoryBreakdown,
             monthlyTrend,
             subscriptions
@@ -575,15 +587,15 @@ app.get('/api/cards', authenticateToken, (req, res) => {
 
 // Create new card
 app.post('/api/cards', authenticateToken, (req, res) => {
-    const { name, bank } = req.body;
+    const { name, bank, card_type } = req.body;
 
     if (!name || !bank) {
         return res.status(400).json({ error: 'Card name and bank are required' });
     }
 
     db.run(
-        'INSERT INTO cards (user_id, name, bank) VALUES (?, ?, ?)',
-        [req.user.id, name, bank],
+        'INSERT INTO cards (user_id, name, bank, card_type) VALUES (?, ?, ?, ?)',
+        [req.user.id, name, bank, card_type || 'generic'],
         function (err) {
             if (err) {
                 console.error('Error creating card:', err);
@@ -593,7 +605,8 @@ app.post('/api/cards', authenticateToken, (req, res) => {
                 id: this.lastID,
                 user_id: req.user.id,
                 name,
-                bank
+                bank,
+                card_type: card_type || 'generic'
             });
         }
     );
@@ -602,15 +615,15 @@ app.post('/api/cards', authenticateToken, (req, res) => {
 // Update card
 app.put('/api/cards/:id', authenticateToken, (req, res) => {
     const { id } = req.params;
-    const { name, bank } = req.body;
+    const { name, bank, card_type } = req.body;
 
     if (!name || !bank) {
         return res.status(400).json({ error: 'Card name and bank are required' });
     }
 
     db.run(
-        'UPDATE cards SET name = ?, bank = ? WHERE id = ? AND user_id = ?',
-        [name, bank, id, req.user.id],
+        'UPDATE cards SET name = ?, bank = ?, card_type = ? WHERE id = ? AND user_id = ?',
+        [name, bank, card_type || 'generic', id, req.user.id],
         function (err) {
             if (err) {
                 console.error('Error updating card:', err);
@@ -619,7 +632,7 @@ app.put('/api/cards/:id', authenticateToken, (req, res) => {
             if (this.changes === 0) {
                 return res.status(404).json({ error: 'Card not found' });
             }
-            res.json({ id: parseInt(id), name, bank });
+            res.json({ id: parseInt(id), name, bank, card_type: card_type || 'generic' });
         }
     );
 });
@@ -642,6 +655,85 @@ app.delete('/api/cards/:id', authenticateToken, (req, res) => {
             res.json({ message: 'Card deleted successfully' });
         }
     );
+});
+
+
+// Goals API
+app.get('/api/goals', authenticateToken, (req, res) => {
+    db.all('SELECT * FROM goals WHERE user_id = ? ORDER BY created_at DESC', [req.user.id], (err, rows) => {
+        if (err) {
+            console.error('Error fetching goals:', err);
+            return res.status(500).json({ error: 'Server error' });
+        }
+        res.json(rows);
+    });
+});
+
+app.post('/api/goals', authenticateToken, (req, res) => {
+    const { name, target_amount, current_amount, deadline, color, icon } = req.body;
+
+    if (!name || !target_amount) {
+        return res.status(400).json({ error: 'Name and target amount are required' });
+    }
+
+    db.run(
+        'INSERT INTO goals (user_id, name, target_amount, current_amount, deadline, color, icon) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [req.user.id, name, target_amount, current_amount || 0, deadline, color, icon],
+        function (err) {
+            if (err) {
+                console.error('Error creating goal:', err);
+                return res.status(500).json({ error: 'Server error' });
+            }
+            res.status(201).json({
+                id: this.lastID,
+                user_id: req.user.id,
+                name,
+                target_amount,
+                current_amount: current_amount || 0,
+                deadline,
+                color,
+                icon
+            });
+        }
+    );
+});
+
+app.put('/api/goals/:id', authenticateToken, (req, res) => {
+    const { id } = req.params;
+    const { name, target_amount, current_amount, deadline, color, icon } = req.body;
+
+    if (!name || !target_amount) {
+        return res.status(400).json({ error: 'Name and target amount are required' });
+    }
+
+    db.run(
+        'UPDATE goals SET name = ?, target_amount = ?, current_amount = ?, deadline = ?, color = ?, icon = ? WHERE id = ? AND user_id = ?',
+        [name, target_amount, current_amount, deadline, color, icon, id, req.user.id],
+        function (err) {
+            if (err) {
+                console.error('Error updating goal:', err);
+                return res.status(500).json({ error: 'Server error' });
+            }
+            if (this.changes === 0) {
+                return res.status(404).json({ error: 'Goal not found' });
+            }
+            res.json({ id, name, target_amount, current_amount, deadline, color, icon });
+        }
+    );
+});
+
+app.delete('/api/goals/:id', authenticateToken, (req, res) => {
+    const { id } = req.params;
+    db.run('DELETE FROM goals WHERE id = ? AND user_id = ?', [id, req.user.id], function (err) {
+        if (err) {
+            console.error('Error deleting goal:', err);
+            return res.status(500).json({ error: 'Server error' });
+        }
+        if (this.changes === 0) {
+            return res.status(404).json({ error: 'Goal not found' });
+        }
+        res.json({ message: 'Goal deleted' });
+    });
 });
 
 // Start server

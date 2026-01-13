@@ -1,5 +1,6 @@
 import React from 'react';
 import { Menu } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import UserMenu from './UserMenu';
 
 interface MobileHeaderProps {
@@ -16,8 +17,10 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({ onMenuClick }) => {
           </button>
 
           <div className="mobile-header-logo">
-            <img src="/logo.svg" alt="Sarfa" style={{ width: '32px', height: '32px' }} />
-            <span className="mobile-logo-text">SARFA</span>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-1)', textDecoration: 'none' }}>
+              <img src="/logo.svg" alt="Sarfa" style={{ width: '32px', height: '32px' }} />
+              <span className="mobile-logo-text">SARFA</span>
+            </Link>
           </div>
         </div>
 
@@ -77,12 +80,15 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({ onMenuClick }) => {
         }
 
         .mobile-logo-text {
-          font-size: var(--font-size-sm);
-          font-weight: var(--font-weight-bold);
+          font-size: var(--font-size-xl);
+          font-weight: var(--font-weight-extrabold);
           background: linear-gradient(135deg, var(--color-primary-600), var(--color-blue-500));
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
+          letter-spacing: 1px;
+          padding-top: 6px;
+          line-height: 1;
         }
 
         .mobile-header-actions {

@@ -168,7 +168,9 @@ const AllExpenses: React.FC = () => {
             </div>
           ) : filteredExpenses.length === 0 ? (
             <div className="empty-state">
-              <p>{t.expenses.noExpenses}</p>
+              <div className="empty-icon">🧾</div>
+              <h3>{t.expenses.noExpenses}</h3>
+              <p>{t.common.addExpense.replace('Add', 'Track your first')}</p>
             </div>
           ) : (
             <div className="expenses-table-container">
@@ -427,6 +429,13 @@ const AllExpenses: React.FC = () => {
           font-weight: var(--font-weight-medium);
         }
 
+        .dark-mode .category-badge {
+          color: var(--color-white);
+          background-color: var(--color-primary-600); /* Also darken bg slightly for better contrast if needed, or keep primary-100? */
+          /* primary-100 in dark mode is #312e81 (dark indigo). White text on #312e81 is good contrast (12:1). */
+          /* If I keep bg primary-100, it's fine. */
+        }
+
         .mode-badge {
           padding: var(--space-1) var(--space-3);
           background-color: var(--color-gray-100);
@@ -479,6 +488,24 @@ const AllExpenses: React.FC = () => {
           background-color: var(--color-bg-secondary);
           border-radius: var(--radius-lg);
           gap: var(--space-4);
+          text-align: center;
+        }
+
+        .empty-icon {
+          font-size: 80px;
+          margin-bottom: var(--space-4);
+        }
+
+        .empty-state h3 {
+          font-size: var(--font-size-xl);
+          color: var(--color-text-primary);
+          margin-bottom: var(--space-2);
+          font-weight: var(--font-weight-bold);
+        }
+
+        .empty-state p {
+          font-size: var(--font-size-base);
+          color: var(--color-text-secondary);
         }
 
         .spinner {
