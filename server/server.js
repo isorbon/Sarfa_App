@@ -396,7 +396,7 @@ app.get('/api/dashboard/stats', authenticateToken, async (req, res) => {
                 'SELECT SUM(amount) as total FROM expenses WHERE user_id = ? AND date BETWEEN ? AND ?',
                 [userId, mStart, mEnd]
             );
-            monthlyTrend.push({ name: monthName, amount: r?.total || 0 });
+            monthlyTrend.push({ label: monthName, total: r?.total || 0 });
         }
 
         // Investment & Goals
