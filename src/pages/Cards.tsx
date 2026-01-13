@@ -602,6 +602,10 @@ const Cards: React.FC = () => {
             gap: var(--space-3);
           }
 
+          .header-actions {
+            display: none;
+          }
+
           .modal {
             width: 95%;
           }
