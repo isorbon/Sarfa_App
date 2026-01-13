@@ -845,6 +845,11 @@ const BillsSubscription: React.FC = () => {
             box-shadow: none !important;
           }
 
+          .stats-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: var(--space-3);
+          }
+
           .bills-grid {
             grid-template-columns: repeat(2, 1fr);
             gap: var(--space-3);
