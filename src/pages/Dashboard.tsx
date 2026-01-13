@@ -250,7 +250,7 @@ const Dashboard: React.FC = () => {
                   >
                     <option value="3months">{t.dashboard.periods.m3}</option>
                     <option value="6months">{t.dashboard.periods.m6}</option>
-                    <option value="month">{t.dashboard.periods.month}</option>
+
                     <option value="year">{t.dashboard.periods.year}</option>
                     <option value="lastYear">{t.dashboard.periods.lastYear}</option>
                   </select>
@@ -272,7 +272,7 @@ const Dashboard: React.FC = () => {
                 >
                   <option value="3months">{t.dashboard.periods.m3}</option>
                   <option value="6months">{t.dashboard.periods.m6}</option>
-                  <option value="month">{t.dashboard.periods.month}</option>
+
                   <option value="year">{t.dashboard.periods.year}</option>
                   <option value="lastYear">{t.dashboard.periods.lastYear}</option>
                 </select>
