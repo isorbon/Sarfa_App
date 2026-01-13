@@ -581,13 +581,18 @@ const AllExpenses: React.FC = () => {
         @media (max-width: 768px) {
           .expenses-main {
             padding: var(--space-4);
-            max-width: 100vw; /* Prevent main container from overflowing */
+            max-width: 100vw;
             overflow-x: hidden;
             box-sizing: border-box;
           }
 
           .header-actions {
             display: none !important;
+          }
+
+          .stats-grid {
+             grid-template-columns: repeat(2, 1fr) !important;
+             gap: var(--space-4);
           }
 
           .expenses-controls {
