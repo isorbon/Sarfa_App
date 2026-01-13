@@ -719,6 +719,7 @@ const Dashboard: React.FC = () => {
           border-radius: var(--radius-full);
           font-size: var(--font-size-xs);
           font-weight: var(--font-weight-medium);
+          text-align: center;
         }
 
         .trend-badge.positive {
