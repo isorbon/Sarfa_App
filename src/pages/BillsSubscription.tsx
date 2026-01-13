@@ -831,10 +831,18 @@ const BillsSubscription: React.FC = () => {
 
         @media (max-width: 768px) {
           .bills-main {
-            padding: 0;
+            padding: 0 !important;
+            margin: 0 !important;
             max-width: 100vw;
             overflow-x: hidden;
             box-sizing: border-box;
+          }
+
+          .bills-header {
+            margin: 0 !important;
+            width: 100% !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
           }
 
           .bills-grid {
