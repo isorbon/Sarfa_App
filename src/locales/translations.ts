@@ -97,6 +97,7 @@ const enUS: Translation = {
         noCardsAvailable: 'No cards available. Please add a card from the Cards page first.',
         namePlaceholder: 'e.g., Visa Gold',
         bankPlaceholder: 'e.g., Chase Bank',
+        expensesByCard: 'Expenses by Card',
     },
     goals: {
         goalName: 'Goal Name',
@@ -323,6 +324,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: 'Keine Karten verfügbar.',
             namePlaceholder: 'z.B. Visa Gold',
             bankPlaceholder: 'z.B. Deutsche Bank',
+            expensesByCard: 'Ausgaben nach Karte',
         },
         dashboard: {
             subtitle: 'Verwalten Sie Ihre Kredit- und Debitkosten',
@@ -508,6 +510,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: 'No hay tarjetas disponibles.',
             namePlaceholder: 'ej. Visa Gold',
             bankPlaceholder: 'ej. BBVA',
+            expensesByCard: 'Gastos por Tarjeta',
         },
         dashboard: {
             subtitle: 'Gestiona tus gastos de crédito y débito',
@@ -693,6 +696,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: 'Aucune carte disponible.',
             namePlaceholder: 'ex. Visa Gold',
             bankPlaceholder: 'ex. BNP Paribas',
+            expensesByCard: 'Dépenses par Carte',
         },
         dashboard: {
             subtitle: 'Gérez vos dépenses',
@@ -876,6 +880,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             deleteMessage: 'Вы уверены?',
             namePlaceholder: 'Например, Visa Gold',
             bankPlaceholder: 'Например, Сбербанк',
+            expensesByCard: 'Расходы по картам',
         },
         dashboard: {
             subtitle: 'Управляйте своими расходами',
@@ -1065,6 +1070,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: 'Žádné dostupné karty',
             namePlaceholder: 'např. Visa Gold',
             bankPlaceholder: 'např. Česká spořitelna',
+            expensesByCard: 'Výdaje podle karty',
         },
         dashboard: {
             subtitle: 'Spravujte své výdaje',
@@ -1251,6 +1257,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: 'Nincs elérhető kártya',
             namePlaceholder: 'pl. Visa Gold',
             bankPlaceholder: 'pl. OTP Bank',
+            expensesByCard: 'Kártyás kiadások',
         },
         dashboard: {
             subtitle: 'Kezelje pénzügyeit',
@@ -1437,6 +1444,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: 'Kartu tidak tersedia',
             namePlaceholder: 'contoh Visa Gold',
             bankPlaceholder: 'contoh Bank Mandiri',
+            expensesByCard: 'Pengeluaran per Kartu',
         },
         dashboard: {
             subtitle: 'Kelola pengeluaran Anda',
@@ -1623,6 +1631,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: 'Nessuna carta disponibile',
             namePlaceholder: 'es. Visa Gold',
             bankPlaceholder: 'es. Intesa Sanpaolo',
+            expensesByCard: 'Spese per Carta',
         },
         dashboard: {
             subtitle: 'Gestisci le tue spese',
@@ -1809,6 +1818,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: '利用可能なカードがありません',
             namePlaceholder: '例: Visa Gold',
             bankPlaceholder: '例: Mizuho Bank',
+            expensesByCard: 'カード別経費',
         },
         dashboard: {
             subtitle: '経費を管理する',
@@ -1995,6 +2005,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: 'Geen kaarten beschikbaar',
             namePlaceholder: 'bijv. Visa Gold',
             bankPlaceholder: 'bijv. ING',
+            expensesByCard: 'Uitgaven per kaart',
         },
         dashboard: {
             subtitle: 'Beheer je uitgaven',
@@ -2181,6 +2192,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: 'Brak dostępnych kart',
             namePlaceholder: 'np. Visa Gold',
             bankPlaceholder: 'np. mBank',
+            expensesByCard: 'Wydatki wg karty',
         },
         dashboard: {
             subtitle: 'Zarządzaj swoimi wydatkami',
@@ -2367,6 +2379,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: 'Nenhum cartão',
             namePlaceholder: 'ex. Visa Gold',
             bankPlaceholder: 'ex. Banco do Brasil',
+            expensesByCard: 'Despesas por Cartão',
         },
         dashboard: {
             subtitle: 'Gerencie suas finanças',
@@ -2553,6 +2566,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: 'Nu există carduri disponibile',
             namePlaceholder: 'ex. Visa Gold',
             bankPlaceholder: 'ex. Banca Transilvania',
+            expensesByCard: 'Cheltuieli după card',
         },
         dashboard: {
             subtitle: 'Gestionează-ți cheltuielile',
@@ -2739,6 +2753,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: 'ไม่มีบัตรที่ใช้ได้',
             namePlaceholder: 'เช่น Visa Gold',
             bankPlaceholder: 'เช่น Kasikornthai',
+            expensesByCard: 'ค่าใช้จ่ายตามบัตร',
         },
         dashboard: {
             subtitle: 'จัดการค่าใช้จ่ายของคุณ',
@@ -2925,6 +2940,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: 'Kart bulunamadı',
             namePlaceholder: 'örn. Visa Gold',
             bankPlaceholder: 'örn. Garanti BBVA',
+            expensesByCard: 'Kart Harcamaları',
         },
         dashboard: {
             subtitle: 'Harcamalarınızı yönetin',
@@ -3108,6 +3124,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             deleteMessage: 'Ви впевнені?',
             namePlaceholder: 'Наприклад, Visa Gold',
             bankPlaceholder: 'Наприклад, ПриватБанк',
+            expensesByCard: 'Витрати за карткою',
         },
         dashboard: {
             subtitle: 'Керуйте своїми витратами',
@@ -3286,6 +3303,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: '无可用卡片',
             namePlaceholder: '例如 Visa Gold',
             bankPlaceholder: '例如 招商银行',
+            expensesByCard: '按卡统计消费',
         },
         dashboard: {
             subtitle: '管理您的支出',
@@ -3472,6 +3490,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: '無可用卡片',
             namePlaceholder: '例如 Visa Gold',
             bankPlaceholder: '例如 玉山銀行',
+            expensesByCard: '按卡統計消費',
         },
         dashboard: {
             subtitle: '管理您的支出',
@@ -3660,6 +3679,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             deleteMessage: 'Сиз ишенесизби?',
             namePlaceholder: 'Мисалы, Visa Gold',
             bankPlaceholder: 'Мисалы, Оптима Банк',
+            expensesByCard: 'Карта боюнча чыгашалар',
         },
         dashboard: {
             subtitle: 'Чыгымдарды башкаруу',
@@ -3840,6 +3860,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             deleteMessage: 'Сенімдісіз бе?',
             namePlaceholder: 'Мысалы, Visa Gold',
             bankPlaceholder: 'Мысалы, Халық Банкі',
+            expensesByCard: 'Карта бойынша шығындар',
         },
         dashboard: {
             subtitle: 'Шығындарды басқару',
@@ -4020,6 +4041,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             deleteMessage: 'Шумо мутмаин ҳастед?',
             namePlaceholder: 'Масалан, Visa Gold',
             bankPlaceholder: 'Масалан, Амонатбонк',
+            expensesByCard: 'Хароҷот аз рӯи корт',
         },
         dashboard: {
             subtitle: 'Идоракунии хароҷот',
@@ -4200,6 +4222,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             deleteMessage: 'Ishonchingiz komilmi?',
             namePlaceholder: 'Masalan, Visa Gold',
             bankPlaceholder: 'Masalan, Uzcard',
+            expensesByCard: 'Karta bo\'yicha xarajatlar',
         },
         dashboard: {
             subtitle: 'Xarajatlarni boshqarish',
@@ -4357,6 +4380,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: 'Mövcud kart yoxdur',
             namePlaceholder: 'məs., Visa',
             bankPlaceholder: 'məs., Kapital Bank',
+            expensesByCard: 'Kart üzrə xərclər',
         },
         bills: {
             totalMonthly: 'Aylıq Fakturalar',
@@ -4508,6 +4532,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             noCardsAvailable: 'Հասանելի չէ',
             namePlaceholder: 'օր. Visa',
             bankPlaceholder: 'օր. Ameriabank',
+            expensesByCard: 'Ծախսեր ըստ քարտի',
         },
         bills: {
             totalMonthly: 'Ամսական վճարներ',

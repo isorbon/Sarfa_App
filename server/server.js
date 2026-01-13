@@ -177,6 +177,35 @@ app.put('/api/auth/profile', authenticateToken, async (req, res) => {
     }
 });
 
+app.put('/api/auth/password', authenticateToken, async (req, res) => {
+    try {
+        const { password } = req.body;
+        const userId = req.user.id;
+        const userEmail = req.user.email;
+
+        // Security check for demo user
+        if (userEmail === 'demo@expenses.com') {
+            // Silently fail or return error. User requested "not save". 
+            // Returning error is honest and better for UI feedback unless user explicitly wanted to "fake" it.
+            // "it should not save the new password" -> implies the result is what matters.
+            return res.status(403).json({ error: 'Password change is disabled for demo user.' });
+        }
+
+        if (!password || password.length < 6) {
+            return res.status(400).json({ error: 'Password must be at least 6 characters' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await run('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, userId]);
+
+        res.json({ message: 'Password updated successfully' });
+    } catch (error) {
+        console.error('Password update error:', error);
+        res.status(500).json({ error: 'Server error during password update' });
+    }
+});
+
 // Avatar Upload (Note: This is brittle on Serverless without S3/Supabase Storage)
 app.post('/api/auth/upload-avatar', authenticateToken, upload.single('avatar'), async (req, res) => {
     try {
@@ -559,6 +588,50 @@ app.delete('/api/goals/:id', authenticateToken, async (req, res) => {
         await run('DELETE FROM goals WHERE id = ? AND user_id = ?', [req.params.id, req.user.id]);
         res.json({ message: 'Goal deleted' });
     } catch (err) { res.status(500).json({ error: 'Server error' }); }
+});
+
+// Card Stats Route
+app.get('/api/cards/stats', authenticateToken, async (req, res) => {
+    try {
+        const userId = req.user.id;
+
+        let queryText;
+        if (isPostgres) {
+            queryText = `
+                SELECT 
+                    c.id as card_id,
+                    c.name as card_name,
+                    c.card_type,
+                    TO_CHAR(e.date, 'YYYY-MM') as month,
+                    SUM(e.amount) as total_amount
+                FROM expenses e
+                JOIN cards c ON e.card_id = c.id
+                WHERE e.user_id = $1
+                GROUP BY c.id, c.name, c.card_type, TO_CHAR(e.date, 'YYYY-MM')
+                ORDER BY month ASC
+            `;
+        } else {
+            queryText = `
+                SELECT 
+                    c.id as card_id,
+                    c.name as card_name,
+                    c.card_type,
+                    strftime('%Y-%m', e.date) as month,
+                    SUM(e.amount) as total_amount
+                FROM expenses e
+                JOIN cards c ON e.card_id = c.id
+                WHERE e.user_id = ?
+                GROUP BY c.id, c.name, c.card_type, strftime('%Y-%m', e.date)
+                ORDER BY month ASC
+            `;
+        }
+
+        const stats = await all(queryText, [userId]);
+        res.json(stats);
+    } catch (error) {
+        console.error('Error fetching card stats:', error);
+        res.status(500).json({ error: 'Failed to fetch card statistics' });
+    }
 });
 
 app.listen(PORT, () => {

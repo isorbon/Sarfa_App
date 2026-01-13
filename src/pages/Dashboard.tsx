@@ -171,7 +171,7 @@ const Dashboard: React.FC = () => {
             </div>
 
             <div className="stat-card">
-              <div className="stat-header" style={{ justifyContent: 'space-between' }}>
+              <div className="stat-header" style={{ justifyContent: 'space-between', paddingRight: 0 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
                   <div className="stat-icon-wrapper icon-wrapper-orange">
                     <span className="stat-icon">🎯</span>
@@ -498,6 +498,7 @@ const Dashboard: React.FC = () => {
           align-items: center;
           gap: var(--space-2);
           margin-bottom: var(--space-4);
+          padding-right: 80px; /* Prevent text overlapping with absolute badge */
         }
 
         .stat-title {
@@ -517,7 +518,7 @@ const Dashboard: React.FC = () => {
         }
 
         .stat-amount {
-          font-size: var(--font-size-3xl);
+          font-size: var(--font-size-2xl);
           font-weight: var(--font-weight-bold);
           color: var(--color-gray-900);
           margin-bottom: var(--space-2);
@@ -544,10 +545,14 @@ const Dashboard: React.FC = () => {
           position: absolute;
           top: var(--space-4);
           right: var(--space-4);
+          /* margin-left: auto; REMOVED */
           padding: var(--space-1) var(--space-3);
           border-radius: var(--radius-full);
           font-size: var(--font-size-xs);
           font-weight: var(--font-weight-semibold);
+          display: flex;
+          align-items: center;
+          gap: var(--space-1);
         }
 
         .stat-badge.success {
@@ -672,6 +677,13 @@ const Dashboard: React.FC = () => {
 
         .grid-row:hover {
            background-color: var(--color-bg-primary);
+        }
+
+        .grid-cell {
+           text-align: left;
+           overflow: hidden;
+           text-overflow: ellipsis;
+           white-space: nowrap;
         }
 
         .slide-in-right {
@@ -851,6 +863,7 @@ const Dashboard: React.FC = () => {
           background-color: var(--color-gray-100);
           border-radius: var(--radius-md);
           font-size: var(--font-size-xs);
+          white-space: nowrap;
         }
 
         .subscription-list {
@@ -988,6 +1001,10 @@ const Dashboard: React.FC = () => {
             width: 100%;
             gap: var(--space-4);
           }
+
+          .stat-card {
+            padding: var(--space-4);
+          }
           
           .expenses-card, 
           .subscription-card {
@@ -995,7 +1012,7 @@ const Dashboard: React.FC = () => {
             border-radius: var(--radius-xl);
             padding: var(--space-4) !important;
             box-shadow: var(--shadow-sm);
-            width: 64% !important;
+            width: 57.5% !important;
             max-width: 100% !important;
             box-sizing: border-box !important;
             margin: 0 !important;
