@@ -194,7 +194,7 @@ const Goals: React.FC = () => {
                         <h1>
                             <span className="gradient-text">{t.common.goals}</span>
                         </h1>
-                        <p>{t.goals.addFirstGoal || 'Set financial targets'}</p>
+                        <p>{goals.length > 0 ? (t.goals.subtitleWithGoals || 'Set your financial goals and achieve them') : (t.goals.addFirstGoal || 'Set your first financial goal')}</p>
                     </div>
                     <div className="header-actions">
                         <LanguageSwitcher />

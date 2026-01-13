@@ -110,6 +110,7 @@ export interface Translation {
         namePlaceholder: string;
         goalImage?: string;
         uploadImage?: string;
+        subtitleWithGoals?: string;
     };
     bills: {
         totalMonthly: string;
