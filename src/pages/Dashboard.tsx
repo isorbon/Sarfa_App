@@ -986,8 +986,17 @@ const Dashboard: React.FC = () => {
           }
 
           .goal-circle {
-            width: 80px;
-            height: 80px;
+            width: 50px;
+            height: 50px;
+          }
+
+          .goal-name {
+            font-size: var(--font-size-sm) !important;
+            margin-bottom: 0 !important;
+          }
+
+          .goal-required, .goal-collected {
+             font-size: 10px !important;
           }
         }
       `}</style>
