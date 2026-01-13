@@ -60,6 +60,17 @@ const Goals: React.FC = () => {
         loadGoals();
     }, []);
 
+    if (loading) {
+        return (
+            <Layout>
+                <div className="dashboard-loading">
+                    <div className="spinner" />
+                    <p>{t.common.loading}</p>
+                </div>
+            </Layout>
+        );
+    }
+
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
@@ -194,12 +205,7 @@ const Goals: React.FC = () => {
 
                 <div className="goals-content">
                     <div className="goals-grid">
-                        {loading ? (
-                            <div className="loading-state">
-                                <div className="spinner" />
-                                <p>{t.common.loading}</p>
-                            </div>
-                        ) : goals.length === 0 ? (
+                        {goals.length === 0 ? (
                             <div className="empty-state">
                                 <div className="empty-icon">🎯</div>
                                 <h3>{t.goals.noGoals}</h3>
