@@ -931,8 +931,9 @@ const Dashboard: React.FC = () => {
           }
 
           .stats-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(2, 1fr);
             width: 100%;
+            gap: var(--space-3);
           }
 
           .charts-grid, 
@@ -966,9 +967,27 @@ const Dashboard: React.FC = () => {
           }
 
           /* Hide elements */
+          /* Hide elements */
           .header-time,
           .desktop-header {
             display: none !important;
+          }
+
+          .stat-badge {
+            top: 8px !important;
+            right: 8px !important;
+            padding: 2px 6px !important;
+          }
+
+          .goal-content {
+            flex-direction: row;
+            gap: var(--space-2);
+            margin-top: var(--space-4);
+          }
+
+          .goal-circle {
+            width: 80px;
+            height: 80px;
           }
         }
       `}</style>
