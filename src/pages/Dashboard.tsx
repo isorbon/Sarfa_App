@@ -14,10 +14,11 @@ import { useCurrency } from '../context/CurrencyContext';
 import UserMenu from '../components/UserMenu';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { useLanguage } from '../context/LanguageContext';
+import { formatDateForDisplay } from '../utils/dateFormatter';
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
   const { formatPrice } = useCurrency();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [monthlyPeriod, setMonthlyPeriod] = useState<'3months' | '6months' | 'year' | 'month' | 'lastYear'>('3months');
@@ -314,7 +315,7 @@ const Dashboard: React.FC = () => {
                           <div className="grid-cell font-semibold">{formatPrice(expense.amount)}</div>
                           <div className="grid-cell">{expense.category}</div>
                           <div className="grid-cell">{expense.sub_category || '-'}</div>
-                          <div className="grid-cell">{new Date(expense.date).toLocaleDateString('en-GB')}</div>
+                          <div className="grid-cell">{formatDateForDisplay(expense.date, language)}</div>
                           <div className="grid-cell">
                             <span className="mode-badge">{expense.mode}</span>
                           </div>
@@ -347,7 +348,7 @@ const Dashboard: React.FC = () => {
                       </div>
                       <div className="subscription-info">
                         <div className="subscription-name">{sub.sub_category}</div>
-                        <div className="subscription-date">{new Date(sub.date).toLocaleDateString('en-GB')}</div>
+                        <div className="subscription-date">{formatDateForDisplay(sub.date, language)}</div>
                       </div>
                       <div className="subscription-amount">{formatPrice(sub.amount)}</div>
                     </div>

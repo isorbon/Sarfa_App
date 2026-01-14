@@ -18,7 +18,11 @@ const initPromise = (async () => {
         console.log('Connecting to PostgreSQL/Supabase...');
         // Dynamic import for pg
         const pgModule = await import('pg');
-        const { Pool } = pgModule.default || pgModule;
+        const { Pool, types } = pgModule.default || pgModule;
+
+        // Override DATE parser (OID 1082) to return string instead of Date object
+        // This prevents timezone conversion issues
+        types.setTypeParser(1082, (str) => str);
 
         db = new Pool({
             connectionString: process.env.DATABASE_URL,

@@ -3,47 +3,44 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 
 import { useLanguage } from '../../context/LanguageContext';
 import { useTheme } from '../../context/ThemeContext';
+import { formatMonthName } from '../../utils/dateFormatter';
 
 interface MonthlyChartProps {
     data: Array<{ label: string; total: number }>;
 }
 
+const monthIndexMap: Record<string, number> = {
+    'January': 0, 'Jan': 0,
+    'February': 1, 'Feb': 1,
+    'March': 2, 'Mar': 2,
+    'April': 3, 'Apr': 3,
+    'May': 4,
+    'June': 5, 'Jun': 5,
+    'July': 6, 'Jul': 6,
+    'August': 7, 'Aug': 7,
+    'September': 8, 'Sep': 8,
+    'October': 9, 'Oct': 9,
+    'November': 10, 'Nov': 10,
+    'December': 11, 'Dec': 11
+};
+
 const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
-    const { t } = useLanguage();
+    const { language, t } = useLanguage();
     const { theme } = useTheme();
     const isDark = theme === 'dark';
 
     const formatMonth = (label: string) => {
-        const monthMap: Record<string, keyof typeof t.months.short> = {
-            // Full month names
-            'January': 'jan',
-            'February': 'feb',
-            'March': 'mar',
-            'April': 'apr',
-            'May': 'may',
-            'June': 'jun',
-            'July': 'jul',
-            'August': 'aug',
-            'September': 'sep',
-            'October': 'oct',
-            'November': 'nov',
-            'December': 'dec',
-            // Abbreviated month names
-            'Jan': 'jan',
-            'Feb': 'feb',
-            'Mar': 'mar',
-            'Apr': 'apr',
-            'Jun': 'jun',
-            'Jul': 'jul',
-            'Aug': 'aug',
-            'Sep': 'sep',
-            'Oct': 'oct',
-            'Nov': 'nov',
-            'Dec': 'dec',
-        };
+        // Try to parse English month name
+        const idx = monthIndexMap[label];
 
-        const monthKey = monthMap[label];
-        return monthKey ? t.months.short[monthKey] : label;
+        if (idx !== undefined) {
+            const d = new Date(2023, idx, 1);
+            // Return localized short name using robust helper (supports tj, kg, etc.)
+            return formatMonthName(d, language, 'short');
+        }
+
+        // Return original if not found
+        return label;
     };
 
     return (

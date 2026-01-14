@@ -11,9 +11,10 @@ import type { Expense } from '../types';
 import UserMenu from '../components/UserMenu';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { useLanguage } from '../context/LanguageContext';
+import { formatDateForDisplay } from '../utils/dateFormatter';
 
 const AllExpenses: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { formatPrice } = useCurrency();
   const [expenses, setExpenses] = useState<Expense[]>([]);
   // ...
@@ -243,7 +244,7 @@ const AllExpenses: React.FC = () => {
                     const Icon = (LucideIcons as any)[expense.icon] || LucideIcons.ShoppingCart;
                     return (
                       <tr key={expense.id}>
-                        <td>{new Date(expense.date).toLocaleDateString('en-GB')}</td>
+                        <td>{formatDateForDisplay(expense.date, language)}</td>
                         <td>
                           <div className="expense-icon">
                             <Icon size={20} />
@@ -455,6 +456,7 @@ const AllExpenses: React.FC = () => {
           font-size: var(--font-size-sm);
           color: var(--color-gray-700);
           border-bottom: 1px solid var(--color-gray-100);
+          white-space: nowrap;
         }
 
         .expenses-table tbody tr:hover {

@@ -20,6 +20,10 @@ A modern, full-stack expense tracking web application built with React + TypeScr
 
 ## 🆕 What's New in v1.2.3
 
+- **Enhanced Date Management**:
+  - Integrated a modern, premium DatePicker component across the entire application.
+  - Standardized date display format to "DD Mon YYYY" (e.g., 12 Jan 2026) for superior readability.
+ - Dates now automatically adapt to the user's selected language, supporting 25+ locales.
 - **New 'Expenses by Card' Analytics**:
   - Introduced a visually engaging chart to track and compare expenses across multiple cards.
   - Optimized for mobile experience with adaptive spacing, custom legends, and smooth data visualization.
