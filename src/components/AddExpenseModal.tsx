@@ -4,6 +4,7 @@ import IconPicker from './IconPicker';
 import { cardsAPI } from '../services/api';
 import { useLanguage } from '../context/LanguageContext';
 import type { Expense } from '../types';
+import DatePicker from './DatePicker';
 
 interface AddExpenseModalProps {
     isOpen: boolean;
@@ -135,12 +136,9 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                             <label htmlFor="date" className="form-label">
                                 {t.expenses.date} *
                             </label>
-                            <input
-                                id="date"
-                                type="date"
-                                className="form-input"
+                            <DatePicker
                                 value={formData.date}
-                                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                                onChange={(date) => setFormData({ ...formData, date })}
                                 required
                             />
                         </div>

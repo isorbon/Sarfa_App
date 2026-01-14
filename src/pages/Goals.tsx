@@ -7,7 +7,9 @@ import ConfirmationModal from '../components/ConfirmationModal';
 import { goalsAPI } from '../services/api';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { useLanguage } from '../context/LanguageContext';
+import { formatDateForDisplay } from '../utils/dateFormatter';
 import ImageCropperModal from '../components/ImageCropperModal';
+import DatePicker from '../components/DatePicker';
 
 interface Goal {
     id: number;
@@ -23,7 +25,7 @@ interface Goal {
 }
 
 const Goals: React.FC = () => {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const [goals, setGoals] = useState<Goal[]>([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -252,7 +254,7 @@ const Goals: React.FC = () => {
                                         {goal.deadline && (
                                             <div className="goal-deadline">
                                                 <Calendar size={14} />
-                                                <span>{new Date(goal.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                                                <span>{formatDateForDisplay(goal.deadline, language)}</span>
                                             </div>
                                         )}
                                     </div>
@@ -331,11 +333,9 @@ const Goals: React.FC = () => {
                                     {t.goals.deadline}
                                     <span style={{ opacity: 0.5, fontSize: '0.85em', fontWeight: 'normal', marginLeft: '6px' }}>({t.common.optional || 'Optional'})</span>
                                 </label>
-                                <input
-                                    type="date"
-                                    className="form-input"
+                                <DatePicker
                                     value={formData.deadline}
-                                    onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
+                                    onChange={(date) => setFormData({ ...formData, deadline: date })}
                                 />
                             </div>
 
