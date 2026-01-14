@@ -243,7 +243,7 @@ const AllExpenses: React.FC = () => {
                     const Icon = (LucideIcons as any)[expense.icon] || LucideIcons.ShoppingCart;
                     return (
                       <tr key={expense.id}>
-                        <td>{new Date(expense.date).toLocaleDateString('en-GB')}</td>
+                        <td>{new Date(expense.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
                         <td>
                           <div className="expense-icon">
                             <Icon size={20} />

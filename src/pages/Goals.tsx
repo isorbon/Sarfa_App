@@ -252,7 +252,7 @@ const Goals: React.FC = () => {
                                         {goal.deadline && (
                                             <div className="goal-deadline">
                                                 <Calendar size={14} />
-                                                <span>{new Date(goal.deadline).toLocaleDateString()}</span>
+                                                <span>{new Date(goal.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                                             </div>
                                         )}
                                     </div>

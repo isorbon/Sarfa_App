@@ -314,7 +314,7 @@ const Dashboard: React.FC = () => {
                           <div className="grid-cell font-semibold">{formatPrice(expense.amount)}</div>
                           <div className="grid-cell">{expense.category}</div>
                           <div className="grid-cell">{expense.sub_category || '-'}</div>
-                          <div className="grid-cell">{new Date(expense.date).toLocaleDateString('en-GB')}</div>
+                          <div className="grid-cell">{new Date(expense.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
                           <div className="grid-cell">
                             <span className="mode-badge">{expense.mode}</span>
                           </div>
@@ -347,7 +347,7 @@ const Dashboard: React.FC = () => {
                       </div>
                       <div className="subscription-info">
                         <div className="subscription-name">{sub.sub_category}</div>
-                        <div className="subscription-date">{new Date(sub.date).toLocaleDateString('en-GB')}</div>
+                        <div className="subscription-date">{new Date(sub.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
                       </div>
                       <div className="subscription-amount">{formatPrice(sub.amount)}</div>
                     </div>
