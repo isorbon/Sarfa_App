@@ -17,6 +17,7 @@ export interface Expense {
     icon: string;
     date: string;
     mode: string;
+    card_id?: number;
     created_at: string;
 }
 

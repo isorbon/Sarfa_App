@@ -590,6 +590,50 @@ app.delete('/api/goals/:id', authenticateToken, async (req, res) => {
     } catch (err) { res.status(500).json({ error: 'Server error' }); }
 });
 
+// Card Stats Route
+app.get('/api/cards/stats', authenticateToken, async (req, res) => {
+    try {
+        const userId = req.user.id;
+
+        let queryText;
+        if (isPostgres) {
+            queryText = `
+                SELECT 
+                    c.id as card_id,
+                    c.name as card_name,
+                    c.card_type,
+                    TO_CHAR(e.date, 'YYYY-MM') as month,
+                    SUM(e.amount) as total_amount
+                FROM expenses e
+                JOIN cards c ON e.card_id = c.id
+                WHERE e.user_id = $1
+                GROUP BY c.id, c.name, c.card_type, TO_CHAR(e.date, 'YYYY-MM')
+                ORDER BY month ASC
+            `;
+        } else {
+            queryText = `
+                SELECT 
+                    c.id as card_id,
+                    c.name as card_name,
+                    c.card_type,
+                    strftime('%Y-%m', e.date) as month,
+                    SUM(e.amount) as total_amount
+                FROM expenses e
+                JOIN cards c ON e.card_id = c.id
+                WHERE e.user_id = ?
+                GROUP BY c.id, c.name, c.card_type, strftime('%Y-%m', e.date)
+                ORDER BY month ASC
+            `;
+        }
+
+        const stats = await all(queryText, [userId]);
+        res.json(stats);
+    } catch (error) {
+        console.error('Error fetching card stats:', error);
+        res.status(500).json({ error: 'Failed to fetch card statistics' });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });

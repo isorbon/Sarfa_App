@@ -4,7 +4,7 @@ import Layout from '../components/Layout';
 import ThemeToggle from '../components/ThemeToggle';
 import UserMenu from '../components/UserMenu';
 import ConfirmationModal from '../components/ConfirmationModal';
-import { cardsAPI } from '../services/api';
+import { cardsAPI, expensesAPI } from '../services/api';
 
 interface Card {
   id: number;
@@ -27,9 +27,12 @@ const cardTypes = [
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { useLanguage } from '../context/LanguageContext';
 
+import CardsStatsChart from '../components/CardsStatsChart';
+
 const Cards: React.FC = () => {
   const { t } = useLanguage();
   const [cards, setCards] = useState<Card[]>([]);
+  const [stats, setStats] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingCard, setEditingCard] = useState<Card | null>(null);
@@ -40,8 +43,47 @@ const Cards: React.FC = () => {
   const loadCards = async () => {
     try {
       setLoading(true);
-      const data = await cardsAPI.getAll();
-      setCards(data);
+      // Fetch cards alone first to ensure they render
+      const cardsData = await cardsAPI.getAll();
+      setCards(cardsData);
+
+      // Attempt to fetch stats separately
+      try {
+        const statsData = await cardsAPI.getStats();
+        if (statsData && statsData.length > 0) {
+          setStats(statsData);
+        } else {
+          throw new Error('No stats from backend');
+        }
+      } catch (statsError) {
+        console.warn('Failed to load backend stats, trying fallback:', statsError);
+        // Fallback: Calculate from all expenses
+        try {
+          const allExpenses = await expensesAPI.getAll();
+          const fallbackStats = allExpenses
+            .filter(e => e.card_id)
+            .reduce((acc: any, expense) => {
+              const month = expense.date.substring(0, 7);
+              const card = cardsData.find(c => c.id === expense.card_id);
+              if (!card) return acc;
+
+              const key = `${expense.card_id}-${month}`;
+              if (!acc[key]) {
+                acc[key] = {
+                  card_id: expense.card_id,
+                  card_name: card.name,
+                  month: month,
+                  total_amount: 0
+                };
+              }
+              acc[key].total_amount += Number(expense.amount);
+              return acc;
+            }, {});
+          setStats(Object.values(fallbackStats));
+        } catch (fallbackError) {
+          console.error('Fallback stats failed:', fallbackError);
+        }
+      }
     } catch (error) {
       console.error('Error loading cards:', error);
     } finally {
@@ -99,6 +141,7 @@ const Cards: React.FC = () => {
     <Layout>
       <main className="cards-main">
         <header className="cards-header">
+          {/* ... */}
           <div className="header-greeting">
             <h1>
               <span className="gradient-text">{t.common.cards}</span>
@@ -113,6 +156,9 @@ const Cards: React.FC = () => {
         </header>
 
         <div className="cards-content">
+          {/* Chart Section */}
+          {!loading && <CardsStatsChart data={stats} />}
+
           <div className="cards-grid">
             {loading ? (
               <div className="loading-state">
@@ -334,7 +380,7 @@ const Cards: React.FC = () => {
 
         .cards-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
           gap: var(--space-4);
         }
 
@@ -342,14 +388,14 @@ const Cards: React.FC = () => {
           background-color: var(--color-bg-secondary);
           border: 1px solid var(--color-border);
           border-radius: var(--radius-2xl);
-          padding: var(--space-8);
+          padding: var(--space-5);
           display: flex;
           flex-direction: column;
           align-items: center;
           text-align: center;
-          gap: var(--space-6);
+          gap: var(--space-3);
           transition: all 0.2s;
-          min-height: 280px;
+          min-height: 180px;
           justify-content: center;
         }
 
@@ -359,8 +405,8 @@ const Cards: React.FC = () => {
         }
 
         .card-icon {
-          width: 80px;
-          height: 80px;
+          width: 70px;
+          height: 70px;
           border-radius: var(--radius-xl);
           background: white;
           display: flex;
@@ -382,7 +428,7 @@ const Cards: React.FC = () => {
         }
 
         .card-details h3 {
-          font-size: var(--font-size-2xl);
+          font-size: var(--font-size-lg);
           font-weight: var(--font-weight-bold);
           color: var(--color-text-primary);
           margin: 0;
@@ -600,6 +646,23 @@ const Cards: React.FC = () => {
           .cards-grid {
             grid-template-columns: repeat(2, 1fr);
             gap: var(--space-3);
+          }
+
+
+          /* Restore original mobile sizes */
+          .card-item {
+            padding: var(--space-6);
+            gap: var(--space-4);
+            min-height: 240px;
+          }
+
+          .card-icon {
+            width: 60px;
+            height: 60px;
+          }
+
+          .card-details h3 {
+            font-size: var(--font-size-lg);
           }
 
           .header-actions {

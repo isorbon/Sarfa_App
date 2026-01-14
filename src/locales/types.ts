@@ -94,6 +94,7 @@ export interface Translation {
         noCardsAvailable: string;
         namePlaceholder: string;
         bankPlaceholder: string;
+        expensesByCard: string;
     };
     goals: {
         goalName: string;

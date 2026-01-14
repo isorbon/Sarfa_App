@@ -171,7 +171,7 @@ const Dashboard: React.FC = () => {
             </div>
 
             <div className="stat-card">
-              <div className="stat-header" style={{ justifyContent: 'space-between' }}>
+              <div className="stat-header" style={{ justifyContent: 'space-between', paddingRight: 0 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
                   <div className="stat-icon-wrapper icon-wrapper-orange">
                     <span className="stat-icon">🎯</span>
@@ -677,6 +677,13 @@ const Dashboard: React.FC = () => {
 
         .grid-row:hover {
            background-color: var(--color-bg-primary);
+        }
+
+        .grid-cell {
+           text-align: left;
+           overflow: hidden;
+           text-overflow: ellipsis;
+           white-space: nowrap;
         }
 
         .slide-in-right {

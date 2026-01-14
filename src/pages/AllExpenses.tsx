@@ -450,6 +450,7 @@ const AllExpenses: React.FC = () => {
         }
 
         .expenses-table td {
+          text-align: left;
           padding: var(--space-4);
           font-size: var(--font-size-sm);
           color: var(--color-gray-700);
@@ -494,6 +495,7 @@ const AllExpenses: React.FC = () => {
           background-color: var(--color-gray-100);
           border-radius: var(--radius-md);
           font-size: var(--font-size-xs);
+          white-space: nowrap;
         }
 
         .amount {

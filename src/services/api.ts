@@ -113,6 +113,10 @@ export const cardsAPI = {
     delete: async (id: number): Promise<void> => {
         await api.delete(`/cards/${id}`);
     },
+    getStats: async (): Promise<any[]> => {
+        const response = await api.get('/cards/stats');
+        return response.data;
+    },
 };
 
 // Goals API
