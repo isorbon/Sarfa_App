@@ -428,14 +428,14 @@ const Cards: React.FC = () => {
         }
 
         .card-details h3 {
-          font-size: var(--font-size-lg);
+          font-size: var(--font-size-base);
           font-weight: var(--font-weight-bold);
           color: var(--color-text-primary);
           margin: 0;
         }
 
         .card-details p {
-          font-size: var(--font-size-base);
+          font-size: var(--font-size-sm);
           color: var(--color-text-secondary);
           margin: 0;
         }
@@ -662,7 +662,7 @@ const Cards: React.FC = () => {
           }
 
           .card-details h3 {
-            font-size: var(--font-size-lg);
+            font-size: var(--font-size-base);
           }
 
           .header-actions {

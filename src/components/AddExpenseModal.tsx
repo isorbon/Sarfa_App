@@ -85,6 +85,7 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
             await onSubmit({
                 ...formData,
                 amount: parseFloat(formData.amount),
+                card_id: formData.card_id ? Number(formData.card_id) : undefined,
             });
             onClose();
         } catch (err: any) {
