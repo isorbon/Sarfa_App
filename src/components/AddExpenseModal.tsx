@@ -44,7 +44,7 @@ const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                 sub_category: expense.sub_category || '',
                 description: expense.description || '',
                 icon: expense.icon,
-                date: expense.date.match(/^\d{2}\/\d{2}\/\d{4}$/) ? expense.date.split('/').reverse().join('-') : expense.date.substring(0, 10),
+                date: expense.date.includes('/') ? expense.date.split('/').reverse().join('-') : expense.date.substring(0, 10),
                 mode: expense.mode,
                 card_id: (expense as any).card_id || '',
             });
