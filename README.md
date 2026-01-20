@@ -20,38 +20,15 @@ A modern, full-stack expense tracking web application built with React + TypeScr
 
 ## 🆕 What's New in v1.2.5
 
-- **Comprehensive Multi-Currency Support**:
-  - Added support for 22 currencies matching all supported languages.
-  - Currency selector in Settings page with flag, code, symbol, and full name.
-  - Automatic currency selection based on user's language preference.
-  - Real-time exchange rates fetched from external API.
-  - Supported currencies:
-    - 🇦🇿 Azerbaijani Manat (AZN)
-    - 🇨🇿 Czech Koruna (CZK)
-    - 🇪🇺 Euro (EUR)
-    - 🇬🇧 British Pound (GBP)
-    - 🇺🇸 US Dollar (USD)
-    - 🇭🇺 Hungarian Forint (HUF)
-    - 🇦🇲 Armenian Dram (AMD)
-    - 🇮🇩 Indonesian Rupiah (IDR)
-    - 🇯🇵 Japanese Yen (JPY)
-    - 🇰🇬 Kyrgyzstani Som (KGS)
-    - 🇰🇿 Kazakhstani Tenge (KZT)
-    - 🇵🇱 Polish Złoty (PLN)
-    - 🇧🇷 Brazilian Real (BRL)
-    - 🇷🇴 Romanian Leu (RON)
-    - 🇷🇺 Russian Ruble (RUB)
-    - 🇹🇭 Thai Baht (THB)
-    - 🇹🇯 Tajikistani Somoni (TJS)
-    - 🇹🇷 Turkish Lira (TRY)
-    - 🇺🇦 Ukrainian Hryvnia (UAH)
-    - 🇺🇿 Uzbekistani Som (UZS)
-    - 🇨🇳 Chinese Yuan (CNY)
-    - 🇹🇼 New Taiwan Dollar (TWD)
-- **Enhanced User Experience**:
-  - Currency preference persisted in local storage and user profile.
-  - Automatic conversion of all amounts based on selected currency.
-  - Fallback rates for offline/API failure scenarios.
+- **Expanded Localization**:
+  - Added full **Hindi (हिन्दी)** language support with complete translation.
+  - Localized charts and date formats for Hindi users.
+- **Currency Enhancements**:
+  - Added **Indian Rupee (INR)** to the supported currencies list.
+  - Improved Currency Selector in Settings with country flags, symbols, and currency codes.
+  - Automatic currency selection based on the chosen language (e.g., Selecting Hindi defaults to INR).
+  - Automatic conversion of displayed amounts based on the selected currency.
+  - **Demo Account Protection**: Preventing data deletion for the `demo` user.
 
 ## What's New in v1.2.4
 
@@ -268,6 +245,7 @@ expenses/
 - Protected API routes
 - Input validation on both frontend and backend
 - CORS configuration for production
+- **Demo Account Protection**: Data deletion and password changes are disabled for the demo account (`demo@expenses.com`) to preserve data integrity for public testing.
 
 ### Backend Deployment (Serverless)
 
