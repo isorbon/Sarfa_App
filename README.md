@@ -3,14 +3,14 @@
 A modern, full-stack expense tracking web application built with React + TypeScript and Node.js + SQLite.
 
 ![Expensify Dashboard](https://img.shields.io/badge/Status-Production%20Ready-success)
-![Version](https://img.shields.io/badge/Version-1.2.4-blue)
+![Version](https://img.shields.io/badge/Version-1.2.5-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ## 🌟 Features
 
 - ✅ **Secure Authentication** - JWT-based login/registration system
 - 📊 **Interactive Dashboard** - Real-time statistics and data visualization
-- 💶 **EUR Currency** - All amounts tracked in Euros
+- � **Multi-Currency Support** - 22 currencies matching all supported languages
 - 📈 **Beautiful Charts** - Monthly trends and category breakdowns
 - 🎨 **Icon Customization** - 100+ icons to choose from for each expense
 - 🔍 **Smart Filtering** - Search and filter by date, category, and more
@@ -18,7 +18,42 @@ A modern, full-stack expense tracking web application built with React + TypeScr
 - 👨‍👩‍👧‍👦 **Family Support** - Multiple user accounts for family members
 - ☁️ **Remote Hosting Ready** - Easy deployment to any cloud platform
 
-## 🆕 What's New in v1.2.4
+## 🆕 What's New in v1.2.5
+
+- **Comprehensive Multi-Currency Support**:
+  - Added support for 22 currencies matching all supported languages.
+  - Currency selector in Settings page with flag, code, symbol, and full name.
+  - Automatic currency selection based on user's language preference.
+  - Real-time exchange rates fetched from external API.
+  - Supported currencies:
+    - 🇦🇿 Azerbaijani Manat (AZN)
+    - 🇨🇿 Czech Koruna (CZK)
+    - 🇪🇺 Euro (EUR)
+    - 🇬🇧 British Pound (GBP)
+    - 🇺🇸 US Dollar (USD)
+    - 🇭🇺 Hungarian Forint (HUF)
+    - 🇦🇲 Armenian Dram (AMD)
+    - 🇮🇩 Indonesian Rupiah (IDR)
+    - 🇯🇵 Japanese Yen (JPY)
+    - 🇰🇬 Kyrgyzstani Som (KGS)
+    - 🇰🇿 Kazakhstani Tenge (KZT)
+    - 🇵🇱 Polish Złoty (PLN)
+    - 🇧🇷 Brazilian Real (BRL)
+    - 🇷🇴 Romanian Leu (RON)
+    - 🇷🇺 Russian Ruble (RUB)
+    - 🇹🇭 Thai Baht (THB)
+    - 🇹🇯 Tajikistani Somoni (TJS)
+    - 🇹🇷 Turkish Lira (TRY)
+    - 🇺🇦 Ukrainian Hryvnia (UAH)
+    - 🇺🇿 Uzbekistani Som (UZS)
+    - 🇨🇳 Chinese Yuan (CNY)
+    - 🇹🇼 New Taiwan Dollar (TWD)
+- **Enhanced User Experience**:
+  - Currency preference persisted in local storage and user profile.
+  - Automatic conversion of all amounts based on selected currency.
+  - Fallback rates for offline/API failure scenarios.
+
+## What's New in v1.2.4
 
 - **CSV & PDF Export Functionality**:
   - Added CSV and PDF export buttons to All Expenses and Bills & Subscriptions pages.

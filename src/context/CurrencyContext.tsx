@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-
-export type CurrencyCode = 'EUR' | 'USD' | 'UAH';
+import { CurrencyCode, getCurrencyByCode, getDefaultCurrencyForLanguage } from '../config/currencies';
 
 interface CurrencyContextType {
     currency: CurrencyCode;
@@ -12,47 +11,66 @@ interface CurrencyContextType {
 
 const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined);
 
-
-
+// Fallback exchange rates (approximate, will be updated from API)
 const FALLBACK_RATES: Record<string, number> = {
     EUR: 1,
-    USD: 1.05, // Approx
-    UAH: 42.0  // Approx
+    USD: 1.05,
+    GBP: 0.85,
+    UAH: 42.0,
+    RUB: 95.0,
+    TRY: 32.0,
+    PLN: 4.3,
+    CZK: 24.5,
+    HUF: 390.0,
+    RON: 4.95,
+    BRL: 5.4,
+    CNY: 7.6,
+    JPY: 155.0,
+    THB: 36.0,
+    IDR: 16500.0,
+    KZT: 475.0,
+    AZN: 1.8,
+    AMD: 410.0,
+    UZS: 12500.0,
+    KGS: 90.0,
+    TJS: 11.5,
+    TWD: 33.0,
 };
 
 export const CurrencyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [currency, setCurrencyState] = useState<CurrencyCode>(() => {
-        return (localStorage.getItem('currency') as CurrencyCode) || 'EUR';
+        const savedCurrency = localStorage.getItem('currency') as CurrencyCode;
+        const savedLanguage = localStorage.getItem('language');
+
+        // If currency is saved, use it
+        if (savedCurrency) {
+            return savedCurrency;
+        }
+
+        // Otherwise, get default currency for current language
+        if (savedLanguage) {
+            return getDefaultCurrencyForLanguage(savedLanguage);
+        }
+
+        return 'EUR';
     });
+
     const [rates, setRates] = useState<Record<string, number>>(FALLBACK_RATES);
     const [loading, setLoading] = useState(false);
 
-    // Function to fetch rates from Wise
+    // Function to fetch rates from exchangerate-api.com (free tier)
     const fetchRates = async () => {
         setLoading(true);
         try {
-            // Try fetching EUR -> USD
-            const usdRes = await fetch('https://api.wise.com/v1/rates?source=EUR&target=USD');
-            const usdData = await usdRes.json();
+            const response = await fetch('https://api.exchangerate-api.com/v4/latest/EUR');
+            const data = await response.json();
 
-            // Try fetching EUR -> UAH
-            const uahRes = await fetch('https://api.wise.com/v1/rates?source=EUR&target=UAH');
-            const uahData = await uahRes.json();
-
-            const newRates = { ...FALLBACK_RATES };
-
-            if (usdData && usdData.length > 0) {
-                newRates.USD = usdData[0].rate;
+            if (data && data.rates) {
+                setRates(data.rates);
             }
-
-            if (uahData && uahData.length > 0) {
-                newRates.UAH = uahData[0].rate;
-            }
-
-            setRates(newRates);
         } catch (error) {
-            console.error('Error fetching exchange rates from Wise:', error);
-            // Fallback is already set
+            console.error('Error fetching exchange rates:', error);
+            // Keep using fallback rates
         } finally {
             setLoading(false);
         }
@@ -60,6 +78,9 @@ export const CurrencyProvider: React.FC<{ children: ReactNode }> = ({ children }
 
     useEffect(() => {
         fetchRates();
+        // Refresh rates every hour
+        const interval = setInterval(fetchRates, 3600000);
+        return () => clearInterval(interval);
     }, []);
 
     const setCurrency = (code: CurrencyCode) => {
@@ -71,12 +92,21 @@ export const CurrencyProvider: React.FC<{ children: ReactNode }> = ({ children }
         const rate = rates[currency] || 1;
         const converted = amountInEur * rate;
 
-        return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: currency,
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-        }).format(converted);
+        const currencyInfo = getCurrencyByCode(currency);
+        const symbol = currencyInfo?.symbol || currency;
+
+        // Format based on currency
+        try {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: currency,
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+            }).format(converted);
+        } catch (error) {
+            // Fallback for currencies not supported by Intl
+            return `${symbol} ${Math.round(converted).toLocaleString()}`;
+        }
     };
 
     return (

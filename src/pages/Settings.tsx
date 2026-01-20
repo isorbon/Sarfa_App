@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { authAPI } from '../services/api';
 
-import { useCurrency, CurrencyCode } from '../context/CurrencyContext';
+import { useCurrency } from '../context/CurrencyContext';
+import { CurrencyCode, currencies } from '../config/currencies';
 import { useLanguage } from '../context/LanguageContext';
 import { User, Lock } from 'lucide-react';
 import Layout from '../components/Layout';
@@ -220,9 +221,11 @@ const Settings: React.FC = () => {
                                             }}
                                             style={{ paddingLeft: '1rem' }}
                                         >
-                                            <option value="EUR">EUR (€)</option>
-                                            <option value="USD">USD ($)</option>
-                                            <option value="UAH">UAH (₴)</option>
+                                            {currencies.map(curr => (
+                                                <option key={curr.code} value={curr.code}>
+                                                    {curr.flag} {curr.code} ({curr.symbol}) - {curr.name}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
                                     <p className="help-text">
