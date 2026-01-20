@@ -5,6 +5,8 @@ interface CurrencyContextType {
     currency: CurrencyCode;
     setCurrency: (code: CurrencyCode) => void;
     formatPrice: (amountInEur: number) => string;
+    formatAmount: (amountInEur: number) => string; // Number only, no symbol
+    getCurrencySymbol: () => string;
     rates: Record<string, number>;
     loading: boolean;
 }
@@ -107,8 +109,19 @@ export const CurrencyProvider: React.FC<{ children: ReactNode }> = ({ children }
         return `${symbol} ${formatted}`;
     };
 
+    const formatAmount = (amountInEur: number) => {
+        const rate = rates[currency] || 1;
+        const converted = amountInEur * rate;
+        return Math.round(converted).toLocaleString('en-US');
+    };
+
+    const getCurrencySymbol = () => {
+        const currencyInfo = getCurrencyByCode(currency);
+        return currencyInfo?.symbol || currency;
+    };
+
     return (
-        <CurrencyContext.Provider value={{ currency, setCurrency, formatPrice, rates, loading }}>
+        <CurrencyContext.Provider value={{ currency, setCurrency, formatPrice, formatAmount, getCurrencySymbol, rates, loading }}>
             {children}
         </CurrencyContext.Provider>
     );

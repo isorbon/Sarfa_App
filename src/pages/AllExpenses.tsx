@@ -19,7 +19,7 @@ import { saveAs } from 'file-saver';
 
 const AllExpenses: React.FC = () => {
   const { t, language } = useLanguage();
-  const { formatPrice } = useCurrency();
+  const { formatPrice, formatAmount, getCurrencySymbol } = useCurrency();
   const [expenses, setExpenses] = useState<Expense[]>([]);
   // ...
 
@@ -345,7 +345,7 @@ const AllExpenses: React.FC = () => {
                     <th>{t.expenses.category}</th>
                     <th>{t.expenses.subCategory}</th>
                     <th>{t.expenses.description}</th>
-                    <th>{t.expenses.amount}</th>
+                    <th>{t.expenses.amount} ({getCurrencySymbol()})</th>
                     <th>{t.expenses.mode}</th>
                     <th>{t.common.actions}</th>
                   </tr>
@@ -364,7 +364,7 @@ const AllExpenses: React.FC = () => {
                         <td><span className="category-badge">{getCategoryLabel(expense.category)}</span></td>
                         <td>{expense.sub_category || '-'}</td>
                         <td>{expense.description || '-'}</td>
-                        <td className="amount">{formatPrice(expense.amount)}</td>
+                        <td className="amount">{formatAmount(expense.amount)}</td>
                         <td><span className="mode-badge">{getPaymentModeLabel(expense.mode)}</span></td>
                         <td>
                           <div className="action-buttons">
