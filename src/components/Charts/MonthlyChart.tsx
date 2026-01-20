@@ -3,6 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 
 import { useLanguage } from '../../context/LanguageContext';
 import { useTheme } from '../../context/ThemeContext';
+import { useCurrency } from '../../context/CurrencyContext';
 import { formatMonthName } from '../../utils/dateFormatter';
 
 interface MonthlyChartProps {
@@ -27,6 +28,7 @@ const monthIndexMap: Record<string, number> = {
 const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
     const { language, t } = useLanguage();
     const { theme } = useTheme();
+    const { formatPrice, getCurrencySymbol } = useCurrency();
     const isDark = theme === 'dark';
 
     const formatMonth = (label: string) => {
@@ -58,7 +60,7 @@ const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
                     axisLine={false}
                     tickLine={false}
                     tick={{ fill: isDark ? '#9ca3af' : '#6b7280', fontSize: 12 }}
-                    tickFormatter={(value) => `€${value / 1000}k`}
+                    tickFormatter={(value) => `${getCurrencySymbol()}${value / 1000}k`}
                 />
                 <Tooltip
                     contentStyle={{
@@ -68,7 +70,7 @@ const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
                         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                     }}
                     itemStyle={{ color: isDark ? '#f9fafb' : '#111827' }}
-                    formatter={(value: number) => [`€${value.toFixed(2)}`, t.expenses.amount]}
+                    formatter={(value: number) => [formatPrice(value), t.expenses.amount]}
                     labelFormatter={(label) => formatMonth(label)}
                     labelStyle={{ color: isDark ? '#f9fafb' : '#111827', fontWeight: 600 }}
                 />
