@@ -192,6 +192,8 @@ export interface Translation {
         miscellaneous: string;
         bills: string;
         recent: string;
+        exportCSV: string;
+        exportPDF: string;
     };
     months: {
         short: {

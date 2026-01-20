@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Plus, Filter, TrendingUp, TrendingDown, Wallet, BarChart3 } from 'lucide-react';
+import { Plus, TrendingUp, TrendingDown, Wallet, BarChart3, PieChart } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
 import Layout from '../components/Layout';
@@ -262,7 +262,9 @@ const Dashboard: React.FC = () => {
             <div className="chart-card">
               <div className="card-header">
                 <div className="card-title">
-                  <span className="card-icon">🥧</span>
+                  <div className="card-icon-wrapper-gradient">
+                    <PieChart size={14} color="#ffffff" style={{ color: '#ffffff', stroke: '#ffffff' }} strokeWidth={2.5} />
+                  </div>
                   <span>{t.dashboard.topCategory}</span>
                 </div>
                 <select
@@ -289,12 +291,7 @@ const Dashboard: React.FC = () => {
                   <span className="card-icon">📋</span>
                   <span>{t.common.expensesList}</span>
                 </div>
-                <div className="card-actions">
-                  <button className="btn-icon"><Filter size={18} /></button>
-                  <select className="period-select">
-                    <option>{t.filters.recent}</option>
-                  </select>
-                </div>
+
               </div>
 
               <div className="expenses-table">
@@ -1124,6 +1121,26 @@ const Dashboard: React.FC = () => {
              display: block;
           }
         }
+
+        .card-icon-wrapper-gradient {
+          width: 24px;
+          height: 24px;
+          border-radius: var(--radius-sm);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(135deg, #f472b6, #db2777);
+          box-shadow: 0 4px 6px -1px rgba(219, 39, 119, 0.4);
+          color: white;
+          margin-right: var(--space-2);
+        }
+        
+        .card-icon-wrapper-gradient svg {
+           color: white !important;
+           stroke: white !important;
+        }
+
+
       `}</style>
     </Layout>
   );

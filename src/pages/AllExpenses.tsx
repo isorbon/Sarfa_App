@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, Edit, Trash2 } from 'lucide-react';
+import { Plus, Search, Edit, Trash2, FileText, FileType } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
 import Layout from '../components/Layout';
@@ -12,6 +12,10 @@ import UserMenu from '../components/UserMenu';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { useLanguage } from '../context/LanguageContext';
 import { formatDateForDisplay } from '../utils/dateFormatter';
+import Papa from 'papaparse';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { saveAs } from 'file-saver';
 
 const AllExpenses: React.FC = () => {
   const { t, language } = useLanguage();
@@ -96,6 +100,93 @@ const AllExpenses: React.FC = () => {
     return map[mode] || mode;
   };
 
+  const exportToCSV = () => {
+    try {
+      // Prepare data for CSV export
+      const csvData = filteredExpenses.map(expense => ({
+        Date: formatDateForDisplay(expense.date, language),
+        Category: getCategoryLabel(expense.category),
+        'Sub Category': expense.sub_category || '-',
+        Description: expense.description || '-',
+        Amount: expense.amount,
+        'Payment Mode': getPaymentModeLabel(expense.mode),
+      }));
+
+      // Convert to CSV
+      const csv = Papa.unparse(csvData);
+
+      // Add BOM for Excel compatibility and create blob
+      const BOM = '\uFEFF';
+      const blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8' });
+      const filename = `expenses_${new Date().toISOString().split('T')[0]}.csv`;
+
+      // Log for debugging
+      console.log('CSV Export - Filename:', filename, 'Size:', blob.size);
+
+      saveAs(blob, filename);
+    } catch (error) {
+      console.error('CSV export failed:', error);
+      alert('Failed to export CSV. Error: ' + error);
+    }
+  };
+
+  const exportToPDF = () => {
+    try {
+      const doc = new jsPDF();
+
+      // Add title
+      doc.setFontSize(18);
+      doc.setTextColor(102, 126, 234);
+      doc.text('Expense Report', 14, 20);
+
+      // Add filter info and metadata
+      doc.setFontSize(10);
+      doc.setTextColor(0, 0, 0);
+      doc.text(`Filter: ${getCategoryLabel(categoryFilter)}`, 14, 30);
+      doc.text(`Generated: ${new Date().toLocaleDateString()}`, 14, 36);
+      doc.text(`Total Records: ${filteredExpenses.length}`, 14, 42);
+
+      // Prepare table data
+      const tableData = filteredExpenses.map(expense => [
+        formatDateForDisplay(expense.date, language),
+        getCategoryLabel(expense.category),
+        expense.sub_category || '-',
+        expense.description || '-',
+        formatPrice(expense.amount),
+        getPaymentModeLabel(expense.mode),
+      ]);
+
+      // Add table
+      autoTable(doc, {
+        head: [[t.expenses.date, t.expenses.category, t.expenses.subCategory, t.expenses.description, t.expenses.amount, t.expenses.mode]],
+        body: tableData,
+        startY: 50,
+        styles: { fontSize: 8, cellPadding: 3 },
+        headStyles: { fillColor: [102, 126, 234], textColor: [255, 255, 255], fontStyle: 'bold' },
+        alternateRowStyles: { fillColor: [245, 247, 250] },
+      });
+
+      // Add summary
+      const finalY = (doc as any).lastAutoTable.finalY || 50;
+      doc.setFontSize(12);
+      doc.setFont('', 'bold');
+      doc.text(`Total: ${formatPrice(totalAmount)}`, 14, finalY + 10);
+      doc.text(`Count: ${filteredExpenses.length} transactions`, 14, finalY + 17);
+
+      // Use FileSaver for reliable download
+      const pdfBlob = doc.output('blob');
+      const filename = `expenses_${new Date().toISOString().split('T')[0]}.pdf`;
+
+      // Log for debugging
+      console.log('PDF Export - Filename:', filename, 'Size:', pdfBlob.size);
+
+      saveAs(pdfBlob, filename);
+    } catch (error) {
+      console.error('PDF export failed:', error);
+      alert('Failed to export PDF. Error: ' + error);
+    }
+  };
+
   const filteredExpenses = expenses.filter(expense => {
     const matchesSearch =
       expense.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -129,28 +220,6 @@ const AllExpenses: React.FC = () => {
         </header>
 
         <div className="expenses-content">
-          <div className="expenses-controls">
-            <div className="search-box">
-              <Search size={20} />
-              <input
-                type="text"
-                placeholder={t.common.searchPlaceholder}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-
-            <select
-              className="category-filter"
-              value={categoryFilter}
-              onChange={(e) => setCategoryFilter(e.target.value)}
-            >
-              {categories.map(cat => (
-                <option key={cat} value={cat}>{getCategoryLabel(cat)}</option>
-              ))}
-            </select>
-          </div>
-
           <div className="stats-grid">
             <div className="stat-card">
               <div className="stat-header">
@@ -175,7 +244,7 @@ const AllExpenses: React.FC = () => {
             <div className="stat-card">
               <div className="stat-header">
                 <div className="stat-icon-wrapper icon-wrapper-orange">
-                  <LucideIcons.PieChart size={24} />
+                  <LucideIcons.PieChart size={24} color="#ffffff" style={{ color: '#ffffff', stroke: '#ffffff' }} strokeWidth={2.5} />
                 </div>
                 <h3 className="stat-title">{t.dashboard.topCategory}</h3>
               </div>
@@ -210,6 +279,48 @@ const AllExpenses: React.FC = () => {
                 {formatPrice(filteredExpenses.length > 0 ? totalAmount / filteredExpenses.length : 0)}
               </div>
               <div className="stat-label">Per transaction</div>
+            </div>
+          </div>
+
+          <div className="expenses-controls">
+            <div className="search-box">
+              <Search size={20} />
+              <input
+                type="text"
+                placeholder={t.common.searchPlaceholder}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+
+            <select
+              className="category-filter"
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+            >
+              {categories.map(cat => (
+                <option key={cat} value={cat}>{getCategoryLabel(cat)}</option>
+              ))}
+            </select>
+
+            <div className="export-actions">
+              <button
+                className="export-btn csv-btn"
+                onClick={exportToCSV}
+                title={t.filters.exportCSV}
+              >
+                <FileText size={16} />
+                CSV
+              </button>
+
+              <button
+                className="export-btn pdf-btn"
+                onClick={exportToPDF}
+                title={t.filters.exportPDF}
+              >
+                <FileType size={16} />
+                PDF
+              </button>
             </div>
           </div>
 
@@ -362,6 +473,82 @@ const AllExpenses: React.FC = () => {
           padding: var(--space-6);
         }
 
+        .stats-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: var(--space-6);
+          margin-bottom: var(--space-6);
+        }
+
+        .stat-card {
+          background: var(--color-bg-secondary);
+          border-radius: var(--radius-2xl);
+          padding: var(--space-5);
+          box-shadow: var(--shadow-md);
+          transition: all var(--transition-base);
+        }
+
+        .stat-card:hover {
+          transform: translateY(-4px);
+          box-shadow: var(--shadow-2xl);
+        }
+
+        .stat-header {
+          display: flex;
+          align-items: center;
+          gap: var(--space-3);
+          margin-bottom: var(--space-4);
+        }
+
+        .stat-icon-wrapper {
+          width: 48px;
+          height: 48px;
+          border-radius: var(--radius-xl);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .icon-wrapper-purple {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+        }
+
+        .icon-wrapper-blue {
+          background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+          color: white;
+        }
+
+        .icon-wrapper-orange {
+          background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+          color: white;
+        }
+
+        .icon-wrapper-green {
+          background: linear-gradient(135deg, #4facfe 0%, #43e97b 100%);
+          color: white;
+        }
+
+        .stat-title {
+          font-size: var(--font-size-sm);
+          color: var(--color-gray-600);
+          font-weight: var(--font-weight-medium);
+          margin: 0;
+        }
+
+        .stat-amount {
+          font-size: var(--font-size-3xl);
+          font-weight: var(--font-weight-bold);
+          color: var(--color-gray-900);
+          margin-bottom: var(--space-1);
+        }
+
+        .stat-label {
+          font-size: var(--font-size-xs);
+          color: var(--color-gray-500);
+        }
+
         .expenses-controls {
           display: flex;
           gap: var(--space-4);
@@ -399,6 +586,48 @@ const AllExpenses: React.FC = () => {
           color: var(--color-text-primary);
           cursor: pointer;
           min-width: 200px;
+        }
+
+        .export-actions {
+          display: flex;
+          gap: var(--space-4);
+        }
+
+        .export-btn {
+          display: flex;
+          align-items: center;
+          gap: var(--space-2);
+          padding: var(--space-3) var(--space-5);
+          border: 1px solid var(--color-gray-300);
+          border-radius: var(--radius-md);
+          font-size: var(--font-size-sm);
+          font-family: var(--font-family);
+          font-weight: var(--font-weight-semibold);
+          cursor: pointer;
+          transition: all var(--transition-fast);
+          background-color: var(--color-bg-secondary);
+          color: var(--color-text-primary);
+          min-width: 95px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          justify-content: center;
+        }
+
+        .export-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-md);
+        }
+
+        .csv-btn:hover {
+          background-color: var(--color-primary-600);
+          color: white;
+          border-color: var(--color-primary-600);
+        }
+
+       .pdf-btn:hover {
+          background-color: var(--color-error);
+          color: white;
+          border-color: var(--color-error);
         }
 
         .expenses-summary {
@@ -614,6 +843,14 @@ const AllExpenses: React.FC = () => {
             min-width: 100%;
             overflow-x: auto;
             padding-bottom: 4px; /* Space for scrollbar */
+          }
+
+          .export-actions {
+            width: 100%;
+          }
+
+          .export-btn {
+            flex: 1;
           }
 
           .expenses-content {

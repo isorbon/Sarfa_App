@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, Filter, Calendar, TrendingUp, AlertCircle, CheckCircle, Clock } from 'lucide-react';
+import { Plus, Search, Calendar, TrendingUp, AlertCircle, CheckCircle, Clock, FileText, FileType } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
 import Layout from '../components/Layout';
@@ -11,6 +11,10 @@ import type { Expense, BillsStats } from '../types';
 import UserMenu from '../components/UserMenu';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { useLanguage } from '../context/LanguageContext';
+import Papa from 'papaparse';
+import { saveAs } from 'file-saver';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 const BillsSubscription: React.FC = () => {
   const { t } = useLanguage();
@@ -104,6 +108,109 @@ const BillsSubscription: React.FC = () => {
     return { label: t.bills.statusActive, color: 'success', icon: CheckCircle };
   };
 
+  const exportToCSV = () => {
+    try {
+      const csvData = bills.map(bill => {
+        const status = getBillStatus(bill.date);
+        return {
+          Date: new Date(bill.date).toLocaleDateString(),
+          'Bill Name': bill.sub_category || '-',
+          Description: bill.description || '-',
+          Amount: bill.amount,
+          Status: status.label,
+          'Payment Mode': bill.mode
+        };
+      });
+
+      // Calculate totals
+      const totalFiltered = bills.reduce((sum, bill) => sum + Number(bill.amount), 0);
+
+      // Add summary rows
+      csvData.push({
+        Date: 'TOTAL (Filtered)',
+        'Bill Name': '',
+        Description: `${bills.length} records`,
+        Amount: totalFiltered,
+        Status: '',
+        'Payment Mode': ''
+      });
+
+      if (stats) {
+        csvData.push({
+          Date: 'Total Monthly Bills (KPI)',
+          'Bill Name': '',
+          Description: 'Current Month Total',
+          Amount: stats.totalMonthly,
+          Status: '',
+          'Payment Mode': ''
+        });
+      }
+
+      const csv = Papa.unparse(csvData);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      saveAs(blob, `bills_export_${new Date().toISOString().split('T')[0]}.csv`);
+    } catch (error) {
+      console.error('Export CSV Error:', error);
+    }
+  };
+
+  const exportToPDF = () => {
+    try {
+      const doc = new jsPDF();
+
+      // Add title
+      doc.setFontSize(18);
+      doc.setTextColor(68, 64, 230);
+      doc.text(t.common.billsSubscription, 14, 20);
+
+      // Add metadata
+      doc.setFontSize(10);
+      doc.setTextColor(0, 0, 0);
+      doc.text(`Generated: ${new Date().toLocaleDateString()}`, 14, 30);
+      doc.text(`Filter Period: ${filterPeriod === 'all' ? t.bills.allTime : (filterPeriod === 'month' ? t.dashboard.periods.month : t.dashboard.periods.year)}`, 14, 35);
+      doc.text(`Records Found: ${bills.length}`, 14, 40);
+
+      const tableColumn = ["Date", "Bill Name", "Description", "Amount", "Status", "Payment Mode"];
+      const tableRows = bills.map(bill => {
+        const status = getBillStatus(bill.date);
+        return [
+          new Date(bill.date).toLocaleDateString(),
+          bill.sub_category || '-',
+          bill.description || '-',
+          formatPrice(bill.amount),
+          status.label,
+          bill.mode
+        ];
+      });
+
+      autoTable(doc, {
+        head: [tableColumn],
+        body: tableRows,
+        startY: 50,
+        styles: { fontSize: 8 },
+        headStyles: { fillColor: [68, 64, 230], textColor: [255, 255, 255] }
+      });
+
+      // Add summary
+      const totalFiltered = bills.reduce((sum, bill) => sum + Number(bill.amount), 0);
+      const finalY = (doc as any).lastAutoTable.finalY || 50;
+
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.text(`Total (Filtered): ${formatPrice(totalFiltered)}`, 14, finalY + 10);
+
+      if (stats) {
+        doc.setFont('helvetica', 'normal');
+        doc.text(`Total Monthly Bills (KPI): ${formatPrice(stats.totalMonthly)}`, 14, finalY + 16);
+      }
+
+      const pdfBlob = doc.output('blob');
+      saveAs(pdfBlob, `bills_export_${new Date().toISOString().split('T')[0]}.pdf`);
+    } catch (error) {
+      console.error('Export PDF Error:', error);
+    }
+  };
+
   if (loading) {
     return (
       <div className="dashboard-loading">
@@ -136,7 +243,7 @@ const BillsSubscription: React.FC = () => {
           <div className="stats-grid">
             <div className="stat-card gradient-purple">
               <div className="stat-icon-wrapper">
-                <TrendingUp size={32} />
+                <TrendingUp size={24} />
               </div>
               <div className="stat-content">
                 <span className="stat-label">{t.bills.totalMonthly}</span>
@@ -149,7 +256,7 @@ const BillsSubscription: React.FC = () => {
 
             <div className="stat-card gradient-blue">
               <div className="stat-icon-wrapper">
-                <Calendar size={32} />
+                <Calendar size={24} />
               </div>
               <div className="stat-content">
                 <span className="stat-label">{t.bills.upcoming}</span>
@@ -162,7 +269,7 @@ const BillsSubscription: React.FC = () => {
 
             <div className="stat-card gradient-orange">
               <div className="stat-icon-wrapper">
-                <AlertCircle size={32} />
+                <AlertCircle size={24} />
               </div>
               <div className="stat-content">
                 <span className="stat-label">{t.bills.overdue}</span>
@@ -175,7 +282,7 @@ const BillsSubscription: React.FC = () => {
 
             <div className="stat-card gradient-green">
               <div className="stat-icon-wrapper">
-                <CheckCircle size={32} />
+                <CheckCircle size={24} />
               </div>
               <div className="stat-content">
                 <span className="stat-label">{t.bills.total}</span>
@@ -209,10 +316,24 @@ const BillsSubscription: React.FC = () => {
                 <option value="month">{t.dashboard.periods.month}</option>
                 <option value="year">{t.dashboard.periods.year}</option>
               </select>
-              <button className="filter-btn">
-                <Filter size={18} />
-                <span>{t.bills.moreFilters}</span>
-              </button>
+              <div className="export-actions">
+                <button
+                  className="export-btn csv-btn"
+                  onClick={exportToCSV}
+                  title={t.filters?.exportCSV}
+                >
+                  <FileText size={16} />
+                  CSV
+                </button>
+                <button
+                  className="export-btn pdf-btn"
+                  onClick={exportToPDF}
+                  title={t.filters?.exportPDF}
+                >
+                  <FileType size={16} />
+                  PDF
+                </button>
+              </div>
             </div>
           </div>
 
@@ -435,8 +556,8 @@ const BillsSubscription: React.FC = () => {
         }
 
         .stat-icon-wrapper {
-          width: 64px;
-          height: 64px;
+          width: 48px;
+          height: 48px;
           border-radius: var(--radius-xl);
           display: flex;
           align-items: center;
@@ -536,7 +657,12 @@ const BillsSubscription: React.FC = () => {
           box-shadow: var(--shadow-sm);
         }
 
-        .filter-btn {
+        .export-actions {
+          display: flex;
+          gap: var(--space-3);
+        }
+
+        .export-btn {
           display: flex;
           align-items: center;
           gap: var(--space-2);
@@ -546,10 +672,32 @@ const BillsSubscription: React.FC = () => {
           border-radius: var(--radius-lg);
           font-size: var(--font-size-sm);
           font-family: var(--font-family);
+          font-weight: var(--font-weight-semibold);
           cursor: pointer;
           box-shadow: var(--shadow-sm);
           transition: all var(--transition-fast);
           color: var(--color-text-primary);
+          min-width: 95px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          justify-content: center;
+        }
+
+        .export-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-md);
+        }
+
+        .csv-btn:hover {
+          background-color: var(--color-primary-600);
+          color: white;
+          border-color: var(--color-primary-600);
+        }
+
+        .pdf-btn:hover {
+          background-color: var(--color-error);
+          color: white;
+          border-color: var(--color-error);
         }
 
         .filter-btn:hover {
@@ -822,9 +970,19 @@ const BillsSubscription: React.FC = () => {
 
           .filter-actions {
             width: 100%;
+            flex-direction: column;
+            gap: var(--space-3);
           }
 
-          .period-select, .filter-btn {
+          .period-select {
+            width: 100%;
+          }
+
+          .export-actions {
+            width: 100%;
+          }
+
+          .export-btn {
             flex: 1;
           }
         }
