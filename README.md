@@ -3,7 +3,7 @@
 A modern, full-stack expense tracking web application built with React + TypeScript and Node.js + SQLite.
 
 ![Expensify Dashboard](https://img.shields.io/badge/Status-Production%20Ready-success)
-![Version](https://img.shields.io/badge/Version-1.2.3-blue)
+![Version](https://img.shields.io/badge/Version-1.2.4-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ## 🌟 Features
@@ -18,7 +18,20 @@ A modern, full-stack expense tracking web application built with React + TypeScr
 - 👨‍👩‍👧‍👦 **Family Support** - Multiple user accounts for family members
 - ☁️ **Remote Hosting Ready** - Easy deployment to any cloud platform
 
-## 🆕 What's New in v1.2.3
+## 🆕 What's New in v1.2.4
+
+- **CSV & PDF Export Functionality**:
+  - Added CSV and PDF export buttons to All Expenses and Bills & Subscriptions pages.
+  - Export respects active filters - only exports currently visible/filtered data.
+  - CSV exports include all details in spreadsheet format with summary totals.
+  - PDF exports generate professional reports with formatted tables, summaries, filter information, and KPI metrics.
+  - Files are automatically named with the export date (expenses_YYYY-MM-DD.csv/pdf or bills_YYYY-MM-DD.csv/pdf).
+  - Fully localized.
+- **UX/UI Polish**:
+  - Enhanced mobile responsiveness.
+  - Other minor UI/UX improvements.
+
+## What's New in v1.2.3
 
 - **Enhanced Date Management**:
   - Integrated a modern, premium DatePicker component across the entire application.

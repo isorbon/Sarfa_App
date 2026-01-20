@@ -1,4 +1,4 @@
-import { Translation, LanguageCode } from './types';
+﻿import { Translation, LanguageCode } from './types';
 
 export const languages: { code: LanguageCode; name: string; flag: string; countryCode: string }[] = [
     { code: 'az', name: 'Azərbaycan', flag: '🇦🇿', countryCode: 'az' },
@@ -195,6 +195,8 @@ const enUS: Translation = {
         miscellaneous: 'Miscellaneous',
         bills: 'Bill & Subscription',
         recent: 'Recent',
+        exportCSV: 'Export to CSV',
+        exportPDF: 'Export to PDF',
     },
     months: {
         short: {
@@ -389,6 +391,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Sonstiges',
             bills: 'Rechnungen',
             recent: 'Kürzlich',
+            exportCSV: 'Als CSV exportieren',
+            exportPDF: 'Als PDF exportieren',
         },
         months: {
             short: {
@@ -575,6 +579,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Varios',
             bills: 'Facturas',
             recent: 'Reciente',
+            exportCSV: 'Exportar a CSV',
+            exportPDF: 'Exportar a PDF',
         },
         months: {
             short: {
@@ -761,6 +767,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Divers',
             bills: 'Factures',
             recent: 'Récent',
+            exportCSV: 'Exporter en CSV',
+            exportPDF: 'Exporter en PDF',
         },
         months: {
             short: {
@@ -947,6 +955,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Разное',
             bills: 'Счета',
             recent: 'Недавние',
+            exportCSV: 'Экспорт в CSV',
+            exportPDF: 'Экспорт в PDF',
         },
         months: {
             short: {
@@ -1135,6 +1145,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Různé',
             bills: 'Účty',
             recent: 'Nedávné',
+            exportCSV: 'Exportovat do CSV',
+            exportPDF: 'Exportovat do PDF',
         },
         months: {
             short: {
@@ -1322,6 +1334,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Egyéb',
             bills: 'Számlák',
             recent: 'Legutóbbi',
+            exportCSV: 'Exportálás CSV-be',
+            exportPDF: 'Exportálás PDF-be',
         },
         months: {
             short: {
@@ -1509,6 +1523,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Lainnya',
             bills: 'Tagihan',
             recent: 'Terkini',
+            exportCSV: 'Ekspor ke CSV',
+            exportPDF: 'Ekspor ke PDF',
         },
         months: {
             short: {
@@ -1696,6 +1712,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Misto',
             bills: 'Bollette',
             recent: 'Recente',
+            exportCSV: 'Esporta in CSV',
+            exportPDF: 'Esporta in PDF',
         },
         months: {
             short: {
@@ -1883,6 +1901,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'その他',
             bills: '請求書',
             recent: '最近',
+            exportCSV: 'CSVにエクスポート',
+            exportPDF: 'PDFにエクスポート',
         },
         months: {
             short: {
@@ -2070,6 +2090,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Diversen',
             bills: 'Rekeningen',
             recent: 'Recent',
+            exportCSV: 'Exportă în CSV',
+            exportPDF: 'Exportă în PDF',
         },
         months: {
             short: {
@@ -2257,6 +2279,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Różne',
             bills: 'Rachunki',
             recent: 'Ostatnie',
+            exportCSV: 'Eksportuj do CSV',
+            exportPDF: 'Eksportuj do PDF',
         },
         months: {
             short: {
@@ -2444,6 +2468,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Diversos',
             bills: 'Contas',
             recent: 'Recente',
+            exportCSV: 'Esporta in CSV',
+            exportPDF: 'Esporta in PDF',
         },
         months: {
             short: {
@@ -2631,6 +2657,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Diverse',
             bills: 'Facturi',
             recent: 'Recent',
+            exportCSV: 'Exportă în CSV',
+            exportPDF: 'Exportă în PDF',
         },
         months: {
             short: {
@@ -2818,6 +2846,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'เบ็ดเตล็ด',
             bills: 'บิล',
             recent: 'ล่าสุด',
+            exportCSV: 'ส่งออกเป็น CSV',
+            exportPDF: 'ส่งออกเป็น PDF',
         },
         months: {
             short: {
@@ -3005,6 +3035,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: 'Çeşitli',
             bills: 'Faturalar',
             recent: 'Son',
+            exportCSV: 'CSV olarak dışa aktar',
+            exportPDF: 'PDF olarak dışa aktar',
         },
         months: {
             short: {
@@ -3145,7 +3177,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
                 lastYear: 'Минулий рік',
             },
         },
-        filters: { ...enUS.filters, all: 'Всі', foodGrocery: 'Продукти', investment: 'Інвестиції', shopping: 'Покупки', travelling: 'Подорожі', miscellaneous: 'Різне', bills: 'Рахунки', recent: 'Недавні' },
+        filters: { ...enUS.filters, all: 'Всі', foodGrocery: 'Продукти', investment: 'Інвестиції', shopping: 'Покупки', travelling: 'Подорожі', miscellaneous: 'Різне', bills: 'Рахунки', recent: 'Недавні', exportCSV: 'Експортувати в CSV', exportPDF: 'Експортувати в PDF' },
         modals: {
             ...enUS.modals,
             addExpenseTitle: 'Нова витрата',
@@ -3368,6 +3400,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: '杂项',
             bills: '账单',
             recent: '最近',
+            exportCSV: 'CSVにエクスポート',
+            exportPDF: 'PDFにエクスポート',
         },
         months: {
             short: {
@@ -3555,6 +3589,8 @@ const translationsMap: Record<LanguageCode, Translation> = {
             miscellaneous: '雜項',
             bills: '帳單',
             recent: '最近',
+            exportCSV: 'CSVにエクスポート',
+            exportPDF: 'PDFにエクスポート',
         },
         months: {
             short: {
@@ -3700,7 +3736,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
                 lastYear: 'Өткөн жыл',
             },
         },
-        filters: { ...enUS.filters, all: 'Баары', foodGrocery: 'Азык-түлүк', investment: 'Инвестициялар', shopping: 'Соода', travelling: 'Саякат', miscellaneous: 'Башкалар', bills: 'Эсептер', recent: 'Акыркы' },
+        filters: { ...enUS.filters, all: 'Баары', foodGrocery: 'Азык-түлүк', investment: 'Инвестициялар', shopping: 'Соода', travelling: 'Саякат', miscellaneous: 'Башкалар', bills: 'Эсептер', recent: 'Акыркы', exportCSV: 'CSV форматына экспорттоо', exportPDF: 'PDF форматына экспорттоо' },
         modals: {
             ...enUS.modals,
             addExpenseTitle: 'Жаңы чыгым',
@@ -3881,7 +3917,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
                 lastYear: 'Өткен жыл',
             },
         },
-        filters: { ...enUS.filters, all: 'Барлығы', foodGrocery: 'Азық-түлік', investment: 'Инвестициялар', shopping: 'Сауда', travelling: 'Саяхат', miscellaneous: 'Басқалар', bills: 'Есеп-шоттар', recent: 'Соңғы' },
+        filters: { ...enUS.filters, all: 'Барлығы', foodGrocery: 'Азық-түлік', investment: 'Инвестициялар', shopping: 'Сауда', travelling: 'Саяхат', miscellaneous: 'Басқалар', bills: 'Есеп-шоттар', recent: 'Соңғы', exportCSV: 'CSV форматына экспорттау', exportPDF: 'PDF форматына экспорттау' },
         modals: {
             ...enUS.modals,
             addExpenseTitle: 'Жаңа шығын',
@@ -4062,7 +4098,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
                 lastYear: 'Соли гузашта',
             },
         },
-        filters: { ...enUS.filters, all: 'Ҳама', foodGrocery: 'Хӯрок', investment: 'Сармоягузорӣ', shopping: 'Харид', travelling: 'Сафар', miscellaneous: 'Дигарҳо', bills: 'Ҳисобҳо', recent: 'Охирин' },
+        filters: { ...enUS.filters, all: 'Ҳама', foodGrocery: 'Хӯрок', investment: 'Сармоягузорӣ', shopping: 'Харид', travelling: 'Сафар', miscellaneous: 'Дигарҳо', bills: 'Ҳисобҳо', recent: 'Охирин', exportCSV: 'Содирот ба CSV', exportPDF: 'Содирот ба PDF' },
         modals: {
             ...enUS.modals,
             addExpenseTitle: 'Хароҷоти нав',
@@ -4243,7 +4279,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
                 lastYear: 'Oʻtgan yil',
             },
         },
-        filters: { ...enUS.filters, all: 'Hammasi', foodGrocery: 'Oziq-ovqat', investment: 'Investitsiyalar', shopping: 'Xarid', travelling: 'Sayohat', miscellaneous: 'Boshqalar', bills: 'Hisob-kitoblar', recent: 'So\'nggi' },
+        filters: { ...enUS.filters, all: 'Hammasi', foodGrocery: 'Oziq-ovqat', investment: 'Investitsiyalar', shopping: 'Xarid', travelling: 'Sayohat', miscellaneous: 'Boshqalar', bills: 'Hisob-kitoblar', recent: 'So\'nggi', exportCSV: 'CSV ga eksport qilish', exportPDF: 'PDF ga eksport qilish' },
         modals: {
             ...enUS.modals,
             addExpenseTitle: 'Yangi xarajat',
@@ -4446,7 +4482,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             currencyUpdated: 'Yeniləndi!',
             currencyError: 'Xəta',
         },
-        filters: { ...enUS.filters, all: 'Hamısı', bills: 'Fakturalar', recent: 'Son', foodGrocery: 'Ərzaq', investment: 'İnvestisiya', shopping: 'Alış-veriş', travelling: 'Səyahət', miscellaneous: 'Müxtəlif' },
+        filters: { ...enUS.filters, all: 'Hamısı', bills: 'Fakturalar', recent: 'Son', exportCSV: 'CSV-yə ixrac edin', exportPDF: 'PDF-ə ixrac edin', foodGrocery: 'Ərzaq', investment: 'İnvestisiya', shopping: 'Alış-veriş', travelling: 'Səyahət', miscellaneous: 'Müxtəlif' },
         months: { short: { jan: 'Yan', feb: 'Fev', mar: 'Mar', apr: 'Apr', may: 'May', jun: 'İyun', jul: 'İyul', aug: 'Avq', sep: 'Sen', oct: 'Okt', nov: 'Noy', dec: 'Dek' } }
     },
     'hy': {
@@ -4598,7 +4634,7 @@ const translationsMap: Record<LanguageCode, Translation> = {
             currencyUpdated: 'Թարմացվեց!',
             currencyError: 'Սխալ',
         },
-        filters: { ...enUS.filters, all: 'Բոլորը', bills: 'Վճարումներ', recent: 'Վերջին', foodGrocery: 'Սնունդ', investment: 'Ներդրում', shopping: 'Գնումներ', travelling: 'Ճանապարհորդություն', miscellaneous: 'Այլ' },
+        filters: { ...enUS.filters, all: 'Բոլորը', bills: 'Վճարումներ', recent: 'Վերջին', exportCSV: 'Արտահանել CSV', exportPDF: 'Արտահանել PDF', foodGrocery: 'Սնունդ', investment: 'Ներդրում', shopping: 'Գնումներ', travelling: 'Ճանապարհորդություն', miscellaneous: 'Այլ' },
         months: { short: { jan: 'Հնվ', feb: 'Փտր', mar: 'Մրտ', apr: 'Ապր', may: 'Մայ', jun: 'Հնս', jul: 'Հլս', aug: 'Օգս', sep: 'Սպտ', oct: 'Հկտ', nov: 'Նյմ', dec: 'Դկտ' } }
     },
 };
