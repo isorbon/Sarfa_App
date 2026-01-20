@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useLanguage } from '../context/LanguageContext';
+import { useCurrency } from '../context/CurrencyContext';
 
 interface CardStat {
     card_id: number;
@@ -15,6 +16,7 @@ interface Props {
 
 const CardsStatsChart: React.FC<Props> = ({ data }) => {
     const { t } = useLanguage();
+    const { getCurrencySymbol } = useCurrency();
     const chartData = useMemo(() => {
         const grouped = data.reduce((acc, curr) => {
             if (!acc[curr.month]) {
@@ -63,7 +65,7 @@ const CardsStatsChart: React.FC<Props> = ({ data }) => {
                             tick={{ fontSize: 12, fill: 'var(--color-text-secondary)' }}
                             axisLine={false}
                             tickLine={false}
-                            tickFormatter={(value) => `€${value}`}
+                            tickFormatter={(value) => `${getCurrencySymbol()}${value}`}
                         />
                         <Tooltip
                             contentStyle={{
