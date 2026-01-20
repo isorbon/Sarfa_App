@@ -1,7 +1,7 @@
 export type CurrencyCode =
     | 'AZN' | 'CZK' | 'EUR' | 'GBP' | 'USD' | 'HUF' | 'AMD' | 'IDR'
     | 'JPY' | 'KGS' | 'KZT' | 'PLN' | 'BRL' | 'RON' | 'RUB' | 'THB'
-    | 'TJS' | 'TRY' | 'UAH' | 'UZS' | 'CNY' | 'TWD';
+    | 'TJS' | 'TRY' | 'UAH' | 'UZS' | 'CNY' | 'TWD' | 'INR';
 
 export interface Currency {
     code: CurrencyCode;
@@ -20,6 +20,7 @@ export const currencies: Currency[] = [
     { code: 'HUF', name: 'Hungarian Forint', symbol: 'Ft', flag: '🇭🇺', countryCode: 'hu' },
     { code: 'AMD', name: 'Armenian Dram', symbol: '֏', flag: '🇦🇲', countryCode: 'am' },
     { code: 'IDR', name: 'Indonesian Rupiah', symbol: 'Rp', flag: '🇮🇩', countryCode: 'id' },
+    { code: 'INR', name: 'Indian Rupee', symbol: '₹', flag: '🇮🇳', countryCode: 'in' },
     { code: 'JPY', name: 'Japanese Yen', symbol: '¥', flag: '🇯🇵', countryCode: 'jp' },
     { code: 'KGS', name: 'Kyrgyzstani Som', symbol: 'с', flag: '🇰🇬', countryCode: 'kg' },
     { code: 'KZT', name: 'Kazakhstani Tenge', symbol: '₸', flag: '🇰🇿', countryCode: 'kz' },
@@ -46,6 +47,7 @@ export const languageToCurrency: Record<string, CurrencyCode> = {
     'es': 'EUR',
     'fr': 'EUR',
     'hu': 'HUF',
+    'hi': 'INR',
     'hy': 'AMD',
     'id': 'IDR',
     'it': 'EUR',

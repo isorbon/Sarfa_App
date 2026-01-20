@@ -30,6 +30,7 @@ const FALLBACK_RATES: Record<string, number> = {
     JPY: 155.0,
     THB: 36.0,
     IDR: 16500.0,
+    INR: 92.0,
     KZT: 475.0,
     AZN: 1.8,
     AMD: 410.0,
