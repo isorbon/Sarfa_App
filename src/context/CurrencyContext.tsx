@@ -95,18 +95,16 @@ export const CurrencyProvider: React.FC<{ children: ReactNode }> = ({ children }
         const currencyInfo = getCurrencyByCode(currency);
         const symbol = currencyInfo?.symbol || currency;
 
-        // Format based on currency
-        try {
-            return new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: currency,
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
-            }).format(converted);
-        } catch (error) {
-            // Fallback for currencies not supported by Intl
-            return `${symbol} ${Math.round(converted).toLocaleString()}`;
+        // Format the number with proper thousands separators
+        const formatted = Math.round(converted).toLocaleString('en-US');
+
+        // Return with currency symbol
+        // Special handling for currencies where symbol comes after the amount
+        if (['CZK', 'RON', 'TRY', 'PLN', 'HUF'].includes(currency)) {
+            return `${formatted} ${symbol}`;
         }
+
+        return `${symbol} ${formatted}`;
     };
 
     return (
