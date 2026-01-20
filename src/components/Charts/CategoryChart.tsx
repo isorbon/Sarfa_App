@@ -2,6 +2,7 @@ import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 import { useLanguage } from '../../context/LanguageContext';
+import { useCurrency } from '../../context/CurrencyContext';
 
 interface CategoryChartProps {
     data: Array<{ category: string; total: number }>;
@@ -30,6 +31,7 @@ import { useTheme } from '../../context/ThemeContext';
 const CategoryChart: React.FC<CategoryChartProps> = ({ data }) => {
     const { t } = useLanguage();
     const { theme } = useTheme();
+    const { formatPrice } = useCurrency();
     const isDark = theme === 'dark';
 
     const chartData = data.map(item => ({
@@ -63,7 +65,7 @@ const CategoryChart: React.FC<CategoryChartProps> = ({ data }) => {
                             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                         }}
                         itemStyle={{ color: isDark ? '#f9fafb' : '#111827' }}
-                        formatter={(value: number) => `€${value.toFixed(2)}`}
+                        formatter={(value: number) => formatPrice(value)}
                     />
                 </PieChart>
             </ResponsiveContainer>
@@ -73,7 +75,7 @@ const CategoryChart: React.FC<CategoryChartProps> = ({ data }) => {
                     <div key={index} className="legend-item">
                         <div className="legend-color" style={{ backgroundColor: item.color }} />
                         <span className="legend-label">{item.name}</span>
-                        <span className="legend-value">€{item.value.toFixed(2)}</span>
+                        <span className="legend-value">{formatPrice(item.value)}</span>
                     </div>
                 ))}
             </div>

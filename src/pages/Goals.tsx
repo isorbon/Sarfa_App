@@ -10,6 +10,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { formatDateForDisplay } from '../utils/dateFormatter';
 import ImageCropperModal from '../components/ImageCropperModal';
 import DatePicker from '../components/DatePicker';
+import { useCurrency } from '../context/CurrencyContext';
 
 interface Goal {
     id: number;
@@ -26,6 +27,7 @@ interface Goal {
 
 const Goals: React.FC = () => {
     const { t, language } = useLanguage();
+    const { formatPrice } = useCurrency();
     const [goals, setGoals] = useState<Goal[]>([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -178,10 +180,7 @@ const Goals: React.FC = () => {
         }
     };
 
-    const formatCurrency = (amount: number) => {
-        // Basic formatting, ideally should use currency from user settings but using generic for now
-        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR' }).format(amount);
-    };
+
 
     const calculateProgress = (current: number, target: number) => {
         if (target <= 0) return 0;
@@ -240,8 +239,8 @@ const Goals: React.FC = () => {
                                         <h3>{goal.name}</h3>
 
                                         <div className="goal-amounts">
-                                            <span className="current">{formatCurrency(goal.current_amount)}</span>
-                                            <span className="target"> / {formatCurrency(goal.target_amount)}</span>
+                                            <span className="current">{formatPrice(goal.current_amount)}</span>
+                                            <span className="target"> / {formatPrice(goal.target_amount)}</span>
                                         </div>
 
                                         <div className="progress-container">

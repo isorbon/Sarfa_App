@@ -3,14 +3,14 @@
 A modern, full-stack expense tracking web application built with React + TypeScript and Node.js + SQLite.
 
 ![Expensify Dashboard](https://img.shields.io/badge/Status-Production%20Ready-success)
-![Version](https://img.shields.io/badge/Version-1.2.4-blue)
+![Version](https://img.shields.io/badge/Version-1.2.5-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ## 🌟 Features
 
 - ✅ **Secure Authentication** - JWT-based login/registration system
 - 📊 **Interactive Dashboard** - Real-time statistics and data visualization
-- 💶 **EUR Currency** - All amounts tracked in Euros
+- � **Multi-Currency Support** - 22 currencies matching all supported languages
 - 📈 **Beautiful Charts** - Monthly trends and category breakdowns
 - 🎨 **Icon Customization** - 100+ icons to choose from for each expense
 - 🔍 **Smart Filtering** - Search and filter by date, category, and more
@@ -18,7 +18,19 @@ A modern, full-stack expense tracking web application built with React + TypeScr
 - 👨‍👩‍👧‍👦 **Family Support** - Multiple user accounts for family members
 - ☁️ **Remote Hosting Ready** - Easy deployment to any cloud platform
 
-## 🆕 What's New in v1.2.4
+## 🆕 What's New in v1.2.5
+
+- **Expanded Localization**:
+  - Added full **Hindi (हिन्दी)** language support with complete translation.
+  - Localized charts and date formats for Hindi users.
+- **Currency Enhancements**:
+  - Added **Indian Rupee (INR)** to the supported currencies list.
+  - Improved Currency Selector in Settings with country flags, symbols, and currency codes.
+  - Automatic currency selection based on the chosen language (e.g., Selecting Hindi defaults to INR).
+  - Automatic conversion of displayed amounts based on the selected currency.
+  - **Demo Account Protection**: Preventing data deletion for the `demo` user.
+
+## What's New in v1.2.4
 
 - **CSV & PDF Export Functionality**:
   - Added CSV and PDF export buttons to All Expenses and Bills & Subscriptions pages.
@@ -233,6 +245,7 @@ expenses/
 - Protected API routes
 - Input validation on both frontend and backend
 - CORS configuration for production
+- **Demo Account Protection**: Data deletion and password changes are disabled for the demo account (`demo@expenses.com`) to preserve data integrity for public testing.
 
 ### Backend Deployment (Serverless)
 

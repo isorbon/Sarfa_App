@@ -60,6 +60,16 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
+// Middleware to restrict demo user from destructive actions
+const checkDemoUser = (req, res, next) => {
+    console.log('Checking demo user restriction for:', req.user?.email); // DEBUG LOG
+    if (req.user && req.user.email.toLowerCase() === 'demo@expenses.com') {
+        console.log('BLOCKED: Demo user attempted restricted action'); // DEBUG LOG
+        return res.status(403).json({ error: 'Data deletion is disabled for the demo account.' });
+    }
+    next();
+};
+
 // Auth Routes
 app.post('/api/auth/register', async (req, res) => {
     try {
@@ -332,7 +342,7 @@ app.put('/api/expenses/:id', authenticateToken, async (req, res) => {
     }
 });
 
-app.delete('/api/expenses/:id', authenticateToken, async (req, res) => {
+app.delete('/api/expenses/:id', authenticateToken, checkDemoUser, async (req, res) => {
     try {
         const { id } = req.params;
         const expense = await get('SELECT * FROM expenses WHERE id = ? AND user_id = ?', [id, req.user.id]);
@@ -546,6 +556,19 @@ app.post('/api/cards', authenticateToken, async (req, res) => {
 });
 
 app.delete('/api/cards/:id', authenticateToken, async (req, res) => {
+    // Explicit check inside handler
+    console.log('[Explicit Check] user from token:', req.user);
+
+    // Double check from DB to be sure
+    const dbUser = await get('SELECT email FROM users WHERE id = ?', [req.user.id]);
+    const userEmail = dbUser ? dbUser.email : req.user.email;
+
+    console.log('[Explicit Check] user email:', userEmail);
+
+    if (userEmail && userEmail.toLowerCase() === 'demo@expenses.com') {
+        console.log('[Explicit Check] BLOCKED DELETE');
+        return res.status(403).json({ error: 'Data deletion is disabled for the demo account.' });
+    }
     try {
         await run('DELETE FROM cards WHERE id = ? AND user_id = ?', [req.params.id, req.user.id]);
         res.json({ message: 'Card deleted' });
@@ -583,7 +606,7 @@ app.put('/api/goals/:id', authenticateToken, async (req, res) => {
     } catch (err) { res.status(500).json({ error: 'Server error' }); }
 });
 
-app.delete('/api/goals/:id', authenticateToken, async (req, res) => {
+app.delete('/api/goals/:id', authenticateToken, checkDemoUser, async (req, res) => {
     try {
         await run('DELETE FROM goals WHERE id = ? AND user_id = ?', [req.params.id, req.user.id]);
         res.json({ message: 'Goal deleted' });
@@ -635,6 +658,7 @@ app.get('/api/cards/stats', authenticateToken, async (req, res) => {
 });
 
 app.listen(PORT, () => {
+    console.log('!!! SERVER CODE UPDATED - CHECKING DEMO USER !!!');
     console.log(`Server running on http://localhost:${PORT}`);
 });
 

@@ -8,6 +8,7 @@ export type LanguageCode =
     | 'es' // Español
     | 'fr' // Français
     | 'hu' // Magyar
+    | 'hi' // हिन्दी
     | 'id' // Bahasa Indonesia
     | 'it' // Italiano
     | 'ja' // 日本語

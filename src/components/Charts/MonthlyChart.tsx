@@ -3,6 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 
 import { useLanguage } from '../../context/LanguageContext';
 import { useTheme } from '../../context/ThemeContext';
+import { useCurrency } from '../../context/CurrencyContext';
 import { formatMonthName } from '../../utils/dateFormatter';
 
 interface MonthlyChartProps {
@@ -10,6 +11,7 @@ interface MonthlyChartProps {
 }
 
 const monthIndexMap: Record<string, number> = {
+    // English
     'January': 0, 'Jan': 0,
     'February': 1, 'Feb': 1,
     'March': 2, 'Mar': 2,
@@ -21,12 +23,44 @@ const monthIndexMap: Record<string, number> = {
     'September': 8, 'Sep': 8,
     'October': 9, 'Oct': 9,
     'November': 10, 'Nov': 10,
-    'December': 11, 'Dec': 11
+    'December': 11, 'Dec': 11,
+    // German
+    'Januar': 0, 'Jän': 0,
+    'März': 2, 'Mär': 2,
+    'Mai': 4,
+    'Juni': 5,
+    'Juli': 6,
+    'Oktober': 9, 'Okt': 9,
+    'Dezember': 11, 'Dez': 11,
+    // Spanish
+    'Enero': 0, 'Ene': 0,
+    'Febrero': 1,
+    'Marzo': 2,
+    'Abril': 3, 'Abr': 3,
+    'Mayo': 4,
+    'Junio': 5,
+    'Julio': 6,
+    'Agosto': 7, 'Ago': 7,
+    'Septiembre': 8, 'Sept': 8,
+    'Octubre': 9,
+    'Noviembre': 10,
+    'Diciembre': 11, 'Dic': 11,
+    // French
+    'Janvier': 0, 'Janv': 0,
+    'Février': 1, 'Févr': 1,
+    'Mars': 2,
+    'Avril': 3, 'Avr': 3,
+    'Juin': 5,
+    'Juillet': 6, 'Juil': 6,
+    'Août': 7,
+    'Octobre': 9,
+    'Décembre': 11, 'Déc': 11,
 };
 
 const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
     const { language, t } = useLanguage();
     const { theme } = useTheme();
+    const { formatPrice, getCurrencySymbol } = useCurrency();
     const isDark = theme === 'dark';
 
     const formatMonth = (label: string) => {
@@ -58,7 +92,7 @@ const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
                     axisLine={false}
                     tickLine={false}
                     tick={{ fill: isDark ? '#9ca3af' : '#6b7280', fontSize: 12 }}
-                    tickFormatter={(value) => `€${value / 1000}k`}
+                    tickFormatter={(value) => `${getCurrencySymbol()}${value / 1000}k`}
                 />
                 <Tooltip
                     contentStyle={{
@@ -68,7 +102,7 @@ const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
                         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                     }}
                     itemStyle={{ color: isDark ? '#f9fafb' : '#111827' }}
-                    formatter={(value: number) => [`€${value.toFixed(2)}`, t.expenses.amount]}
+                    formatter={(value: number) => [formatPrice(value), t.expenses.amount]}
                     labelFormatter={(label) => formatMonth(label)}
                     labelStyle={{ color: isDark ? '#f9fafb' : '#111827', fontWeight: 600 }}
                 />

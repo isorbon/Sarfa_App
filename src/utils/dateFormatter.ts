@@ -11,6 +11,11 @@ export const dateFnsLocaleMap: Record<string, any> = {
 
 // Manual fallback for languages not supported by Intl or date-fns (e.g., Tajik)
 const manualLocales: Record<string, { monthsShort: string[], monthsLong: string[], daysShort: string[] }> = {
+    'hi': {
+        monthsShort: ['जन', 'फर', 'मार्च', 'अप्रैल', 'मई', 'जून', 'जुला', 'अग', 'सित', 'अक्टू', 'नव', 'दिस'],
+        monthsLong: ['जनवरी', 'फरवरी', 'मार्च', 'अप्रैल', 'मई', 'जून', 'जुलाई', 'अगस्त', 'सितंबर', 'अक्टूबर', 'नवंबर', 'दिसंबर'],
+        daysShort: ['रवि', 'सोम', 'मंगल', 'बुध', 'गुरु', 'शुक्र', 'शनि'] // Sun, Mon, Tue, Wed, Thu, Fri, Sat
+    },
     'tj': {
         monthsShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
         monthsLong: ['Январ', 'Феврал', 'Март', 'Апрел', 'Май', 'Июн', 'Июл', 'Август', 'Сентябр', 'Октябр', 'Ноябр', 'Декабр'],

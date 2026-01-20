@@ -17,7 +17,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { formatDateForDisplay } from '../utils/dateFormatter';
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
-  const { formatPrice } = useCurrency();
+  const { formatPrice, formatAmount, getCurrencySymbol } = useCurrency();
   const { t, language } = useLanguage();
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
@@ -299,7 +299,7 @@ const Dashboard: React.FC = () => {
                   <div className="expenses-list-grid">
                     <div className="grid-header">
                       <div className="grid-cell">#</div>
-                      <div className="grid-cell">{t.expenses.amount}</div>
+                      <div className="grid-cell">{t.expenses.amount} ({getCurrencySymbol()})</div>
                       <div className="grid-cell">{t.expenses.category}</div>
                       <div className="grid-cell">{t.expenses.subCategory}</div>
                       <div className="grid-cell">{t.expenses.date}</div>
@@ -309,7 +309,7 @@ const Dashboard: React.FC = () => {
                       {recentExpenses.map((expense, index) => (
                         <div className="grid-row" key={expense.id}>
                           <div className="grid-cell">{index + 1}.</div>
-                          <div className="grid-cell font-semibold">{formatPrice(expense.amount)}</div>
+                          <div className="grid-cell font-semibold">{formatAmount(expense.amount)}</div>
                           <div className="grid-cell">{expense.category}</div>
                           <div className="grid-cell">{expense.sub_category || '-'}</div>
                           <div className="grid-cell">{formatDateForDisplay(expense.date, language)}</div>

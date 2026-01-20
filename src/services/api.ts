@@ -20,6 +20,21 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
+// Add response interceptor for error handling
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response && error.response.status === 403) {
+            // Check for demo restriction message
+            const errorMessage = error.response.data?.error;
+            if (errorMessage && (errorMessage.includes('demo account') || errorMessage.includes('disabled'))) {
+                alert(errorMessage);
+            }
+        }
+        return Promise.reject(error);
+    }
+);
+
 // Auth API
 export const authAPI = {
     login: async (email: string, password: string): Promise<AuthResponse> => {
