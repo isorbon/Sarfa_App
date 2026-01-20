@@ -11,6 +11,7 @@ interface MonthlyChartProps {
 }
 
 const monthIndexMap: Record<string, number> = {
+    // English
     'January': 0, 'Jan': 0,
     'February': 1, 'Feb': 1,
     'March': 2, 'Mar': 2,
@@ -22,7 +23,38 @@ const monthIndexMap: Record<string, number> = {
     'September': 8, 'Sep': 8,
     'October': 9, 'Oct': 9,
     'November': 10, 'Nov': 10,
-    'December': 11, 'Dec': 11
+    'December': 11, 'Dec': 11,
+    // German
+    'Januar': 0, 'Jän': 0,
+    'März': 2, 'Mär': 2,
+    'Mai': 4,
+    'Juni': 5,
+    'Juli': 6,
+    'Oktober': 9, 'Okt': 9,
+    'Dezember': 11, 'Dez': 11,
+    // Spanish
+    'Enero': 0, 'Ene': 0,
+    'Febrero': 1,
+    'Marzo': 2,
+    'Abril': 3, 'Abr': 3,
+    'Mayo': 4,
+    'Junio': 5,
+    'Julio': 6,
+    'Agosto': 7, 'Ago': 7,
+    'Septiembre': 8, 'Sept': 8,
+    'Octubre': 9,
+    'Noviembre': 10,
+    'Diciembre': 11, 'Dic': 11,
+    // French
+    'Janvier': 0, 'Janv': 0,
+    'Février': 1, 'Févr': 1,
+    'Mars': 2,
+    'Avril': 3, 'Avr': 3,
+    'Juin': 5,
+    'Juillet': 6, 'Juil': 6,
+    'Août': 7,
+    'Octobre': 9,
+    'Décembre': 11, 'Déc': 11,
 };
 
 const MonthlyChart: React.FC<MonthlyChartProps> = ({ data }) => {
