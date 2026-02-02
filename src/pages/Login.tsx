@@ -20,7 +20,8 @@ const Login: React.FC = () => {
       await login(email, password);
       navigate('/');
     } catch (err: any) {
-      setError(err.response?.data?.error || 'An error occurred during login');
+      console.error('Login error:', err);
+      setError(err.response?.data?.error || err.message || 'An error occurred during login');
     } finally {
       setLoading(false);
     }
