@@ -657,9 +657,9 @@ app.get('/api/cards/stats', authenticateToken, async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log('!!! SERVER CODE UPDATED - CHECKING DEMO USER !!!');
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on http://0.0.0.0:${PORT}`);
 });
 
 export default app; // Export app for Vercel

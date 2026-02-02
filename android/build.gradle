@@ -1,0 +1,29 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.13.2'
+        classpath 'com.google.gms:google-services:4.4.2'
+    }
+}
+
+apply from: "variables.gradle"
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    
+    // REDIRECT BUILD DIR: Move build artifacts out of OneDrive to prevent locking/sync issues
+    // Using a local folder like C:/gradle-builds/
+    buildDir = "C:/gradle-builds/${rootProject.name}/${project.name}"
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
